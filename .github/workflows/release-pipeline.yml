@@ -1,0 +1,32 @@
+name: manual release workflow
+
+on:
+  release:
+    branches: [main]
+    types: [published]
+
+jobs:
+
+  tag-release:
+    name : Get release tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Building release tag
+        id: latest_tag
+        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+    outputs:
+      release_tag: ${{steps.latest_tag.outputs.tag}}
+
+  build-docker:
+    name: 'Building the docker image'
+    runs-on: ubuntu-latest
+    needs: [tag-release]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Building and tagging the docker image
+        env:
+          IMAGE_TAG: ${{needs.tag-release.outputs.release_tag }}
+        run: |
+          docker build -t mcdapi:$IMAGE_TAG -f env/docker_mcdapi/Dockerfile .
+          docker build -t mcdui:$IMAGE_TAG -f env/docker_mcdui/Dockerfile .
