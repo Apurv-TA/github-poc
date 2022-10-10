@@ -1,0 +1,25 @@
+name: validation-workflow
+on:
+  pull_request:
+    branches: [main, uat*, release, qa, dev*]
+
+jobs:
+  fetch-branch-name:
+    name: Extract branch name
+    runs-on: ubuntu-latest
+    steps:
+    - name: Extract branch name
+      run: echo "::set-output name=branch::$(echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}})"
+      id: release_tag
+    outputs:
+        release_tag: ${{steps.release_tag.outputs.branch}}
+
+  docker-compatibility-check:
+    name: docker-compatibility-chec
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image for Backend
+      run: docker build . -f env/docker_mcdapi/Dockerfile --tag mcdapi:latest
+    - name: Build the Docker image for Frontend
+      run: docker build . -f env/docker_mcdui/Dockerfile --tag mcdui:latest
