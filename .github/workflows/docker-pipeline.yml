@@ -13,31 +13,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: version
-      run: echo "::set-output name=branch::$(echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}})"
-      id: release_tag
+      run: echo "::set-output name=tag::$(bash scripts/manual_release_tag.sh)"
+      id: tag
     outputs:
-        release_tag: ${{steps.release_tag.outputs.branch}}
+        tag: ${{steps.tag.outputs.branch}}
 
-  build-docker-backend:
-    name: 'Building the backend docker image'
-    runs-on: ubuntu-latest
-    needs: [tag-release]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Building and tagging the backend docker image
-        env:
-          IMAGE_TAG: ${{needs.tag-release.outputs.release_tag }}
-        run: |
-          docker build -t mcdapi:$IMAGE_TAG -f env/docker_mcdapi/Dockerfile .
+  # get-tag:
 
-  build-docker-frontend:
-    name: 'Building the frontend docker image'
-    runs-on: ubuntu-latest
-    needs: [tag-release]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Building and tagging the frontend docker image
-        env:
-          IMAGE_TAG: ${{needs.tag-release.outputs.release_tag }}
-        run: |
-          docker build -t mcdui:$IMAGE_TAG -f env/docker_mcdui/Dockerfile .
+  #   outputs:
+  #     release_tag:
+
+  # build-docker-backend:
+  #   name: 'Building the backend docker image'
+  #   runs-on: ubuntu-latest
+  #   needs: [tag-release]
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Building and tagging the backend docker image
+  #       env:
+  #         IMAGE_TAG: ${{needs.tag-release.outputs.release_tag }}
+  #       run: |
+  #         docker build -t mcdapi:$IMAGE_TAG -f env/docker_mcdapi/Dockerfile .
+
+  # build-docker-frontend:
+  #   name: 'Building the frontend docker image'
+  #   runs-on: ubuntu-latest
+  #   needs: [tag-release]
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Building and tagging the frontend docker image
+  #       env:
+  #         IMAGE_TAG: ${{needs.tag-release.outputs.release_tag }}
+  #       run: |
+  #         docker build -t mcdui:$IMAGE_TAG -f env/docker_mcdui/Dockerfile .
