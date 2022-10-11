@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: version
-      run: echo "::set-output name=tag::$(bash scripts/manual_release_tag.sh)"
+      run: echo "::set-output name=tag::$(bash scripts/auto_release_tag.sh)"
       id: tag
     outputs:
         tag: ${{steps.tag.outputs.branch}}
