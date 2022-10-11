@@ -16,3 +16,4 @@ WORKDIR /code
 COPY django/ /code/
 
 EXPOSE 80
+EXPOSE 8000
