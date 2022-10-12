@@ -1,4 +1,4 @@
-name: final workflow by merge
+name: low level release pipeline
 on:
   pull_request:
     branches: [release, uat, qa, dev*]
@@ -54,7 +54,6 @@ jobs:
         env:
           IMAGE_TAG: ${{needs.get-tag.outputs.release_tag }}
         run: |
-          echo $IMAGE_TAG
           docker build -t mcdapi:$IMAGE_TAG -f env/docker_mcdapi/Dockerfile .
 
   build-docker-frontend:
