@@ -1,2 +1,2 @@
 # github-poc
-Github actions for
+Github actions
