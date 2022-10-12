@@ -54,6 +54,7 @@ jobs:
         env:
           IMAGE_TAG: ${{needs.get-tag.outputs.release_tag }}
         run: |
+          echo $IMAGE_TAG
           docker build -t mcdapi:$IMAGE_TAG -f env/docker_mcdapi/Dockerfile .
 
   build-docker-frontend:
