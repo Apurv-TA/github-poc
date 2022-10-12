@@ -13,21 +13,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: version
+    - name: get the release version
+      id: latest_release
       run: echo "::set-output name=tag::$(bash scripts/auto_release_tag.sh)"
-      id: current_tag
     outputs:
-        current_tag: ${{steps.current_tag.outputs.branch}}
+        current_release: ${{steps.latest_release.outputs.tag}}
 
   fetch-branch-name:
     name: Extract branch name
     runs-on: ubuntu-latest
     steps:
     - name: Extract branch name
-      run: echo "::set-output name=branch::$(echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}})"
       id: current_branch
+      run: echo "::set-output name=branch::$(echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}})"
     outputs:
-        current_branch: ${{steps.current_branch.outputs.branch}}
+        latest_branch: ${{steps.current_branch.outputs.branch}}
 
   get-tag:
     name: Get the tag for docker image
@@ -38,9 +38,9 @@ jobs:
     - name: Get the tag for Docker image
       id: image_tag
       env:
-        CURRENT_TAG: ${{needs.tag-release.outputs.current_tag}}
-        CURRENT_BRANCH: ${{needs.tag-release.outputs.current_branch}}
-      run: echo "::set-output name=tag::$(bash scripts/branch.sh -b $CURRENT_BRANCH -v CURRENT_TAG)"
+        TAG: ${{needs.tag-release.outputs.current_release}}
+        BRANCH: ${{needs.fetch-branch-name.outputs.latest_branch}}
+      run: echo "::set-output name=tag::$(bash scripts/branch.sh -b $BRANCH -v $TAG)"
     outputs:
       release_tag: ${{steps.image_tag.outputs.tag}}
 
