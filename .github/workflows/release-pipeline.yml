@@ -2,12 +2,12 @@ name: manual release workflow
 
 on:
   release:
-    branches: [main]
+    branches: [main, dev*]
     types: [published]
 
 jobs:
 
-  tag-release:
+  fetch-tag:
     name : Get release tag
     runs-on: ubuntu-latest
     steps:
@@ -21,23 +21,35 @@ jobs:
   build-docker-backend:
     name: 'Building the backend docker image'
     runs-on: ubuntu-latest
-    needs: [tag-release]
+    needs: [fetch-tag]
     steps:
       - uses: actions/checkout@v2
       - name: Building and tagging the backend docker image
         env:
-          IMAGE_TAG: ${{needs.tag-release.outputs.release_tag }}
+          IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
         run: |
           docker build -t mcdapi:$IMAGE_TAG -f env/docker_mcdapi/Dockerfile .
 
   build-docker-frontend:
     name: 'Building the frontend docker image'
     runs-on: ubuntu-latest
-    needs: [tag-release]
+    needs: [fetch-tag]
     steps:
       - uses: actions/checkout@v2
       - name: Building and tagging the frontend docker image
         env:
-          IMAGE_TAG: ${{needs.tag-release.outputs.release_tag }}
+          IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
         run: |
           docker build -t mcdui:$IMAGE_TAG -f env/docker_mcdui/Dockerfile .
+
+  build-docker-nginx:
+    name: 'Building the nginx docker image'
+    runs-on: ubuntu-latest
+    needs: [fetch-tag]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Building and tagging the nginx docker image
+        env:
+          IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
+        run: |
+          docker build -t mcd-nginx:$IMAGE_TAG -f env/docker_nginx/Dockerfile .
