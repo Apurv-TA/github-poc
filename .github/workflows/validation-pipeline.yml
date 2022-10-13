@@ -1,27 +1,27 @@
-name: validation-workflow
-on:
-  pull_request:
-    branches: [main, release, dev*]
+# name: validation-workflow
+# on:
+#   pull_request:
+#     branches: [main, release, dev*]
 
-jobs:
-  fetch-branch-name:
-    name: Extract branch name
-    runs-on: ubuntu-latest
-    steps:
-    - name: Extract branch name
-      run: echo "::set-output name=branch::$(echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}})"
-      id: tag
-    outputs:
-        tag: ${{steps.tag.outputs.branch}}
+# jobs:
+#   fetch-branch-name:
+#     name: Extract branch name
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Extract branch name
+#       run: echo "::set-output name=branch::$(echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}})"
+#       id: tag
+#     outputs:
+#         tag: ${{steps.tag.outputs.branch}}
 
-  docker-compatibility-check:
-    name: docker-compatibility-check
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Check the Backend docker image
-      run: docker build . -f env/docker_mcdapi/Dockerfile --tag backend:latest
-    - name: Check the frontend docker image
-      run: docker build . -f env/docker_mcdui/Dockerfile --tag frontend:latest
-    - name: Check nginx image
-      run: docker build . -f env/docker_nginx/Dockerfile --tag proxy:latest
+#   docker-compatibility-check:
+#     name: docker-compatibility-check
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Check the Backend docker image
+#       run: docker build . -f env/docker_mcdapi/Dockerfile --tag backend:latest
+#     - name: Check the frontend docker image
+#       run: docker build . -f env/docker_mcdui/Dockerfile --tag frontend:latest
+#     - name: Check nginx image
+#       run: docker build . -f env/docker_nginx/Dockerfile --tag proxy:latest

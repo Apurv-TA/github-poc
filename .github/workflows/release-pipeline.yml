@@ -2,7 +2,7 @@ name: manual release workflow
 
 on:
   release:
-    branches: [main]
+    branches: [main, dev*]
     types: [published]
 
 jobs:
