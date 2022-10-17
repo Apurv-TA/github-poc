@@ -33,21 +33,19 @@ jobs:
           - ecr_repository: mcd-discount-staging-nginx
             dockerfile_path: env/docker_nginx/Dockerfile
     steps:
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: us-east-1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-        aws-region: us-east-1
       - uses: actions/checkout@v2
       - name: Building and tagging the ${{ matrix.ecr_repository }} image
         env:
-          # ECR_REGISTRY: 059014103288.dkr.ecr.us-east-1.amazonaws.com
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REGISTRY: 059014103288.dkr.ecr.us-east-1.amazonaws.com
           ECR_REPOSITORY: ${{ matrix.ecr_repository }}
           IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
           FILE_LOCATION: ${{ matrix.dockerfile_path }}
