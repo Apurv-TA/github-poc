@@ -1,4 +1,4 @@
-name: alpha release workflow
+name: automatic release workflow
 on:
   pull_request:
     branches: [release, uat]
