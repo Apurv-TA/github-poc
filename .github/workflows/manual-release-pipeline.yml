@@ -19,37 +19,17 @@ jobs:
     outputs:
       release_tag: ${{steps.latest_tag.outputs.tag}}
 
-  build-docker-backend:
-    name: 'Building the backend docker image'
-    runs-on: ubuntu-latest
-    needs: [fetch-tag]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Building and tagging the backend docker image
-        env:
-          IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
-        run: |
-          docker build -t mcdapi:$IMAGE_TAG -f env/docker_mcdapi/Dockerfile .
-
-  build-docker-frontend:
-    name: 'Building the frontend docker image'
-    runs-on: ubuntu-latest
-    needs: [fetch-tag]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Building and tagging the frontend docker image
-        env:
-          IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
-        run: |
-          docker build -t mcdui:$IMAGE_TAG -f env/docker_mcdui/Dockerfile .
-
-  build-docker-nginx:
+  build-docker:
     name: 'Building the docker images'
     runs-on: ubuntu-latest
     needs: [fetch-tag]
     strategy:
       matrix:
         include:
+          - ecr_repository: mcd-discount-staging-frontend
+            dockerfile_loc: env/docker_mcdui/Dockerfile
+          - ecr_repository: mcd-discount-staging-backend
+            dockerfile_loc: env/docker_mcdapi/Dockerfile
           - ecr_repository: mcd-discount-staging-nginx
             dockerfile_loc: env/docker_nginx/Dockerfile
     steps:
@@ -70,5 +50,5 @@ jobs:
           IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
           FILE_LOCATION: ${{ matrix.dockerfile_loc }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f env/docker_nginx/Dockerfile .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f $FILE_LOCATION .
           docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
