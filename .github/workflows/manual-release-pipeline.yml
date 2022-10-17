@@ -42,6 +42,7 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+        aws-region: us-east-1
       - uses: actions/checkout@v2
       - name: Building and tagging the ${{ matrix.ecr_repository }} image
         env:
