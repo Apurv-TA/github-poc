@@ -1,27 +1,22 @@
-name: validation-workflow
+name: docker-validation
 on:
   pull_request:
     branches: [main, release*, dev*]
 
 jobs:
-  fetch-branch-name:
-    name: Extract branch name
+
+  frontend-compatibility-check:
+    name: frontend-compatibility-check
     runs-on: ubuntu-latest
     steps:
-    - name: Extract branch name
-      run: echo "::set-output name=branch::$(echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}})"
-      id: tag
-    outputs:
-        tag: ${{steps.tag.outputs.branch}}
+    - uses: actions/checkout@v3
+    - name: Check the frontend docker image
+      run: docker build . -f env/docker_mcdui/Dockerfile --tag frontend:latest
 
-  docker-compatibility-check:
+  backend-compatibility-check:
     name: docker-compatibility-check
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Check the Backend docker image
-      run: docker build . -f env/docker_mcdapi/Dockerfile --tag backend:latest
-    - name: Check the frontend docker image
-      run: docker build . -f env/docker_mcdui/Dockerfile --tag frontend:latest
-    - name: Check nginx image
-      run: docker build . -f env/docker_nginx/Dockerfile --tag proxy:latest
+    - name: Check the backend docker image
+      run: docker build . -f env/docker_mcdapi/Dockerfile --tag backend:latest     
