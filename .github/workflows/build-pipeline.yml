@@ -1,11 +1,9 @@
 name: build-workflow
 
 on:
-  workflow_run:
-    workflows: ["automated-release-workflow"]
   release:
-    branches: [main, dev]
-    types: [published]
+    branches: [main, dev, release]
+    types: [created]
 
 jobs:
 
