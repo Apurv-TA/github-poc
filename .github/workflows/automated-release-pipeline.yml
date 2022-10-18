@@ -46,8 +46,6 @@ jobs:
             dockerfile_path: env/docker_mcdui/Dockerfile
           - ecr_repository: mcd-discount-staging-backend
             dockerfile_path: env/docker_mcdapi/Dockerfile
-          - ecr_repository: mcd-discount-staging-nginx
-            dockerfile_path: env/docker_nginx/Dockerfile
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1

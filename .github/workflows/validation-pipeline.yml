@@ -19,4 +19,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Check the backend docker image
-      run: docker build . -f env/docker_mcdapi/Dockerfile --tag backend:latest
+      run: docker build . -f env/docker_mcdapi/Dockerfile --tag backend:latest     
