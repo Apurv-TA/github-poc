@@ -34,7 +34,7 @@ jobs:
         id: ecr
         run: echo ::set-output name=repo::$(echo ${env.repo})
     outputs:
-      ecr_repo: ${{steps.ecr-repo.outputs.repo}}
+      ecr_repo: ${{steps.ecr.outputs.repo}}
 
   frontend-img-build:
     name: 'Building frontend docker images'
