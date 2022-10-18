@@ -29,7 +29,7 @@ jobs:
   frontend-img-build:
     name: 'Building frontend docker images'
     runs-on: ubuntu-latest
-    needs: [fetch-tag]
+    needs: [fetch-tag, get-branch]
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -49,7 +49,6 @@ jobs:
           else
             echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
           fi
-
       - uses: actions/checkout@v2
       - name: Pushing mcd-discount-frontend image to ECR
         env:
@@ -64,7 +63,7 @@ jobs:
   backend-img-build:
     name: 'Building backend docker images'
     runs-on: ubuntu-latest
-    needs: [fetch-tag]
+    needs: [fetch-tag, get-branch]
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -84,8 +83,6 @@ jobs:
           else
             echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
           fi
-
-
       - uses: actions/checkout@v2
       - name: Pushing mcd-discount-backend image to ECR
         env:
