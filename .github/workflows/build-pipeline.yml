@@ -22,7 +22,7 @@ jobs:
     name: get-branch-if-main
     runs-on: ubuntu-latest
     steps:
-    - run: echo "::set-output name=branch::$(echo main)"
+    - run: echo "::set-output name=branch::$(echo 1)"
       id: current_branch
     outputs:
         release_branch: ${{steps.current_branch.outputs.branch}}
@@ -43,7 +43,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
       - name: configure the ecr used
         run: |
-          if ${{ needs.get-branch-if-main.outputs.release_branch }} == 'main'; then
+          if ${{ needs.get-branch-if-main.outputs.release_branch }}; then
             echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
           else
             echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
@@ -74,10 +74,8 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       - name: configure the ecr used
-        env:
-          IMAGE_TAG: ${{needs.get-branch.outputs.release_branch }}
         run: |
-          if $IMAGE_TAG == 'main'; then
+          if ${{ needs.get-branch-if-main.outputs.release_branch }}; then
             echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
           else
             echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
