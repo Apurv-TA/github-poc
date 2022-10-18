@@ -17,11 +17,12 @@ jobs:
     outputs:
       release_tag: ${{steps.latest_tag.outputs.tag}}
 
-  get-branch:
-    name: 'get-branch'
+  get-branch-if-main:
+    if: github.event.release.target_commitish == 'main'
+    name: get-branch-if-main
     runs-on: ubuntu-latest
     steps:
-    - run: echo "::set-output name=branch::$(echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}})"
+    - run: echo "::set-output name=branch::$(echo main)"
       id: current_branch
     outputs:
         release_branch: ${{steps.current_branch.outputs.branch}}
@@ -41,10 +42,8 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       - name: configure the ecr used
-        env:
-          IMAGE_TAG: ${{needs.get-branch.outputs.release_branch }}
         run: |
-          if $IMAGE_TAG == 'main'; then
+          if ${{ needs.get-branch-if-main.outputs.release_branch }} == 'main'; then
             echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
           else
             echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
