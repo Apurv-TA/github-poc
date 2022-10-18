@@ -34,16 +34,17 @@ jobs:
       - name: configure the ecr used
         run: |
           if github.event.release.target_commitish == 'main'; then
-            echo "ecr_repo=mcd-discount-prod" >> $GITHUB_ENV
+            echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
           else
-            echo "ecr_repo=mcd-discount-staging" >> $GITHUB_ENV
+            echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
+            echo github.event.release.target_commitish
           fi
 
       - uses: actions/checkout@v2
       - name: Pushing mcd-discount-frontend image to ECR
         env:
           ECR_REGISTRY: 059014103288.dkr.ecr.us-east-1.amazonaws.com
-          ECR_REPOSITORY: ${{ env.ecr_repo }}-frontend
+          ECR_REPOSITORY: ${{ env.ECR_REPO }}-frontend
           IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f env/docker_mcdui/Dockerfile .
@@ -67,16 +68,16 @@ jobs:
       - name: configure the ecr used
         run: |
           if github.event.release.target_commitish == 'main'; then
-            echo "ecr_repo=mcd-discount-prod" >> $GITHUB_ENV
+            echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
           else
-            echo "ecr_repo=mcd-discount-staging" >> $GITHUB_ENV
+            echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
           fi
 
       - uses: actions/checkout@v2
       - name: Pushing mcd-discount-backend image to ECR
         env:
           ECR_REGISTRY: 059014103288.dkr.ecr.us-east-1.amazonaws.com
-          ECR_REPOSITORY: ${{ env.ecr_repo }}-backend
+          ECR_REPOSITORY: ${{ env.ECR_REPO }}-backend
           IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f env/docker_mcdapi/Dockerfile .
