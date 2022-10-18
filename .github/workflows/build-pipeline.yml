@@ -16,8 +16,8 @@ jobs:
       - name: Building release tag
         id: latest_tag
         run: |
-          echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
           echo github.event.release.target_commitish
+#           echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
 #     outputs:
 #       release_tag: ${{steps.latest_tag.outputs.tag}}
 
