@@ -17,6 +17,15 @@ jobs:
     outputs:
       release_tag: ${{steps.latest_tag.outputs.tag}}
 
+  get-branch:
+    name: 'get-branch'
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "::set-output name=branch::$(echo ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}})"
+      id: current_branch
+    outputs:
+        release_branch: ${{steps.current_branch.outputs.branch}}
+
   frontend-img-build:
     name: 'Building frontend docker images'
     runs-on: ubuntu-latest
@@ -32,12 +41,13 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       - name: configure the ecr used
+        env:
+          IMAGE_TAG: ${{needs.get-branch.outputs.release_branch }}
         run: |
-          if github.event.release.target_commitish == 'main'; then
+          if $IMAGE_TAG == 'main'; then
             echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
           else
             echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
-            echo github.event.release.target_commitish
           fi
 
       - uses: actions/checkout@v2
@@ -66,12 +76,15 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       - name: configure the ecr used
+        env:
+          IMAGE_TAG: ${{needs.get-branch.outputs.release_branch }}
         run: |
-          if github.event.release.target_commitish == 'main'; then
+          if $IMAGE_TAG == 'main'; then
             echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
           else
             echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
           fi
+
 
       - uses: actions/checkout@v2
       - name: Pushing mcd-discount-backend image to ECR
