@@ -2,13 +2,13 @@ name: manual release workflow
 
 on:
   release:
-    branches: [main, dev*]
+    branches: [main, dev, , release]
     types: [published]
 
 jobs:
 
   fetch-tag:
-    if: github.event.release.target_commitish == 'main' || github.event.release.target_commitish == 'dev'
+    if: github.event.release.target_commitish == 'main' || github.event.release.target_commitish == 'dev' || github.event.release.target_commitish == 'release'
     name : Get release tag
     runs-on: ubuntu-latest
     steps:
