@@ -1,8 +1,8 @@
-name: manual release workflow
+name: build-workflow
 
 on:
   release:
-    branches: [main, dev, , release]
+    branches: [main, dev, release]
     types: [published]
 
 jobs:
@@ -19,8 +19,8 @@ jobs:
     outputs:
       release_tag: ${{steps.latest_tag.outputs.tag}}
 
-  build-docker:
-    name: 'Building the docker images'
+  frontend-img-build:
+    name: 'Building frontend docker images'
     runs-on: ubuntu-latest
     needs: [fetch-tag]
     strategy:
@@ -28,10 +28,6 @@ jobs:
         include:
           - ecr_repository: mcd-discount-staging-frontend
             dockerfile_path: env/docker_mcdui/Dockerfile
-          - ecr_repository: mcd-discount-staging-backend
-            dockerfile_path: env/docker_mcdapi/Dockerfile
-          - ecr_repository: mcd-discount-staging-nginx
-            dockerfile_path: env/docker_nginx/Dockerfile
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -43,7 +39,38 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       - uses: actions/checkout@v2
-      - name: Building and tagging the ${{ matrix.ecr_repository }} image
+      - name: Pushing ${{ matrix.ecr_repository }} image to ECR
+        env:
+          ECR_REGISTRY: 059014103288.dkr.ecr.us-east-1.amazonaws.com
+          ECR_REPOSITORY: ${{ matrix.ecr_repository }}
+          IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
+          FILE_LOCATION: ${{ matrix.dockerfile_path }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f $FILE_LOCATION .
+          docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
+
+
+  backend-img-build:
+    name: 'Building backend docker images'
+    runs-on: ubuntu-latest
+    needs: [fetch-tag]
+    strategy:
+      matrix:
+        include:
+          - ecr_repository: mcd-discount-staging-backend
+            dockerfile_path: env/docker_mcdapi/Dockerfile
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - uses: actions/checkout@v2
+      - name: Pushing ${{ matrix.ecr_repository }} image to ECR
         env:
           ECR_REGISTRY: 059014103288.dkr.ecr.us-east-1.amazonaws.com
           ECR_REPOSITORY: ${{ matrix.ecr_repository }}
