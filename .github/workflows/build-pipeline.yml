@@ -23,16 +23,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: configuration for main branch
-        if: github.event.release.target_commitish == 'main'
-        id: ecr-repo
-        run: echo ::set-output name=repo::$(echo "mcd-discount-prod")
-      - name: configuration for dev branch
-        if: github.event.release.target_commitish == 'dev'
-        id: ecr-repo
-        run: echo ::set-output name=repo::$(echo "mcd-discount-staging")
+      - name: configure the ecr used
+        run: |
+          if github.event.release.target_commitish == 'main'; then
+            echo "repo=mcd-discount-prod" >> $GITHUB_ENV
+          else
+            echo "repo=mcd-discount-staging" >> $GITHUB_ENV
+          fi
+      - name: get the ecr repo
+        id: ecr
+        run: echo ::set-output name=repo::$(echo ${env.repo})
     outputs:
-      ecr_repo: ${{steps.fetch-ecr-repo.outputs.repo}}
+      ecr_repo: ${{steps.ecr-repo.outputs.repo}}
 
   frontend-img-build:
     name: 'Building frontend docker images'
