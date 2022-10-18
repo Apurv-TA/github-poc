@@ -3,7 +3,7 @@ name: build-workflow
 on:
   release:
     branches: [main, dev, release]
-    types: [created, published]
+    types: [published]
 
 jobs:
 
