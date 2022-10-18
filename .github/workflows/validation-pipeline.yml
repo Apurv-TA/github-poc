@@ -1,4 +1,4 @@
-name: docker-validation
+name: validation-workflow
 on:
   pull_request:
     branches: [main, release*, dev*]
