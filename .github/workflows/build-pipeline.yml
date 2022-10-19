@@ -6,7 +6,7 @@ on:
 
 jobs:
   fetch-tag:
-    if: github.event.release.target_commitish == 'main' || github.event.release.target_commitish == 'dev'
+    if: github.event.release.target_commitish == 'main' || github.event.release.target_commitish == 'dev' || github.event.release.target_commitish == 'release'
     name : Get release tag
     runs-on: ubuntu-latest
     steps:
@@ -28,9 +28,10 @@ jobs:
         release_branch: ${{steps.current_branch.outputs.branch}}
 
   frontend-img-build:
+    if: ${{ always() }}
+    needs: [fetch-tag, get-branch-if-main]
     name: 'Building frontend docker images'
     runs-on: ubuntu-latest
-    needs: [fetch-tag]
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -60,9 +61,10 @@ jobs:
 
 
   backend-img-build:
+    if: ${{ always() }}
+    needs: [fetch-tag, get-branch-if-main]
     name: 'Building backend docker images'
     runs-on: ubuntu-latest
-    needs: [fetch-tag]
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
