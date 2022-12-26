@@ -17,19 +17,9 @@ jobs:
     outputs:
       release_tag: ${{steps.latest_tag.outputs.tag}}
 
-  get-branch-if-main:
-    if: github.event.release.target_commitish == 'main'
-    name: get-branch-if-main
-    runs-on: ubuntu-latest
-    steps:
-    - run: echo "::set-output name=branch::$(echo 1)"
-      id: current_branch
-    outputs:
-        release_branch: ${{steps.current_branch.outputs.branch}}
-
   frontend-img-build:
     if: ${{ always() }}
-    needs: [fetch-tag, get-branch-if-main]
+    needs: [fetch-tag]
     name: 'Building frontend docker images'
     runs-on: ubuntu-latest
     steps:
@@ -42,18 +32,11 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: configure the ecr used
-        run: |
-          if [ -z ${{ needs.get-branch-if-main.outputs.release_branch}} ]; then
-            echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
-          else
-            echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
-          fi
       - uses: actions/checkout@v2
       - name: Pushing mcd-discount-frontend image to ECR
         env:
           ECR_REGISTRY: 059014103288.dkr.ecr.us-east-1.amazonaws.com
-          ECR_REPOSITORY: ${{ env.ECR_REPO }}-frontend
+          ECR_REPOSITORY: mcd-discount-staging-frontend
           IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f env/docker_mcdui/Dockerfile .
@@ -62,7 +45,7 @@ jobs:
 
   backend-img-build:
     if: ${{ always() }}
-    needs: [fetch-tag, get-branch-if-main]
+    needs: [fetch-tag]
     name: 'Building backend docker images'
     runs-on: ubuntu-latest
     steps:
@@ -75,18 +58,11 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: configure the ecr used
-        run: |
-          if [ -z ${{ needs.get-branch-if-main.outputs.release_branch}} ]; then
-            echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
-          else
-            echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
-          fi
       - uses: actions/checkout@v2
       - name: Pushing mcd-discount-backend image to ECR
         env:
           ECR_REGISTRY: 059014103288.dkr.ecr.us-east-1.amazonaws.com
-          ECR_REPOSITORY: ${{ env.ECR_REPO }}-backend
+          ECR_REPOSITORY: mcd-discount-staging-backend
           IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f env/docker_mcdapi/Dockerfile .
