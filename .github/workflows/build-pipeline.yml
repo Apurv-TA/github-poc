@@ -6,7 +6,7 @@ on:
 
 jobs:
   fetch-tag:
-    if: github.event.release.target_commitish == 'dev' || github.event.release.target_commitish == 'release'
+    if: github.event.release.target_commitish == 'main' || github.event.release.target_commitish == 'dev' || github.event.release.target_commitish == 'release'
     name : Get release tag
     runs-on: ubuntu-latest
     steps:
@@ -62,7 +62,7 @@ jobs:
 
   backend-img-build:
     if: ${{ always() }}
-    needs: [fetch-tag, get-branch-if-main]
+    needs: [fetch-tag, get-branch-if-main, frontend-img-build]
     name: 'Building backend docker images'
     runs-on: ubuntu-latest
     steps:
