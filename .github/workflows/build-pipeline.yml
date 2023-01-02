@@ -28,7 +28,7 @@ jobs:
         release_branch: ${{steps.current_branch.outputs.branch}}
 
   frontend-img-build:
-    continue-on-error: true
+    if: ${{ success() }} || ${{failure()}}
     needs: [fetch-tag, get-branch-if-main]
     name: 'Building frontend docker images'
     runs-on: ubuntu-latest
