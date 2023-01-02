@@ -4,29 +4,7 @@ on:
   release:
     types: [published]
 
-jobs:
-  # get-branch-if-main:
-  #   if: github.event.release.target_commitish == 'main'
-  #   name: get-branch-if-main
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - run: echo "::set-output name=branch::$(echo 1)"
-  #     id: current_branch
-  #   outputs:
-  #       release_branch: ${{steps.current_branch.outputs.branch}}
-  # ecr-name:
-  #   if: always()
-  #   needs: [get-branch-if-main]    
-  #   name : Get ecr-name
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Configure the ecr used
-  #       run: |
-  #         if [ -z ${{ needs.get-branch-if-main.outputs.release_branch}} ]; then
-  #           echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
-  #         else
-  #           echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
-  #         fi          
+jobs:       
   fetch-tag:
     if: github.event.release.target_commitish == 'main' || github.event.release.target_commitish == 'dev' || github.event.release.target_commitish == 'release'
     name : Get release tag
@@ -53,12 +31,12 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Configure the ecr used
+      - name: Configure ECR repository
         run: |
           if [ -z ${{ github.event.release.target_commitish == 'main'}} ]; then
-            echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
-          else
             echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
+          else
+            echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
           fi      
       - uses: actions/checkout@v2
       - name: Pushing mcd-discount-frontend image to ECR
@@ -85,12 +63,12 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Configure the ecr used
+      - name: Configure ECR repository
         run: |
           if [ -z ${{ github.event.release.target_commitish == 'main'}} ]; then
-            echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
-          else
             echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
+          else
+            echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
           fi              
       - uses: actions/checkout@v2
       - name: Pushing mcd-discount-backend image to ECR
