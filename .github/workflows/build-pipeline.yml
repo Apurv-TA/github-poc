@@ -5,28 +5,33 @@ on:
     types: [published]
 
 jobs:
+  get-branch-if-main:
+    if: github.event.release.target_commitish == 'main'
+    name: get-branch-if-main
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "::set-output name=branch::$(echo 1)"
+      id: current_branch
+    outputs:
+        release_branch: ${{steps.current_branch.outputs.branch}}
   fetch-tag:
     if: github.event.release.target_commitish == 'main' || github.event.release.target_commitish == 'dev' || github.event.release.target_commitish == 'release'
     name : Get release tag
     runs-on: ubuntu-latest
     steps:
+      - name: Configure the ecr used
+        run: |
+          if [ -z ${{ get-branch-if-main.outputs.release_branch}} ]; then
+            echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
+          else
+            echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
+          fi    
       - uses: actions/checkout@v3
       - name: Building release tag
         id: latest_tag
         run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
     outputs:
       release_tag: ${{steps.latest_tag.outputs.tag}}
-      branch: ${{github.event.release.target_commitish}}
-
-  # get-branch-if-main:
-  #   if: github.event.release.target_commitish == 'main'
-  #   name: get-branch-if-main
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - run: echo "::set-output name=branch::$(echo 1)"
-  #     id: current_branch
-  #   outputs:
-  #       release_branch: ${{steps.current_branch.outputs.branch}}
 
   frontend-img-build:
     needs: [fetch-tag]
@@ -44,10 +49,10 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
       - name: configure the ecr used
         run: |
-          if [${{ needs.fetch-tag.outputs.branch=='main'}} ]; then
-            echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
-          else
+          if [ -z ${{ needs.get-branch-if-main.outputs.release_branch}} ]; then
             echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
+          else
+            echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
           fi
       - uses: actions/checkout@v2
       - name: Pushing mcd-discount-frontend image to ECR
@@ -61,7 +66,6 @@ jobs:
 
 
   backend-img-build:
-    if: ${{ always() }}
     needs: [fetch-tag]
     name: 'Building backend docker images'
     runs-on: ubuntu-latest
@@ -75,13 +79,6 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Branch Name
-        uses: haya14busa/action-cond@v1
-        id: fetchDepth
-        with:
-          cond: ${{  needs.fetch-tag.outputs.branch=='main' }}
-          if_true: "ECR_REPO=mcd-discount-prod" 
-          if_false: "ECR_REPO=mcd-discount-staging"
       - uses: actions/checkout@v2
       - name: Pushing mcd-discount-backend image to ECR
         env:
