@@ -28,7 +28,6 @@ jobs:
   #           echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
   #         fi          
   fetch-tag:
-    needs: [ecr-name]
     if: github.event.release.target_commitish == 'main' || github.event.release.target_commitish == 'dev' || github.event.release.target_commitish == 'release'
     name : Get release tag
     runs-on: ubuntu-latest
@@ -61,13 +60,6 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: configure the ecr used
-        run: |
-          if [ -z ${{ needs.get-branch-if-main.outputs.release_branch}} ]; then
-            echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
-          else
-            echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
-          fi
       - uses: actions/checkout@v2
       - name: Pushing mcd-discount-frontend image to ECR
         env:
