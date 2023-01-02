@@ -14,9 +14,9 @@ jobs:
       id: current_branch
     outputs:
         release_branch: ${{steps.current_branch.outputs.branch}}
-  fetch-tag:
-    if: github.event.release.target_commitish == 'main' || github.event.release.target_commitish == 'dev' || github.event.release.target_commitish == 'release'
-    name : Get release tag
+  ecr-name:
+    if: always()
+    name : Get ecr-name
     runs-on: ubuntu-latest
     steps:
       - name: Configure the ecr used
@@ -25,7 +25,13 @@ jobs:
             echo "ECR_REPO=mcd-discount-staging" >> $GITHUB_ENV
           else
             echo "ECR_REPO=mcd-discount-prod" >> $GITHUB_ENV
-          fi    
+          fi          
+  fetch-tag:
+    needs: [ecr-name]
+    if: github.event.release.target_commitish == 'main' || github.event.release.target_commitish == 'dev' || github.event.release.target_commitish == 'release'
+    name : Get release tag
+    runs-on: ubuntu-latest
+    steps:  
       - uses: actions/checkout@v3
       - name: Building release tag
         id: latest_tag
