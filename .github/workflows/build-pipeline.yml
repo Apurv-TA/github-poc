@@ -59,7 +59,6 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f env/docker_mcdui/Dockerfile .
           docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
 
-
   backend-img-build:
     if: ${{ always() }}
     needs: [fetch-tag, get-branch-if-main, frontend-img-build]
