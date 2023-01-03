@@ -28,7 +28,7 @@ jobs:
         release_branch: ${{steps.current_branch.outputs.branch}}
 
   frontend-img-build:
-    if: ${{ success() }} || ${{failure()}}
+    if: ${{ always() }}
     needs: [fetch-tag, get-branch-if-main]
     name: 'Building frontend docker images'
     runs-on: ubuntu-latest
@@ -60,7 +60,7 @@ jobs:
           docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
 
   backend-img-build:
-    if: ${{ success() }} || ${{failure()}}
+    if: ${{ always() }}
     needs: [fetch-tag, get-branch-if-main, frontend-img-build]
     name: 'Building backend docker images'
     runs-on: ubuntu-latest
