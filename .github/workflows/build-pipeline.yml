@@ -16,11 +16,14 @@ jobs:
         run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
       - name: configure the ecr used
         id: branch_ecr
+        env:
+          branch: ${{ github.event.release.target_commitish }}
         run: |
-          if github.event.release.target_commitish == "main"
+          if [ "$branch" == "main" ]
           then
             echo ::set-output name=ecr::$(echo mcd-discount-prod)
           else
+            echo $branch
             echo ::set-output name=ecr::$(echo mcd-discount-staging)
           fi
     outputs:
