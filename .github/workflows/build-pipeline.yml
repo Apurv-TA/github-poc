@@ -50,8 +50,10 @@ jobs:
           ECR_REGISTRY: 059014103288.dkr.ecr.us-east-1.amazonaws.com
           ECR_REPOSITORY: ${{ needs.fetch-tag.outputs.ecr_repo }}-frontend
           IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
+          TAG: mle-beta-v1.35
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f env/docker_mcdui/Dockerfile .
+          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$TAG
+          docker build --cache-from $ECR_REGISTRY/$ECR_REPOSITORY:$TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f env/docker_mcdui/Dockerfile .
           docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
 
   backend-img-build:
@@ -74,6 +76,8 @@ jobs:
           ECR_REGISTRY: 059014103288.dkr.ecr.us-east-1.amazonaws.com
           ECR_REPOSITORY: ${{ needs.fetch-tag.outputs.ecr_repo }}-backend
           IMAGE_TAG: ${{ needs.fetch-tag.outputs.release_tag }}
+          TAG: mle-beta-v1.35
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f env/docker_mcdapi/Dockerfile .
+          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$TAG
+          docker build --cache-from $ECR_REGISTRY/$ECR_REPOSITORY:$TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f env/docker_mcdapi/Dockerfile .
           docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
