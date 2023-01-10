@@ -51,24 +51,24 @@ jobs:
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
-#           path: /tmp/.buildx-cache
-          path: /env/docker_mcdui/
+          path: /tmp/.buildx-cache
+#           path: /env/docker_mcdui/
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
       - name: Build Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ./env/docker_mcdui
+          context: .
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: 059014103288.dkr.ecr.us-east-1.amazonaws.com/${{ needs.fetch-tag.outputs.ecr_repo }}-frontend:${{needs.fetch-tag.outputs.release_tag }}
-          cache-from: type=local,src=/env/docker_mcdui/
+          cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Move cache
         run: |
-          rm -rf /env/docker_mcdui/
-          mv /tmp/.buildx-cache-new /env/docker_mcdui
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
   backend-img-build:
     needs: [fetch-tag, frontend-img-build]
