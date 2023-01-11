@@ -13,4 +13,4 @@ FROM nginx:1.17.1-alpine
 
 COPY --from=builder /app/dist/mcd-discount /usr/share/nginx/html
 RUN chown nginx:nginx /usr/share/nginx/html/*
-COPY env/docker_mcdui/nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
