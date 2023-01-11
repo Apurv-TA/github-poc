@@ -50,7 +50,7 @@ jobs:
           ECR_REGISTRY: 059014103288.dkr.ecr.us-east-1.amazonaws.com
           ECR_REPOSITORY: ${{ needs.fetch-tag.outputs.ecr_repo }}-frontend
           IMAGE_TAG: ${{needs.fetch-tag.outputs.release_tag }}
-          TAG: builder
+          TAG: mle-gamma-v1.7
         run: |
           docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$TAG
           docker build --cache-from $ECR_REGISTRY/$ECR_REPOSITORY:$TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f env/docker_mcdui/Dockerfile .
