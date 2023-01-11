@@ -4,6 +4,10 @@ on:
   release:
     types: [published]
 
+defaults:
+  run:
+    working-directory: .
+
 jobs:
   fetch-tag:
     if: github.event.release.target_commitish == 'main' || github.event.release.target_commitish == 'dev' || github.event.release.target_commitish == 'release' || github.event.release.target_commitish == 'test'
