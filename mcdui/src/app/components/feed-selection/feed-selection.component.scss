@@ -1,0 +1,824 @@
+@import "../../../theme/theme.scss";
+
+.card {
+    border-radius: 14px;
+    width: 100%;
+    margin: 25px 30px 25px 30px;
+    box-shadow: 0px 1px 2px $box-shadow;
+    background: $white 0% 0% no-repeat padding-box;
+    height: 545px;
+}
+
+.header-area {
+    padding: 30px 32px 15px;
+
+    p.heading {
+        font-size: 20px;
+    }
+}
+
+.filters {
+    padding: 15px 30px;
+
+    .form-element {
+        padding-right: 20px;
+
+        .form-label {
+            padding-right: 8px;
+
+            label {
+                color: $gray-44;
+                margin-bottom: 0;
+                font-size: 13px;
+            }
+        }
+
+        .form-input {
+            width: 120px;
+            height: 29px;
+        }
+
+        .start-data {
+            width: 156px;
+
+            .reset-default-wrapper {
+                margin: -0.25em 0 !important;
+
+                .mat-form-field-wrapper {
+                    margin: 0 !important;
+                }
+            }
+        }
+
+        .package-name {
+            input {
+                height: 29px;
+                border-radius: 3px;
+                font-size: 13px;
+            }
+        }
+    }
+
+    .form-action {
+        margin-left: 8px;
+
+        button {
+            margin-right: 10px;
+            border-radius: 40px;
+            border-color: $primary;
+            width: 104px;
+            height: 32px;
+
+            img {
+                margin-top: -10px;
+                vertical-align: unset;
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.offercard {
+    border-radius: 14px;
+    width: 100%;
+    margin: 0px 30px 25px 30px;
+    box-shadow: 0px 1px 2px $box-shadow;
+    background: $white 0% 0% no-repeat padding-box;
+    // height: 545px;
+}
+
+.segment-label {
+    color: $gray-7;
+    font-size: 13px;
+    margin: 15px 0 00;
+}
+
+.ftr_btn {
+    margin-left: 45px;
+    border-radius: 40px;
+    width: 104px;
+    height: 32px;
+}
+
+.reset_btn {
+    margin-left: 15px;
+    border-radius: 40px;
+    width: 104px;
+    height: 32px;
+}
+
+.title {
+    letter-spacing: 0px;
+    color: $black;
+    opacity: 1;
+    margin: 24px 0 12px 30px;
+}
+
+.create_date {
+    position: absolute;
+    right: 35px;
+    padding-top: 7px;
+}
+
+.importbtn {
+    position: relative;
+    left: 45%;
+    margin-top: 30px;
+    width: 158px;
+    height: 42px;
+    background: $danger 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    border-radius: 27px;
+    opacity: 1;
+    color: $white;
+    font-size: 13px;
+    // margin-bottom: 30px;
+}
+
+.crdate {
+    letter-spacing: 0px;
+    color: $gray-44;
+    opacity: 1;
+    font-size: 12px;
+    position: relative;
+    bottom: 20px;
+    right: 10px;
+}
+
+.start_date {
+    position: absolute;
+    right: 35px;
+    padding-top: 7px;
+}
+
+.createdby {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 240px;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+}
+
+.enddate {
+    margin: 2px 0 0 0px;
+}
+
+th {
+    color: $black;
+}
+
+.hrborder {
+    position: relative;
+    top: 140px;
+}
+
+.check {
+    padding: 4px 0 0 0;
+}
+
+.checkth {
+    padding-left: 25px;
+}
+
+td {
+    font-size: 12px;
+    padding: 0 !important;
+    font-weight: 500;
+}
+
+.count {
+    color: $gray-6;
+    padding-top: 5px;
+    // padding-left: 5px;
+    // white-space: nowrap;
+}
+.showmore {
+    color: $primary;
+    margin: 0 0 0 6px;
+    cursor: pointer;
+    font-size: 11px;
+    text-decoration: none;
+}
+
+.datatable {
+    position: relative;
+    width: 100%;
+    overflow: auto;
+}
+
+.clrblack {
+    color: $black;
+    display: inline-grid;
+}
+td.num {
+    text-align: center;
+}
+
+.label {
+    color: $gray-44;
+    font-weight: 500;
+}
+
+.scenid {
+    margin: 0 15px 0 60px;
+}
+
+.disdur {
+    margin: 0 15px 0 26px;
+}
+
+.stdt {
+    margin: 0 15px 0 68px;
+}
+
+.createby {
+    margin: 0 15px 0 65px;
+}
+
+.lastupdt {
+    margin: 0 15px 0 51px;
+}
+
+mat-panel-title {
+    font-size: 13px;
+}
+
+.scenario_id,
+.no_of_promos {
+    color: $black;
+    opacity: 1;
+    padding-top: 10px;
+    text-align: right;
+}
+
+
+.start_date_table,
+.geo,
+.channel {
+    // margin-left: 180px;
+    color: $black;
+    opacity: 1;
+    padding-top: 10px;
+    text-align: left;
+}
+
+.promo_type,
+.last_updated {
+    color: $black;
+    opacity: 1;
+    padding-top: 10px;
+    margin-right: 20px;
+    text-align: left;
+}
+
+.scenario {
+    color: $black;
+}
+
+.thscen {
+    width: 360px;
+    text-align: center;
+}
+
+.tdseg {
+    width: 11%;
+}
+
+.tddismec {
+    width: 33%;
+}
+
+.tditem {
+    width: 30%;
+}
+
+.thitem {
+    width: 20%;
+}
+
+.tddisdep {
+    width: 9%;
+}
+
+.tdregprice {
+    width: 9%;
+}
+
+.thborder {
+    border-bottom: 2px dashed $gray-2;
+}
+
+.thscid {
+    width: 30px;
+    white-space: nowrap;
+    text-align: center;
+    padding-left:15px;
+}
+
+.thnop {
+    width: 95px;
+    white-space: nowrap;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.thgeo {
+    white-space: nowrap;
+    width: 202px;
+    text-align: left;
+    // padding-left: 10px;
+}
+
+.thchannel {
+    white-space: nowrap;
+    width: 120px;
+    text-align: left;
+    padding-left: 10px;
+
+}
+
+.thptype {
+    white-space: nowrap;
+    width: 100px;
+    text-align: left;
+}
+
+
+.thlupd {
+    white-space: nowrap;
+    width: 150px;
+    text-align: left;
+}
+
+.thstdate {
+    white-space: nowrap;
+    width: 210px;
+    text-align: left;
+    padding-left:10px;
+}
+
+.pad {
+    padding: 0;
+    height:auto;
+}
+
+.left {
+    float: left;
+    width: 22%;
+    // border-bottom: 1px solid $gray-2;
+    margin-bottom: 30px;
+    margin-top: 1px;
+}
+
+.innertable {
+    position: relative;
+    width: 100%;
+    float: right;
+    // border-bottom: 1px solid $gray-2;
+}
+
+.dashborder {
+    // width: 100%;
+    border-bottom: 1px dashed $gray-2;
+}
+
+.nosegment {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 7%;
+    font-weight: 500;
+}
+
+.widborder {
+    width: 60%;
+    border-bottom: 1px dashed $gray-2;
+}
+
+.lableborder {
+    margin-bottom: 12px;
+}
+
+.tabwidth {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.overall {
+    width: 34%;
+}
+
+.icon {
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    font-size: 20px;
+}
+
+.tablescroll {
+    height: 150px;
+    overflow-y: scroll;
+}
+
+.checkalign {
+    padding: 18px 0px 0px 5px !important;
+}
+
+.vertical {
+    vertical-align: top;
+}
+
+.mat-button.mat-button-base.mat-warn.mat-button-disabled {
+    color: $white;
+    cursor: not-allowed;
+}
+
+a.save_yes {
+    background: $primary 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    color: $white;
+    padding: 10px;
+    display: inline-block;
+    max-width: 158px;
+    width: 17%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 4px 0 0 15px;
+}
+
+.widhieight {
+    height: 30px;
+    width: 143px;
+    margin-top: 5px;
+    margin-bottom: 14px;
+    float: left;
+    margin-left: 32px;
+    margin-right: 32px;
+    font-size: 13px;
+}
+
+.discduration {
+    background: $white 0% 0% no-repeat padding-box;
+    border-radius: 3px;
+    opacity: 1;
+    width: 200px;
+    height: 30px !important;
+    font-size: 13px;
+    padding: 0;
+}
+
+.promo_select {
+    float: left;
+    margin: 4px 0 0 15px;
+}
+
+::placeholder {
+    color: $gray-4;
+}
+
+.search {
+    position: absolute;
+    right: 49%;
+    padding-top: 11px;
+}
+
+.inputsearch {
+    height: 30px;
+    font-size: 12px;
+}
+
+.center {
+    text-align: center;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: $warm-white;
+    border-radius: 3px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $gray-8;
+    border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: $Davy-grey;
+}
+
+:host ::ng-deep .mat-form-field-flex {
+    height: 35px;
+}
+
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: $white;
+}
+
+:host ::ng-deep .mat-select-value-text {
+    color: $black !important;
+}
+
+:host ::ng-deep .mat-date-range-input-container {
+    position: absolute;
+    top: 0;
+    font-size: 13px;
+}
+
+:host ::ng-deep .mat-expansion-panel {
+    box-shadow: none;
+}
+
+:host ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: $danger;
+}
+
+:host ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: $danger;
+}
+
+// :host ::ng-deep .mat-expansion-panel-body {height: 105px;overflow-y: scroll;}
+:host ::ng-deep .mat-expanded .mat-expansion-panel-header-title .material-icons {
+    transform: rotate(180deg);
+}
+
+:host ::ng-deep .mat-input-element {
+    font-weight: 400 !important;
+    color: $gray-4 !important;
+}
+
+:host ::ng-deep .mat-expansion-panel-header-description .open,
+.mat-expanded .mat-expansion-panel-header-description .close {
+    display: inline-block;
+}
+
+:host ::ng-deep .mat-expanded .mat-expansion-panel-header-description .open,
+.mat-expansion-panel-header-description .close {
+    display: none;
+}
+
+:host ::ng-deep .mat-date-range-input-start-wrapper {
+    padding: 0 5px 0 0;
+}
+
+:host ::ng-deep .mat-date-range-input-start-wrapper .mat-date-range-input-inner {
+    top: 2px !important;
+    left: 5px;
+}
+
+:host ::ng-deep .mat-date-range-input-separator {
+    color: $gray-4;
+}
+
+// :host ::ng-deep .mat-paginator-page-size {display: none;}
+:host ::ng-deep .mat-form-field-outline-thick {
+    color: $gray-4 !important;
+}
+
+:host ::ng-deep .promo_select .ng-select .ng-select-container:after {
+    display: none;
+}
+
+:host ::ng-deep .promo_select .ng-select.ng-select-single .ng-select-container .ng-arrow-wrapper {
+    bottom: 27px;
+    right: 3px;
+}
+
+:host ::ng-deep .promo_select .ng-select .ng-select-container .ng-value-container {
+    margin-top: -12px;
+    padding-left: 8px;
+}
+
+:host ::ng-deep .promo_select span.ng-clear-wrapper {
+    display: none;
+}
+
+:host ::ng-deep .promo_select .ng-dropdown-panel {
+    margin-top: 20px;
+}
+
+:host ::ng-deep .promo_select .ng-select .ng-arrow-wrapper .ng-arrow {
+    color: $primary
+}
+
+:host ::ng-deep .promo_select .ng-select.ng-select-focused .ng-select-container .ng-arrow-wrapper .ng-arrow {
+    color: $primary !important
+}
+
+:host ::ng-deep .ng-select .ng-select-container .ng-value-container .ng-placeholder {
+    color: $gray-4;
+}
+
+.stdate_in {
+    height: 50px;
+    font-size: 12px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+
+.dura_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.geo_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.channel_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.protp_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.prommech_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.Promname_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.prompric_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.promdep_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    width: 100px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.prodcat {
+    // width: 282px;
+    height: 29px !important;
+    background: $white 0% 0% no-repeat padding-box;
+    border: 0px solid $gray-92;
+    border-radius: 3px;
+    opacity: 1;
+    padding: 0;
+    font-size: 12px;
+}
+
+:host ::ng-deep .prodcat .multiselect-dropdown .dropdown-btn {
+    border: 1px solid $gray-92 !important;
+}
+
+:host ::ng-deep .selected-list .c-btn {
+    min-height: 30px;
+    font-size: 13px;
+    color: $gray-4;
+    padding: 5px 7px;
+}
+
+:host ::ng-deep .selected-list .c-list .c-token .c-label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 74px !important;
+    overflow: hidden;
+}
+
+:host ::ng-deep .selected-list .c-list .c-token {
+    padding: 4px 12px 4px 8px !important
+}
+
+:host ::ng-deep .selected-list .c-list {position: relative;bottom: 5px;height: 18px;}
+
+.date_picker {
+    position: relative;
+    bottom: 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.calicon {
+    background-color: $primary;
+    height: 29px !important;
+    border-radius: 3px;
+    width: 30px;
+    margin: 0 0 0 4px !important;
+    position: relative;
+    bottom: 1px;
+}
+
+.filstdate {
+    position: relative;
+    bottom: 18px;
+    left: 2px;
+}
+
+.mat-expansion-panel-header-description{
+    cursor: pointer;
+}
+
+.offerwidth{
+    width: auto;
+    white-space: nowrap;
+}
+
+.offerData{
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+.subHeader{
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    white-space: nowrap;
+}
+
+.subHeaderTableData{
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+.stickyHeaderOnScroll{
+    position: sticky;
+    top: 0;
+}
+
+img{
+    vertical-align: text-bottom !important;
+    margin:4px;
+}

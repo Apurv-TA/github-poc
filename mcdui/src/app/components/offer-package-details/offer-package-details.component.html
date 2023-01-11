@@ -1,0 +1,387 @@
+<div class="col-12 container__row p-0">
+    <div class="left_container pr-0">
+        <!-- TODO : Add data dynamically when integrating with backend-->
+
+        <div class="inner-box m-0 p-0">
+            <p class="heading_font left-align">{{'lang.discount_config.geo_channel_Promo_type' | translate}}</p>
+            <span *ngIf="!expandEnable && geoChannelPromoTypeDataList.length > 0 && apiFailed">
+                <p class="subheading_font pt-3"
+                    *ngFor="let list of geoChannelPromoTypeDataList.slice(0,1);let i = index">
+                    <span (click)="coopDetailData(i,list.ohm_id, list.promo_type)"
+                        [ngClass]=" selectedCoopDetailList.ohm_id == list.ohm_id && selectedCoopDetailList.promo_type == list.promo_type ? 'bg_Color clrblack left-align' : 'clrblack left-align' ">
+                        {{list.geoChannelPromoType}}
+                    </span>
+                </p>
+            </span>
+            <span *ngIf="expandEnable && apiFailed">
+                <p class="subheading_font pt-3" *ngFor="let list of geoChannelPromoTypeDataList;let i = index">
+                    <span (click)="coopDetailData(i,list.ohm_id,list.promo_type)"
+                        [ngClass]=" selectedCoopDetailList.ohm_id == list.ohm_id && selectedCoopDetailList.promo_type == list.promo_type ? 'bg_Color clrblack left-align' : 'clrblack left-align' ">
+                        {{list.geoChannelPromoType}}</span>
+                </p>
+            </span>
+
+
+            <a class="showmore left-align" (click)="expandExtend()"
+                *ngIf="geoChannelPromoTypeDataList?.length > 1 && !expandEnable && apiFailed">{{'lang.discount_config.showmore'
+                | translate}}...</a>
+
+            <a class="showmore left-align" (click)="expandExtend()"
+                *ngIf="geoChannelPromoTypeDataList?.length > 1 && expandEnable && apiFailed">{{'lang.discount_config.showless'
+                | translate}}...</a>
+
+        </div>
+
+
+    </div>
+    <div class="slide_toggle_container">
+
+        <div class="right_container">
+            <div class="right_box_one add_padding">
+                <!-- TODO : Add data dynamically when integrating with backend-->
+                <div class="text_box">
+                    <p class="heading_font">{{'lang.discount_config.date' | translate}}</p>
+                    <p *ngIf="apiFailed">
+                        <span>
+                            <p class="subheading_font">
+                                {{selectedCoopDetailList.start_date}}
+                            </p>
+                        </span>
+
+                    </p>
+                </div>
+
+                <!-- TODO : Add data dynamically when integrating with backend-->
+                <div class="text_box pt-5">
+                    <p class="heading_font">{{'lang.discount_config.promoDur' | translate}}</p>
+                    <p *ngIf="apiFailed">
+                        <span>
+                            <p class="subheading_font">
+                                {{selectedCoopDetailList.duration_min}} - {{selectedCoopDetailList.duration_max}}
+                                {{selectedCoopDetailList.duration_max != null ? week
+                                : ''}}
+                            </p>
+                        </span>
+
+                    </p>
+
+                </div>
+
+
+                <!-- TODO : Add data dynamically when integrating with backend-->
+                <div class="text_box pt-5">
+                    <!-- <pre>{{selectedSegmentDetailList.objective.maximize | json}}</pre> -->
+                    <p class="heading_font">{{'lang.discount_config.objective' | translate}}</p>
+                    <p *ngIf="apiFailed">
+                        <span>
+                            <p class="subheading_font">
+                                {{selectedCoopDetailList.objective}}
+                            </p>
+                        </span>
+
+                    </p>
+                </div>
+
+            </div>
+            <div class="right_box_two">
+                <!-- TODO : Add data dynamically when integrating with backend-->
+                <div class="text_box">
+                    <p class="heading_font">{{'lang.discount_config.lowerbound' | translate}}</p>
+                    <p *ngIf="apiFailed">
+                        <span>
+                            <p class="subheading_font" *ngFor="let lB of selectedCoopDetailList.lower_bound">
+                                {{lB.kpiName == '' ? '-' : lB.kpiName }} {{lB.kpiName == '' ? '' : ':'}}
+                                {{lB.value == '' ? '' : lB.value}}{{lB.value == '' ? '' :'%'}}
+                            </p>
+                        </span>
+
+                    </p>
+                </div>
+
+                <!-- TODO : Add data dynamically when integrating with backend-->
+                <!-- <div class="text_box pt-5">
+                    <p class="heading_font">{{'lang.discount_config.dayPart' | translate}}</p>
+                    <p class="subheading_font" *ngFor="let dp of dayPart; let j = index">
+                        {{dp.day_part}}
+                    </p>
+
+                </div> -->
+
+                <!-- TODO : Add data dynamically when integrating with backend-->
+                <div class="text_box pt-5">
+                    <p class="heading_font">{{'lang.discount_config.prod_cat' | translate}}</p>
+                    <p *ngIf="apiFailed">
+                        <span>
+                            <p class="subheading_font"
+                                *ngFor="let prodCat of selectedCoopDetailList.product_categories.slice(0,1)">
+                                {{prodCat}}
+                            </p>
+                        </span>
+
+                    </p>
+
+
+                    <a class="showmore"
+                        *ngIf="apiFailed ? 'selectedCoopDetailList.product_categories?.length > 1' : '' "
+                        (click)="showCategoryModel(categModal,selectedCoopDetailList.product_categories)">{{'lang.discount_config.showmore'
+                        | translate}}...</a>
+                </div>
+
+                <!-- TODO : Add data dynamically when integrating with backend-->
+                <div class="text_box pt-5">
+                    <p class="heading_font">{{'lang.discount_config.item' | translate}}</p>
+                    <p *ngIf="apiFailed">
+                        <span>
+                            <p class="subheading_font"
+                                *ngFor="let item of selectedCoopDetailList.items.slice(0,2); let j = index">
+                                {{item.item_name}}
+                            </p>
+                        </span>
+
+                    </p>
+
+                    <a class="showmore" (click)="showItemModel(itemModal,selectedCoopDetailList.items)"
+                        *ngIf="apiFailed ? 'selectedCoopDetailList.items?.length > 2' : '' ">{{'lang.discount_config.showmore'
+                        |
+                        translate}}...</a>
+                </div>
+
+
+            </div>
+
+
+
+            <div class="right_box_three">
+
+
+                <!-- TODO : Add data dynamically when integrating with backend-->
+
+                <div class="text_box">
+                    <p class="heading_font">{{'lang.discount_config.maxPromoDp' | translate}}</p>
+                    <p *ngIf="apiFailed">
+                        <span>
+                            <p class="subheading_font"
+                                *ngFor="let promo of selectedCoopDetailList.max_promotions_day_part.slice(0,1)">
+                                {{promo.name}} - {{promo.max_value}}
+                            </p>
+                        </span>
+
+                    </p>
+
+
+                    <a class="showmore"
+                        (click)="showMaxPromoModel(maxPromo,selectedCoopDetailList.max_promotions_day_part)"
+                        *ngIf="apiFailed ? 'selectedCoopDetailList.max_promotions_day_part.length > 1' : '' ">{{'lang.discount_config.showmore'
+                        | translate}}...</a>
+                </div>
+
+                <!-- TODO : Add data dynamically when integrating with backend-->
+
+                <div class="text_box pt-5">
+                    <p class="heading_font">{{'lang.discount_config.maxPromoPc' | translate}}</p>
+                    <p *ngIf="apiFailed">
+                        <span>
+                            <p class="subheading_font"
+                                *ngFor="let promo of selectedCoopDetailList.max_promotions_product_category.slice(0,1)">
+                                {{promo.product_category}} - {{promo.max_value}}
+                            </p>
+                        </span>
+                    </p>
+
+
+                    <a class="showmore"
+                        (click)="showMaxPromoModel(maxPromo,selectedCoopDetailList.max_promotions_product_category)"
+                        *ngIf="apiFailed ? 'selectedCoopDetailList.max_promotions_product_category.length > 1' : '' ">{{'lang.discount_config.showmore'
+                        | translate}}...</a>
+                </div>
+
+                <!-- TODO : Add data dynamically when integrating with backend-->
+
+                <div class="text_box pt-5">
+                    <p class="heading_font">{{'lang.discount_config.dis_mech' | translate}}</p>
+                    <p *ngIf="apiFailed">
+                        <span>
+                            <p class="subheading_font"
+                                *ngFor="let promo of selectedCoopDetailList.promo_mechanics.slice(0,1); let j = index">
+                                {{promo.dis_mech_desc}}
+                            </p>
+                        </span>
+                    </p>
+                    <a class="showmore"
+                        (click)="showPromoMechanicModel(PromoMechanic,selectedCoopDetailList.promo_mechanics)"
+                        *ngIf="apiFailed ? 'selectedCoopDetailList.promo_mechanics.length > 1' : '' ">{{'lang.discount_config.showmore'
+                        | translate}}...</a>
+                </div>
+
+            </div>
+
+            <div class="right_box_four">
+
+                <!-- TODO : Add data dynamically when integrating with backend-->
+
+                <!-- <div class="text_box">
+                    <p class="heading_font">{{'lang.discount_config.competition_discount' | translate}}</p>
+                    <p *ngIf="apiFailed">
+                        <span class="subheading_font">
+                            {{selectedCoopDetailList.competition_promo}}
+                        </span>
+                    </p>
+                </div> -->
+
+                <!-- TODO : Add data dynamically when integrating with backend-->
+
+                <div class="text_box">
+                    <p class="heading_font">{{'lang.discount_config.depth' | translate}}</p>
+                    <p *ngIf="apiFailed" class="m-0">
+                        <span>
+                            <p class="subheading_font">
+                                {{selectedCoopDetailList.promo_depth_min1 != null ? promo_item_1 : ''}}
+                                {{selectedCoopDetailList.promo_depth_min1}}{{selectedCoopDetailList.promo_depth_min1 !=
+                                null
+                                ? '%' : ''}} - {{selectedCoopDetailList.promo_depth_max1
+                                }}{{selectedCoopDetailList.promo_depth_max1 != null ? '%' : ''}}
+                            </p>
+                        </span>
+                    </p>
+                    <p *ngIf="apiFailed" class="m-0">
+                        <span>
+                            <p class="subheading_font">
+                                {{selectedCoopDetailList.promo_depth_min2 != null ? promo_item_2 : ''}}
+                                {{selectedCoopDetailList.promo_depth_min2 }}{{selectedCoopDetailList.promo_depth_min2 !=
+                                null ? '%' : ''}} - {{selectedCoopDetailList.promo_depth_max2
+                                }}{{selectedCoopDetailList.promo_depth_max2 != null ? '%' : ''}}
+                            </p>
+                        </span>
+                    </p>
+                </div>
+
+                <!-- TODO : Add data dynamically when integrating with backend-->
+                <!-- <div class="text_box pt-5">
+                    <p class="heading_font">{{'lang.discount_config.actPromo' | translate}}</p>
+                    <p class="subheading_font">Solid yellow</p>
+                </div> -->
+
+            </div>
+
+            <!-- <div class="right_box_five"> -->
+            <!-- <p class="heading_font">{{'lang.discount_config.exp' | translate}}</p>
+                <mat-slide-toggle></mat-slide-toggle> -->
+            <!-- <div class="toggle_slider heading_font">
+                    Expand<mat-slide-toggle (change)="expandExtend()"></mat-slide-toggle>
+                </div> -->
+            <!-- </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- Item show popup -->
+<ng-template #itemModal let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">{{'lang.discount_config.itemlist' | translate}}</h6>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body prodscroll">
+        <!-- <pre>{{itemList | json}}</pre> -->
+        <ul class="listborder" *ngFor="let prod of itemList">
+            <h6 class="product">{{prod.category}}</h6>
+            <li class="items subheading_font" *ngFor="let item of prod.items">
+                {{item.item_name}}
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a class="save_no cursorhand" (click)="modal.close('Save click')">Ok</a>
+    </div>
+    <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">{{'lang.common.ok' |
+            translate}}</button>
+    </div> -->
+</ng-template>
+
+<!-- Product Category show popup -->
+<ng-template #categModal let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">Product Category List</h6>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <ul>
+            <h6 class="product">Product Category</h6>
+            <li class="items subheading_font" *ngFor="let product of categoryList;let i=index;">
+                {{product}}
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a class="save_no cursorhand" (click)="modal.close('Save click')">{{'lang.common.ok' |
+            translate}}</a>
+    </div>
+</ng-template>
+
+
+<!-- Max Offer show popup -->
+<ng-template #MaxOffersModal let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">MaxOffers List</h6>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <ul>
+            <li class="items subheading_font" *ngFor="let maxoffers of maxOffersList;let i=index;">
+                {{maxoffers.product_name}}&nbsp;-&nbsp;{{maxoffers.max_offer}}
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a class="save_no cursorhand" (click)="modal.close('Save click')">{{'lang.common.ok' |
+            translate}}</a>
+    </div>
+</ng-template>
+
+<!-- Max Offer show popup -->
+<ng-template #PromoMechanic let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">Promo Mechanic List</h6>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <ul>
+            <li class="items subheading_font" *ngFor="let promo of promoMechanicList;let i=index;">
+                {{promo.dis_mech_desc}}
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a class="save_no cursorhand" (click)="modal.close('Save click')">{{'lang.common.ok' |
+            translate}}</a>
+    </div>
+</ng-template>
+
+<!-- Max Promo show popup -->
+<ng-template #maxPromo let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">Max Promo List</h6>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <ul>
+            <li class="items subheading_font" *ngFor="let promo of maxPromoList;let i=index;">
+                {{promo.product_category ? promo.product_category : promo.name}} - {{promo.max_value}}
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a class="save_no cursorhand" (click)="modal.close('Save click')">{{'lang.common.ok' |
+            translate}}</a>
+    </div>
+</ng-template>

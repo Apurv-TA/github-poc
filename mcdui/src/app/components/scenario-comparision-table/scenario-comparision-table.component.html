@@ -1,0 +1,247 @@
+<div class="table__box scrol_geo_promo">
+
+    <div class="row m-0 p-0" style="height: 24px;">
+
+        <div class="col-6 p-0 table_box_title">
+            <h6 class="table_box_title_align m-0">
+                {{'lang.scenario_compare.impact_table' |
+                translate}}
+            </h6>
+        </div>
+
+        <div class="col-3 m-0 p-0 drop_down_cont">
+        </div>
+
+        <div class="col-3 m-0 p-0 drop_down_cont">
+            <div class="select_cont kpi_select m-0 p-0">
+                <span class="impact_title_2">{{'lang.discount_config.selectKpi' | translate}}</span>
+                <mat-select class="form-control" class="form-control startdt"
+                    (ngModelChange)="kpiChangeEventByGeoPromoType($event)" [(ngModel)]="selectedByGeoPromoTypeKpiValue">
+                    <mat-option *ngFor="let selectKpi of kpiValuesGeoPromoType" [value]="selectKpi">
+                        {{selectKpi}}
+                    </mat-option>
+                </mat-select>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="table__container">
+        <div class="recommend-offers-card">
+            <div class="col-12 container__row p-0 boxstyleimpact">
+                <table mat-table [dataSource]="dataSourceGeoPromoType" matSort #scenCompByGeo = "matSort"
+                    class="width w-100 col-12 scenario-comparision_table">
+                    <ng-container *ngIf="displayedColumnsByGeoPromoType.length > 0">
+                        <ng-container *ngFor="let val of displayedColumnsByGeoPromoType;let k=index;"
+                            [matColumnDef]="val">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled] = "k > 2" style="text-transform:capitalize;"
+                                class="scenariocomps_{{k}}">
+                                <ng-container *ngIf="k < 3">
+                                    <b class="clrblack">
+                                        {{val}}&nbsp;&nbsp;
+                                    </b>
+                                </ng-container>
+                                <ng-container *ngIf="k > 2">
+                                    <b class="clrblack">
+                                        {{val}}
+                                    </b>
+                                </ng-container>
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index">
+                                <span [ngClass]="val == 'Geo' || val == 'Promo Type'  ?
+                                'right_cont' : val == 'Sl.No' ?
+                                 'sl' : val != 'Sl.No' && val != 'Promo Type' && val != 'Geo' && k != 3 ?
+                                  'zero_cont' : 'k == 3' ?
+                                   'zero_cont_geo' : '' " *ngIf="i==0">
+                                    <ng-container *ngIf="val == 'Sl.No' || val == 'product'">
+
+                                    </ng-container>
+                                    <ng-container *ngIf="val != 'Sl.No' && val != 'Promo Type' && val != 'Geo'">
+                                        <ng-container *ngIf="row[val]">
+                                            <span class="clrblacksubtitle-heading first">{{'lang.rec_discount.change' |
+                                                translate}}&nbsp;</span>
+                                            <span class="clrblacksubtitle-heading last">
+                                                <b>{{'lang.rec_discount.scenario_value' | translate}}</b></span>
+                                        </ng-container>
+                                    </ng-container>
+                                </span>
+                                <span [ngClass]="val == 'Geo' || val == 'Promo Type'  ?
+                                   'right_cont' : val == 'Sl.No' ?
+                                    'sl' : val != 'Sl.No' && val != 'Promo Type' && val != 'Geo' && k != 3 ?
+                                     'zero_cont' : 'k == 3' ?
+                                      'zero_cont_geo' : '' ">
+                                    <ng-container *ngIf="val == 'Sl.No' || val == 'Promo Type' || val == 'Geo' ">
+                                        <p [ngClass]="val == 'Geo' || val == 'Promo Type'  ? 
+                                        'margin pr-2' : val == 'Sl.No' ? 
+                                        'sl_margin m-0 pl-4' : '' ">{{row[val]}}</p>
+                                    </ng-container>
+                                    <ng-container *ngIf="val != 'Sl.No' && val != 'Promo Type' && val != 'Geo'">
+                                        <ng-container *ngIf="row[val] == ''">
+                                            <span class="clrblacksubtitle first"> -- </span>
+                                            <span class="clrblacksubtitle last"> -- </span>
+                                        </ng-container>
+                                        <ng-container *ngIf="row[val]">
+
+                                            <span *ngIf="row[val].lift != 'NA'"
+                                                class="clrblacksubtitle first">{{row[val].lift | number :
+                                                '0.1-1'}}{{row[val].lift
+                                                != null ? '%' : '' }}&nbsp;</span>
+                                            <span *ngIf="row[val].lift == 'NA'"
+                                                class="clrblacksubtitle first">{{row[val].lift}}&nbsp;</span>
+
+                                            <span *ngIf="row[val].scenario_value != 'NA'"
+                                                class="clrblacksubtitle last">{{row[val].scenario_value |
+                                                currencyformat}}&nbsp;</span>
+                                            
+                                            <span *ngIf="row[val].scenario_value == 'NA'"
+                                                class="clrblacksubtitle last">{{row[val].scenario_value}}&nbsp;</span>
+
+                                        </ng-container>
+                                    </ng-container>
+                                </span>
+                            </td>
+                        </ng-container>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsByGeoPromoType"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsByGeoPromoType;"></tr>
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell center" colspan="5">{{'lang.discount_config.Nodata' | translate}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table__box scrol_product">
+
+    <div class="row m-0 p-0">
+
+        <div class="col-6 p-0 table_box_title">
+            <h6 class="table_box_title_align m-0">
+                {{'lang.scenario_compare.byprodcat' |
+                translate}}
+            </h6>
+        </div>
+
+        <div class="col-3 m-0 p-0 drop_down_cont">
+            <div class="select_cont m-0 p-0">
+                <span class="impact_title_1">{{'lang.discount_config.region' | translate}}</span>
+                <mat-select class="form-control" class="form-control startdt"
+                    (ngModelChange)="productGeoChangeEvent($event)" [(ngModel)]="selectedGeoValue">
+                    <mat-option *ngFor="let val of coopDropdownList" [value]="val">
+                        {{val}}
+                    </mat-option>
+
+
+                </mat-select>
+            </div>
+        </div>
+
+        <div class="col-3 m-0 p-0 drop_down_cont">
+            <div class="select_cont kpi_select m-0 p-0">
+                <span class="impact_title_2">{{'lang.discount_config.selectKpi' | translate}}</span>
+                <mat-select class="form-control" class="form-control startdt"
+                    (ngModelChange)="productKpiChangeEvent($event)" [(ngModel)]="selectedProductKpiValue">
+                    <mat-option *ngFor="let selectProductKpi of kpiValuesProduct" [value]="selectProductKpi">
+                        {{selectProductKpi}}
+                    </mat-option>
+
+                </mat-select>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="table__container">
+        <div class="recommend-offers-card">
+            <div class="col-12 container__row p-0 boxstyleimpact">
+                <table mat-table [dataSource]="dataSourceProduct" matSort #scenCompByProdCat="matSort" class="width w-100 col-12 scenario-comparision_table">
+                    <ng-container *ngIf="displayedColumnsproduct.length > 0">
+                        <ng-container *ngFor="let key of displayedColumnsproduct;let i=index;" [matColumnDef]="key">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header [disabled] = "i > 1" style="text-transform:capitalize;"
+                                class="scencomps_{{i}}">
+                                <ng-container *ngIf="i < 2">
+                                    <b class="clrblack">
+                                        {{key}}&nbsp;&nbsp;
+                                    </b>
+                                </ng-container>
+
+                                <ng-container *ngIf="i > 1">
+                                    <b class="clrblack">
+                                        {{key}}
+
+                                    </b>
+                                   
+                                </ng-container>
+
+                            </th>
+                            <td mat-cell *matCellDef="let row;let j = index">
+                                <span [ngClass]=" key == 'product' ? 'right_cont' : key == 'Sl.No' ?
+                                'sl' : key != 'Sl.No' && key != 'product' && i != 2 ?
+                                 'zero_cont' : 'i == 2' ?
+                                  'zero_cont_pr' : '' " *ngIf="j==0">
+                                    <ng-container *ngIf="key == 'Sl.No' || key == 'product'">
+
+                                    </ng-container>
+                                    <ng-container *ngIf="key != 'Sl.No' && key != 'product'">
+                                        <ng-container *ngIf="row[key]">
+                                            <span class="clrblacksubtitle-heading first">{{'lang.rec_discount.change' |
+                                                translate}}&nbsp;</span>
+                                            <span class="clrblacksubtitle-heading last">
+                                                <b>{{'lang.rec_discount.scenario_value' | translate}}</b></span>
+                                        </ng-container>
+                                    </ng-container>
+                                </span>
+                                <span [ngClass]=" key == 'product' ? 'right_cont' : key == 'Sl.No' ?
+                                'sl' : key != 'Sl.No' && key != 'product' && i != 2 ?
+                                 'zero_cont' : 'i == 2' ?
+                                  'zero_cont_pr' : '' ">
+                                    <ng-container *ngIf="key == 'Sl.No' || key == 'product'">
+                                        <p [ngClass]="key == 'product' ? 
+                                        'margin m-0' : key == 'Sl.No' ? 
+                                        'sl_margin m-0 pl-4' : '' ">{{row[key]}}</p>
+                                    </ng-container>
+                                    <ng-container *ngIf="key != 'Sl.No' && key != 'product'">
+                                        <ng-container *ngIf="row[key] == ''">
+                                            <span class="clrblacksubtitle first"> -- </span>
+                                            <span class="clrblacksubtitle last"> -- </span>
+                                        </ng-container>
+                                        <ng-container *ngIf="row[key]">
+                                           
+                                            <span *ngIf="row[key].lift != 'NA'"
+                                                class="clrblacksubtitle first">{{(row[key].lift | number :
+                                                '0.1-1')}}{{row[key].lift
+                                                != null ? '%' : '' }}&nbsp;</span>
+                                            <span *ngIf="row[key].lift == 'NA'"
+                                                class="clrblacksubtitle first">{{row[key].lift}}&nbsp;</span>
+                                            
+                                            <span *ngIf="row[key].scenario_value != 'NA'"
+                                                class="clrblacksubtitle last">{{row[key].scenario_value |
+                                                currencyformat}}&nbsp;</span>
+                                            <span *ngIf="row[key].scenario_value == 'NA'"
+                                                class="clrblacksubtitle last">{{row[key].scenario_value}}&nbsp;</span>
+                                        </ng-container>
+                                    </ng-container>
+                                </span>
+                            </td>
+                        </ng-container>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsproduct"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsproduct;"></tr>
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell center" colspan="5">{{'lang.discount_config.Nodata' | translate}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="note"><i>*{{impactNote}}*</i></div> -->

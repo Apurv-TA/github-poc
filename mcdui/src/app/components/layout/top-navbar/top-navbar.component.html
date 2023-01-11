@@ -1,0 +1,125 @@
+<div id="top_navbar">
+    <div class="topbar_row">
+        <div class="logo_container">
+            <img src="assets/login/arches.png" style="height: 30px;width: 35px;" alt="McD-logo">
+            <h4 class="title"><span style="margin-left: 25px;">{{'lang.common.App_name' | translate}}</span></h4>
+        </div>
+        <div class="menu_container d-flex">
+            <ul class="top_menu">
+                <li routerLinkActive='active'><a routerLink='dashboard' class="cursor home_icon"><img
+                            src="assets/dashboard/home.png" alt="Home"></a></li>
+                <!-- <li (click)="jobsummary()" [ngClass]="{'firstClass': discount_, 
+                 'secondClass': !discount_}"><a class="cursor">{{'lang.menus.offer_recommend'
+                        |
+                        translate}}</a></li> -->
+                <li routerLinkActive='active' routerLink='discount'><a class="cursor">{{'lang.menus.offer_recommend'
+                        |
+                        translate}}</a></li>
+
+                <!-- need to check with team don't remove it -->
+
+                <!-- <li routerLinkActive='active' routerLink='planner' *ngIf="sp_menu"><a
+                        class="cursor">{{'lang.menus.scenario_planner' |
+                        translate}}</a></li> -->
+
+                <!-- need to check with team don't remove it -->
+
+                <li routerLinkActive='active' [ngClass]="!show_scenario_planner_card ? 'wrapper' : 'cursor'">
+                    <a  routerLink='planner' [ngClass]="{'disableAnchor':!show_scenario_planner_card}">{{'lang.menus.scenario_planner' |
+                        translate}}</a>
+                </li>
+
+                <li routerLinkActive='active' class="cursor" routerLink='comparison'>
+                    <a>{{'lang.scenario_compare.Scenario_Comparison' |
+                        translate}}</a>
+                </li>
+
+                <li routerLinkActive='active' class="cursor" routerLink='feed/feed-selection'>
+                    <a>{{'lang.menus.feed_creation' |
+                        translate}}</a>
+                </li>
+                <!-- <li><a href="">{{'lang.menus.performance_reports' | translate}}</a></li> -->
+            </ul>
+            <div class="profile_container_mobile d-flex d-md-none">
+                <a routerLink='help'>
+                    <h5> <img src="assets/dashboard/help-circle-outline.png" alt="Help"> </h5>
+                </a>
+                <a>
+                    <h5>
+                        <mat-icon>notification_important</mat-icon>
+                    </h5>
+                </a>
+                <a class="profile_box">
+                    <h5>
+                        <mat-icon>account_circle</mat-icon>
+                    </h5>
+                </a>
+            </div>
+            <!-- <div class="lang_select russia">
+                <mat-form-field appearance="fill">
+                    <mat-select (selectionChange)="onSelectionChange($event)" [(ngModel)]="selectedLanguage">
+                      <mat-option *ngFor="let lang of languageSelect" [value]="lang.value">{{lang.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div> -->
+            <!--MOBILE MENU START  -->
+            <div class="menu_icon">
+                <mat-icon (click)='openMobileMenu()'>menu</mat-icon>
+                <div class="mobile_menu_list" *ngIf='showMobileMenu'>
+                    <ul class="top_menu_menu">
+                        <li routerLink='/dashboard' routerLinkActive='active'><a href="#">Home</a></li>
+                        <li><a href="">{{'lang.menus.offer_recommend' | translate}}</a></li>
+                        <li><a href="">{{'lang.menus.scenario_planner' | translate}}</a></li>
+                        <li><a href="">{{'lang.menus.feed_creation' | translate}}</a></li>
+                        <li><a href="">{{'lang.menus.performance_reports' | translate}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--MOBILE MENU END -->
+        </div>
+        <div class="profile_container">
+            <!-- <a routerLink='/mcd/issue-tracker'>
+                <h5> <img src="assets/dashboard/warning.png" alt="Support" class="rightborder"> </h5>
+            </a> -->
+            <a routerLink='/mcd/help'>
+                <h5> <img src="assets/dashboard/help-circle-outline.png" alt="Help" class="rightborder"> </h5>
+            </a>
+            <!-- <a>
+                <h5> <img src="assets/dashboard/notification.png" alt="Notification" class="rightborder"> </h5>
+            </a> -->
+            <!-- <a class="profile_box" (click)="logout()">
+                <h5> <img src="assets/dashboard/user.png" alt="Help" class="username">-->
+            <!-- <a class="profile_box">
+                <h5> <img src="assets/dashboard/user.png" alt="Help" class="username">
+
+                </h5>
+            </a> -->
+
+            <div class="profile">
+                <!-- <img src="assets/dashboard/user.png" alt="Help" class="username"> -->
+                <div class="btn-group" dropdown>
+                    <!-- <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle user"
+                        aria-controls="dropdown-basic"> -->
+                    <h5 id="button-basic" class="user" dropdownToggle aria-controls="dropdown-basic">
+                        <img src="assets/dashboard/user.png" alt="Help" class="username">
+
+                    </h5> <span class="caret"></span>
+                    <!-- </button> -->
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
+                        aria-labelledby="button-basic">
+                        <li role="menuitem"><a class="dropdown-item font">{{userName}}</a></li>
+                        <li role="menuitem" class="cursor"><a class="dropdown-item font"
+                                (click)="logout()">{{'lang.menus.logout' |
+                                translate}}</a></li>
+                        <!-- <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li> -->
+                        <!-- <li class="divider dropdown-divider"></li> -->
+                        <!-- <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+                                    </li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

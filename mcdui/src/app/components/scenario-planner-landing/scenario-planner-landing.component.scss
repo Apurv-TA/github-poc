@@ -1,0 +1,164 @@
+@import "../../../theme/theme.scss";
+
+.card{
+    border-radius: 14px;
+    width: 100%;
+    margin: 25px 30px 25px 30px;
+    box-shadow: 0px 1px 2px $box-shadow;
+    background: $white 0% 0% no-repeat padding-box;
+    height: 545px;
+}
+.offercard {
+    border-radius: 14px;
+    width: 100%;
+    margin: 50px 30px 25px 30px;
+    box-shadow: 0px 1px 2px $box-shadow;
+    background: $white 0% 0% no-repeat padding-box;
+    // height: 545px;
+}
+.title {
+    font-size: 20px;
+    letter-spacing: 0px;
+    color: $black;
+    opacity: 1;
+}
+.titleimport {
+    letter-spacing: 0px;
+    color: $black;
+    margin: 0 0 0 40px;
+    font-size: 14px;
+}
+.infoicon {
+    width: 29px;
+    height: 29px;
+    margin-left: 49%;
+    margin-top: 140px;
+    display: block;
+}
+.nocontent {
+    font-size: 17px;
+    letter-spacing: 0px;
+    color: $black;
+    opacity: 1;
+    margin-top: 15px;
+    text-align: center;
+}
+.center {
+    text-align: center;
+}
+.import {
+    font-size: 14px;
+    letter-spacing: 0px;
+    color: $black;
+    margin-top: 30px;
+    cursor: pointer;
+}
+.importborder {
+    border: 1px dashed $gray-2;
+    width: 587px;
+    height: 1px;
+    display: inline-block;
+}   
+.create {
+    font-size: 14px;
+    letter-spacing: 0px;
+    color: $black;
+    margin-top: 18px;
+    margin-right: 55px;
+}
+.leftarrow {
+    width: 8px;
+    height: 13px;
+    position: absolute;
+    top: 18px;
+    left: 30px;
+    cursor: pointer;
+}
+.packagename{
+    margin-top: 25px;
+    height: 36px;
+}
+.package {
+    font-size: 14px;    
+    letter-spacing: 0px;
+    color: $nevada;
+}
+.left {
+    margin-left: 25px;
+}
+.startdate {
+    font-size: 12px;
+    letter-spacing: 0px;
+    color: $nevada;
+    margin: 0 10px 0 0;
+}
+.startleft {
+    margin-left: 61px;
+}
+.segmentleft {
+    margin-left: 67px;
+}
+.discountleft {
+    margin-left: 20px;
+}
+.dataleft{
+    margin-left: 20px;
+    font-size: 14px;
+    letter-spacing: 0px;
+    color: $primary;
+    font-weight: 500;
+}
+.bordbottom {
+    border-bottom: 1px dashed $gray-2;
+    opacity: 0.77;
+    padding-bottom: 15px;
+}
+.stdate {
+    margin-left: 20px;
+    letter-spacing: 0px;
+    color: $black;
+    font-weight: 500;
+    font-size: 14px;
+}
+input {
+    font-size: 13px;
+}
+.importbtn {
+    position: relative;
+    left: 45%;
+    margin-top: 5px;
+    width: 158px;
+    height: 42px;
+    background: $danger 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    border-radius: 27px;
+    opacity: 1;
+    color: $white;
+    font-size: 13px;
+    // margin-bottom: 30px;
+}
+.crdate {
+    letter-spacing: 0px;
+    color: $gray-44;
+    opacity: 1;
+    margin: 0 10px 0 0;
+    font-size: 12px;
+}
+.create_date {
+    position: absolute;
+    right: 300px;
+    padding-top: 7px;
+}
+.start_date {
+    position: absolute;
+    right:60px;
+    padding-top: 7px;
+}
+.importicon {
+    height: 20px;
+    width: 17px;
+    margin: 0 10px 5px 0;
+}
+:host ::ng-deep .mat-radio-outer-circle{height: 18px !important;width: 18px !important;top: 2px !important;left: 1px !important;}
+:host ::ng-deep .mat-radio-inner-circle{transform: scale(0.4) !important;top: 1px !important;}
+:host ::ng-deep .mat-radio-container{height: 15px !important;}

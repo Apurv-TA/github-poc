@@ -1,0 +1,299 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";
+@import "~angular2-multiselect-dropdown/themes/default.theme.css";
+@import "theme.scss";
+@font-face {
+	font-family: 'Speedee_Bd';
+	src: url('../../src/assets/fonts/Speedee_Bd.eot');
+	src: local('☺'), url('../../src/assets/fonts/Speedee_Bd.woff') format('woff'),
+         url('../../src/assets/fonts/Speedee_Bd.ttf') format('truetype');
+        //  url('../../src/assets/fonts/Speedee_Bd.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Speedee_Rg';
+	src: url('../../src/assets/fonts/Speedee_Rg.eot');
+	src: local('☺'), url('../../src/assets/fonts/Speedee_Rg.woff') format('woff'),
+     url('../../src/assets/fonts/Speedee_Rg.ttf') format('truetype');
+    //   url('../../src/assets/Speedee_Rg.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+ 
+.mat-card,input,button,select,ul li{ font-family:'Speedee_Rg' !important;}
+th.mat-header-cell,h1,h2,h3,h4,h5,h6{ font-family:'Speedee_Bd';}
+body, td.mat-cell{margin: 0;font-family:'Speedee_Rg';}
+html, body { height: 100%; }
+html body { margin: 0; font-family:'Speedee_Rg';background: $secondary;height: 100%; }
+.mat-select-value-text {
+    color: $white !important;
+    padding: 4px 0 0 8px !important;
+    font-size: 13px !important;
+}
+
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+    border-bottom-style: dashed !important;
+    border-bottom-color: $app-border-color !important;
+     
+}
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: $primary !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-flex {
+    padding: 0 0 0 0.75em !important;
+}
+/*Job summary*/
+.jobSummary .mat-select-value-text {
+    color: $app-text-color !important;
+}
+/*Impact styles*/
+.highcharts-credits{
+    display: none;
+}
+.recommended_impact .mat-tab-body-wrapper{
+    margin-top: 20px;
+    border: 1px solid $app-border-color;
+    border-radius: 5px;
+    background: $secondary;
+    padding: 0 15px;
+}
+.recommended_impact .mat-tab-label{
+    opacity: 1;
+    font-size: 15px;
+}
+.recommended_impact .mat-tab-label-active{
+    font-weight: bold;
+    color: $primary;
+    
+}
+.recommended_impact .mat-primary .mat-ink-bar{
+    background-color: $primary;
+}
+.recommended_impact .segment_dropdown.mat-select{
+    width: 140px;
+    text-align: center;
+    margin: 10px 10px 10px 0;
+    border: 1px solid $app-border-color;
+    background: $secondary;
+    float: right;
+    font-size: 14px;
+    display: block;
+    border-radius: 5px;
+    color: $app-text-color;
+}
+.recommended_impact .mat-select-value-text,.scenarioname-container .mat-select-value-text{
+    color: $app-text-color !important;
+}
+
+/** Angular Multi Select DropDown */
+.selected-list .c-list .c-token {
+    background: $primary !important;
+}
+
+.pure-checkbox input[type="checkbox"]:checked + label:before {
+    background: $primary !important;
+}
+
+.pure-checkbox input[type="checkbox"]:focus + label:before, .pure-checkbox input[type="checkbox"]:hover + label:before {
+    border-color: $primary !important;
+    background-color: $secondary; 
+}
+
+.pure-checkbox input[type="checkbox"] + label:before {
+    color: $primary !important;
+    border: 1px solid $primary !important;;
+ }
+  
+  .pure-checkbox input[type="checkbox"] + label:after {
+    background-color: $primary !important; 
+}
+.cursorhand{
+    cursor: pointer;
+}
+.mat-column-start_date .mat-sort-header-container{
+    border-bottom: 0px !important ;
+}
+.mat-column-start_date .mat-form-field{
+    font-weight: 600;
+    border: 1px solid $app-border-color;
+    height: 36px;
+    margin-top: 6px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+.mat-column-start_date .mat-form-field-appearance-legacy .mat-form-field-wrapper{
+    padding-bottom: 0  !important;
+}
+.mat-column-start_date .mat-form-field-appearance-legacy .mat-form-field-underline
+,.mat-column-start_date .mat-form-field-ripple{
+    height: 0px !important;
+}
+.mat-column-start_date .mat-form-field-suffix,
+.scenarioname-container .start_date .mat-form-field-suffix{
+    width: 30px;
+}
+.mat-column-start_date .mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button .mat-icon,
+.scenarioname-container .start_date .mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button .mat-icon {
+    width: 20px;
+    padding: 6px 0 12px;
+}
+.mat-column-start_date input.mat-input-element{
+    font-size: 14px;
+    font-weight: normal;
+}
+.mat-option.mat-active {color: $primary !important;}
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow {color: $primary !important;}
+.mat-form-field.mat-focused .mat-form-field-ripple {background-color: $primary}
+::ng-deep .toast-container .ngx-toastr:hover{cursor: none !important;}
+.mat-calendar-abbr {text-decoration: none !important;cursor: unset !important;}
+.mat-calendar-body-selected {background-color: $primary;}
+.mat-calendar-body-in-range::before {background: $secondary;}
+.mat-icon-button .mat-button-focus-overlay {opacity: 0 !important;}
+.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {border-color: $primary;}
+
+
+.discount_planner.modal-open .cdk-overlay-container {
+     z-index: 1061 !important;
+}
+.discount_planner .modal-dialog{
+    max-width: 90% !important;
+}
+.discount_planner .modal-body .mat-form-field{ 
+    width: 95%;
+    height: 35px !important;
+   }
+.discount_planner .modal-body .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    padding: 0 !important;
+    height: 30px !important;
+    margin: 0 !important;
+}
+.discount_planner .modal-body  .mat-form-field-appearance-outline .mat-form-field-flex{
+    padding: 0 !important;
+}
+.discount_planner .modal-body  .mat-form-field-appearance-outline .mat-form-field-infix{
+    border-top: 0;text-align: right;
+    padding: 17px 10px 5px;
+}
+.discount_planner  .modal-body .error_discount_price  .dis_price .mat-form-field-appearance-outline .mat-form-field-outline-end,
+.discount_planner .modal-body .error_discount_price  .depth_price .mat-form-field-appearance-outline .mat-form-field-outline-end{
+    border-radius: 4px;
+    border: 1px solid $primary;
+
+}
+.discount_planner .modal-body  .error_discount_price .dis_price  .mat-form-field-appearance-outline .mat-form-field-outline-start
+,.discount_planner .modal-body  .error_discount_price .depth_price  .mat-form-field-appearance-outline .mat-form-field-outline-start
+{
+border: 0;
+min-width: 0;
+}
+.discount_planner .modal-body .readOnly.mat-form-field-appearance-outline .mat-form-field-outline{
+    background: $secondary;
+    border-radius: 4px;
+}
+.discount_planner .modal-body .discount_mech .c-btn span:first-child,
+.discount_planner .modal-body  .item .c-btn span:first-child,
+.discount_planner .modal-body .segment_drop .c-btn span:first-child{
+    white-space: nowrap;
+    padding-right: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.discount_planner .modal-body .c-remove c-icon,
+.editdisable .c-angle-down{
+    display: none;
+}
+.discount_planner .modal-body .selected-list .c-btn{
+font-size: 14px;
+}
+.discount_planner .modal-body  label{
+padding: 0;
+font-size: 14px;
+}
+.discount_planner .modal-body .save_yes:disabled{
+    cursor: not-allowed !important;
+}
+
+.issue_tracker .promo_select .ng-select .ng-select-container:after{display: none;}
+.issue_tracker .promo_select .ng-select.ng-select-single .ng-select-container .ng-arrow-wrapper{bottom: 27px;right: 3px;}
+.issue_tracker .promo_select .ng-select .ng-select-container .ng-value-container{ margin-top: -12px;padding-left: 8px;}
+.issue_tracker .promo_select span.ng-clear-wrapper {display: none;}
+.issue_tracker .promo_select .ng-dropdown-panel {margin-top: 20px;}
+.issue_tracker .promo_select .ng-select .ng-arrow-wrapper .ng-arrow{color:$primary}
+.issue_tracker .promo_select .ng-select.ng-select-focused .ng-select-container .ng-arrow-wrapper .ng-arrow{color:$primary !important}
+.issue_tracker .modal-content {width: 75%;margin-left: 64px;}
+.issue_tracker .mat-form-field-appearance-outline .mat-form-field-infix {padding: 0 !important;position: relative !important;bottom: 7px !important;}
+.issue_tracker .mat-form-field-appearance-outline .mat-form-field-flex {height: 35px;width: 240px;}
+.issue_tracker .mat-form-field-outline-thick{color: $secondary !important;}
+.issue_tracker .mat-form-field-flex{height: 35px;}
+.issue_tracker .mat-form-field-appearance-outline .mat-form-field-outline {background-color: $secondary;}
+.issue_tracker .mat-input-element {font-size: 13px !important; color: $gray-700;}
+/* Chrome, Safari, Edge, Opera */
+.dis_price input::-webkit-outer-spin-button,
+.dis_price input::-webkit-inner-spin-button {
+ -webkit-appearance: none;
+ margin: 0;
+}
+
+.impact_index .modal-content {width: 800px;height: 600px;position: relative;right: 156px;}
+
+.impact_index input[type=number] {
+ -moz-appearance: textfield;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.impact_index input::-webkit-outer-spin-button,
+.impact_index input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.impact_index .mat-form-field-appearance-outline .mat-form-field-flex {
+    padding: 0 0 0 2px !important;
+    height: 36px;
+    width: 150px;
+}
+.impact_index .mat-form-field {
+    height: 40px;
+}
+.impact_index .mat-button.mat-button-disabled.mat-button-disabled{
+cursor:not-allowed;
+color: $secondary;
+}
+
+.impact_index .mat-form-field-appearance-outline .mat-form-field-infix {padding: 0 !important;}
+
+/* Firefox */
+.impact_index input[type=number] {
+  -moz-appearance: textfield;
+}
+/* Firefox */
+.dis_price input[type=number] {
+ -moz-appearance: textfield;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width : 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $secondary; 
+  border-radius: 3px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $gray-600; 
+  border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $gray-700; 
+}

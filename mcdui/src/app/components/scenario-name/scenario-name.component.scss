@@ -1,0 +1,733 @@
+@import "../../../theme/theme.scss";
+
+.table thead th {
+    padding: 2px;
+    font-size: 13px;
+}
+
+:host ::ng-deep table thead tr th,
+:host ::ng-deep table tbody tr td {
+    padding: 0 !important;
+    // width: 100%;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+.clrblack {
+    color: $black;
+    display: inline-grid;
+    font-size: 13px;
+    text-align: left;
+}
+
+td.num{
+    text-align: right;
+    padding-right: 19px!important;
+}
+
+.tableLayout {
+    table-layout: fixed;
+    position: relative;
+}
+
+.scenario_name {
+    background: $light-red;
+    padding: 10px 0;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 20px;
+}
+
+.mat-icon {
+    color: $silver-1;
+}
+
+:host ::ng-deep th.mat-header-cell {
+    padding: 0;
+    border-top-width: 0 !important;
+    border-bottom-width: 1px;
+    border-bottom-style: dashed !important;
+    border-bottom-color: $gray-2 !important;
+}
+
+:host ::ng-deep td.mat-cell {
+    border-top-width: 1px;
+    border-bottom-width: 0 !important;
+    border-top-style: dashed !important;
+    border-top-color: $gray-2 !important;
+}
+
+:host ::ng-deep .scenarioname-container tr.mat-header-row {
+    height: auto;
+}
+
+:host ::ng-deep .scenarioname-container .mat-form-field {
+    width: 90% !important;
+}
+
+:host ::ng-deep .scenarioname-container .scenario_name .mat-form-field {
+    width: 100% !important;
+
+}
+
+:host ::ng-deep .form-control {
+    width: 95%;
+    padding: 0;
+    height: 32px;
+}
+
+:host ::ng-deep .selected-list .c-btn {
+    padding: 3px 10px 3px 3px;
+    height: 30px;
+    border: 0;
+    min-height: auto;
+}
+
+:host ::ng-deep .form-control.dropdown-duration {
+    width: 50%;
+    display: inline-block;
+    margin-top: 3px;
+}
+
+:host ::ng-deep .form-control.dropdown-duration .c-btn.disabled {
+    background: $white;
+}
+
+:host ::ng-deep .scenarioname-container .scenario_head .mat-form-field {
+    width: 50% !important;
+}
+
+:host ::ng-deep .scenarioname-container .scenario_head .mat-form-field.start_date {
+    width: 70% !important;
+}
+
+:host ::ng-deep .scenarioname-container .scenario_head .mat-form-field.searchBox {
+    width: 100% !important;
+    margin-top: 3px;
+}
+
+:host ::ng-deep .scenarioname-container td.mat-cell:first-of-type,
+:host ::ng-deep .scenarioname-container th.mat-header-cell:first-of-type {
+    padding-left: 5px;
+}
+
+:host ::ng-deep .scenarioname-container .mat-form-field-appearance-outline .mat-form-field-flex {
+    padding: 0 0 0 2px !important;
+    height: 36px;
+}
+
+:host ::ng-deep .scenarioname-container .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0px 5px 5px 2px !important;
+}
+
+:host ::ng-deep .scenarioname-container .mat-form-field-wrapper {
+    padding: 0px !important;
+}
+
+:host ::ng-deep .scenarioname-container .start_date .mat-form-field-suffix {
+    background: $danger;
+    border-radius: 5px;
+    height: 32px;
+    width: 30px;
+}
+
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background: $white;
+    border-radius: 4px;
+}
+
+:host ::ng-deep .readOnly.mat-form-field-appearance-outline .mat-form-field-outline {
+    background: $gray-9;
+    border-radius: 4px;
+}
+
+:host ::ng-deep .scenarioname-container .compTable .mat-form-field {
+    width: 40% !important;
+}
+
+.Btn1 {
+    margin-top: 35px;
+    min-width: 164px;
+    font-size: 13px;
+    height: 42px;
+    background: $danger 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    border-radius: 30px;
+    opacity: 1;
+    color: $white !important;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    line-height: 1px;
+}
+
+.Btn2 {
+    margin-top: 35px;
+    min-width: 164px;
+    font-size: 13px;
+    height: 42px;
+    border: 1px solid $red;
+    border-radius: 30px;
+    opacity: 1;
+    color: $danger !important;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    line-height: 1px;
+}
+
+.excel {
+    width: 17px;
+    margin-top: -10px;
+}
+
+.excel-card {
+    display: block;
+    cursor: pointer;
+}
+
+.startdt {
+    background: $white 0% 0% no-repeat padding-box;
+    border: 1px solid $gray-92;
+    border-radius: 3px;
+    opacity: 1;
+    // width: 200px;
+    // height: 29px !important;
+    font-size: 13px;
+    padding: 0;
+}
+
+:host ::ng-deep .c-remove,
+:host ::ng-deep .channel-disable-class .c-angle-down {
+    display: none;
+}
+
+::ng-deep .dropdown-list.tagToBody {
+    position: absolute;
+    top: 40px !important;
+    bottom: 0 !important;
+    left: auto !important;
+    width: 150px !important;
+    // width: auto !important;
+}
+
+:host ::ng-deep .dropdown-list {
+    position: absolute;
+    top: 40px !important;
+    bottom: 0 !important;
+    left: AUTO !important;
+    width: 7% !important;
+    // width: auto !important;
+}
+
+:host ::ng-deep .mat-column-discount_mechanic,
+:host ::ng-deep .mat-column-items {
+    width: 220px;
+}
+
+:host ::ng-deep .mat-column-discount_mechanic .c-btn span:first-child,
+:host ::ng-deep .mat-column-items .c-btn span:first-child {
+    white-space: nowrap;
+    padding-right: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+:host ::ng-deep .mat-column-geo {
+    width: 100px;
+}
+
+:host ::ng-deep .mat-column-discount_channel {
+    width: 130px;
+}
+
+.poniter {
+    cursor: pointer;
+}
+
+.compTable td {
+    width: 100px !important;
+}
+
+:host ::ng-deep .edit_available .c-btn,
+:host ::ng-deep .edit_available .form-control,
+:host ::ng-deep .edit_available .mat-form-field-appearance-outline .mat-form-field-outline-start,
+:host ::ng-deep .edit_available .mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border: 0;
+}
+
+:host ::ng-deep .edit_available .edit_head .c-btn,
+:host ::ng-deep .edit_available .edit_head .form-control,
+:host ::ng-deep .edit_available .edit_head .mat-form-field-appearance-outline .mat-form-field-outline-start,
+:host ::ng-deep .edit_available .edit_head .mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border: 1px solid $smoke-white;
+}
+
+:host ::ng-deep .edit_available .edit_head .mat-form-field-appearance-outline .mat-form-field-outline-start {
+    border-right: 0px solid $smoke-white;
+}
+
+:host ::ng-deep .edit_available .edit_head .mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-left: 0px solid $smoke-white;
+}
+
+:host ::ng-deep .mat-column-discount_depth .mat-form-field,
+:host ::ng-deep .mat-column-discount_price .mat-form-field,
+:host ::ng-deep .mat-column-depth .mat-form-field {
+    text-align: right;
+    padding-right: 17px;
+}
+
+:host ::ng-deep .scenarioname-container .mat-column-regular_price .mat-form-field-appearance-outline .mat-form-field-flex,
+:host ::ng-deep .scenarioname-container .mat-column-min_discount_price .mat-form-field-appearance-outline .mat-form-field-flex {
+    text-align: right;
+    padding-right: 7px !important;
+}
+
+:host ::ng-deep .scenarioname-container .compTable .mat-column-depth .mat-form-field {
+    width: 115px !important;
+}
+
+.save_yes {
+    background: $primary 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    color: $white;
+    padding: 10px;
+    display: inline-block;
+    max-width: 158px;
+    width: 17%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    text-decoration: none;
+    cursor: pointer;
+    border: 0;
+}
+
+.save_no {
+    background: $Suva-Grey 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    color: $white;
+    padding: 10px;
+    display: inline-block;
+    max-width: 158px;
+    width: 17%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    margin-left: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+:host ::ng-deep .mat-form-field .mat-select.mat-select-disabled .mat-select-arrow {
+    border: 0;
+}
+
+:host ::ng-deep .mat-form-field .mat-select .mat-select-value-text {
+    font-size: 13px !important;
+}
+
+:host ::ng-deep .mat-form-field .mat-select .mat-select-arrow {
+    transform: rotate(45deg);
+    border: solid $Eclipse;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 4px;
+    -webkit-transform: rotate(45deg);
+}
+
+:host ::ng-deep .mat-form-field-appearance-outline.newchannel .mat-form-field-infix {
+    padding: 2px 5px 5px 2px !important;
+}
+
+:host ::ng-deep .newchannel.mat-form-field-disabled .mat-form-field-infix {
+    background: $gray-9;
+    margin-top: 4px;
+    height: 34px;
+    border-radius: 4px;
+    padding: 9px 5px 5px !important;
+    border: 0;
+}
+
+:host ::ng-deep table th,
+:host ::ng-deep .selected-list .c-btn,
+:host ::ng-deep input.mat-input-element,
+h6,
+.scenario_head,
+.btn-cancel,
+:host ::ng-deep .dropdown-list label,
+:host ::ng-deep .list-filter input {
+    font-size: 13px !important;
+}
+
+.title {
+    letter-spacing: 0px;
+    color: $black;
+    opacity: 1;
+    margin: 10px 0 12px 20px;
+    font-size: 16px !important;
+    font-family: 'Speedee_Bd';
+
+}
+
+.leftarrow {
+    margin-top: -5px;
+}
+
+:host ::ng-deep .scenarioname-container .scenario_head .searchBox .mat-form-field-wrapper {
+    margin: 0 0;
+}
+
+:host ::ng-deep .scenarioname-container .scenario_name .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 10px 5px 5px 2px !important;
+    border: 0;
+}
+
+:host ::ng-deep table th {
+    padding-bottom: 10px;
+}
+
+:host ::ng-deep input[type=number]::-webkit-inner-spin-button,
+:host ::ng-deep input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+:host ::ng-deep .dropdown-list ul li {
+    padding: 5px;
+}
+
+:host ::ng-deep .mat-form-field-outline-thick {
+    color: $black !important;
+}
+
+.deleteIcon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 8px;
+}
+
+// .error_discount_price{
+//     background-color: #FFBF00;
+// }
+:host ::ng-deep .compTable .mat-form-field-appearance-outline.ng-invalid .mat-form-field-outline-end,
+:host ::ng-deep .edit_available .mat-form-field-appearance-outline.ng-invalid .mat-form-field-outline-end,
+:host ::ng-deep .error_discount_price .mat-column-discount_price .mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-radius: 4px;
+    border: 1px solid $red;
+
+}
+
+:host ::ng-deep .error_discount_price .mat-column-discount_price .mat-form-field-appearance-outline .mat-form-field-outline-start,
+:host ::ng-deep .compTable .mat-form-field-appearance-outline.ng-invalid .mat-form-field-outline-start,
+:host ::ng-deep .edit_available .mat-form-field-appearance-outline.ng-invalid .mat-form-field-outline-start {
+    border: 0;
+    min-width: 0;
+}
+
+:host ::ng-deep .mat-column-discount_depth .ng-invalid .mat-form-field-outline-thick {
+    color: $red !important;
+}
+
+.note {
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 14px;
+    width: 100%;
+    box-shadow: 0px 1px 2px $gray-31;
+    background: $white 0% 0% no-repeat padding-box;
+    padding: 10px;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.error_message {
+    font-size: 12px;
+    color: $red;
+    margin: 0;
+    font-style: italic;
+}
+
+.spacing {
+    position: relative;
+    top: 4px;
+}
+
+:host ::ng-deep .mat-button.mat-button-disabled.mat-button-disabled {
+    cursor: not-allowed
+}
+
+.tabelreq {
+    display: contents;
+}
+
+
+/**NEW**/
+.saveBtn:disabled {
+    cursor: not-allowed !important;
+}
+
+.saveBtn {
+    margin-top: 35px;
+    min-width: 164px;
+    font-size: 13px;
+    height: 42px;
+    background: $danger 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    border-radius: 30px;
+    opacity: 1;
+    color: $white !important;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    line-height: 1px;
+}
+
+.error-cell {
+    border: 2px solid $dark-red;
+    padding: 9px 22px 5px;
+    border-radius: 6px;
+    width: 61px;
+    display: inline-block;
+}
+
+.valid-cell {
+    padding: 9px 22px 5px;
+    border-radius: 6px;
+}
+
+.addScenario {
+    font-size: 14px;
+    color: $Amaranth;
+    text-decoration: none;
+}
+
+:host ::ng-deep .scenarioname-container .mat-paginator-container .mat-form-field-wrapper {
+    padding: 0px 0 16px !important;
+}
+
+:host ::ng-deep .scenarioname-container .mat-paginator-container .mat-form-field {
+    width: 64% !important;
+}
+
+:host ::ng-deep input.mat-input-element {
+    padding: 5px 0 0 5px;
+}
+
+:host ::ng-deep .mat-column-promomech_name,
+:host ::ng-deep .mat-column-item_name,
+:host ::ng-deep .mat-column-product_type,
+:host ::ng-deep .mat-column-channel{
+    padding-right: 15px !important;
+}
+
+:host ::ng-deep .mat-column-promomech_name {
+    width: 190px;
+}
+
+:host ::ng-deep tr[data-background=bg-danger] {
+    background-color: $red;
+}
+
+:host ::ng-deep tr[data-background=bg-danger] td {
+    color: $white;
+}
+
+.durationtext {
+    position: relative;
+    top: 13px;
+    float: left;
+}
+
+.durationedit {
+    position: relative;
+    top: 5px;
+}
+
+.errormsg {
+    font-size: 11px;
+    margin-top: 10px;
+}
+
+.duration {
+    background: $white 0% 0% no-repeat padding-box;
+    border: 1px solid $gray-92;
+    border-radius: 3px;
+    opacity: 1;
+    width: 50%;
+    height: 32px !important;
+    font-size: 13px;
+    padding: 6px 0 0 10px;
+    float: left;
+    margin-top: 4px;
+}
+
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
+    background: rgba(0, 0, 0, 0.12);
+    color: $primary;
+}
+
+input.form-control.margin.inline-block.ng-dirty.ng-touched.ng-invalid {
+    border-color: $red;
+}
+
+:host ::ng-deep .promo_select .ng-select .ng-select-container:after {
+    display: none;
+}
+
+:host ::ng-deep .promo_select .ng-select.ng-select-single .ng-select-container .ng-arrow-wrapper {
+    bottom: 31px;
+}
+
+:host ::ng-deep .promo_select .ng-select .ng-select-container .ng-value-container {
+    margin-top: -15px;
+}
+
+:host ::ng-deep .promo_select span.ng-clear-wrapper {
+    display: none;
+}
+
+:host ::ng-deep .promo_select .ng-dropdown-panel {
+    margin-top: 20px;
+}
+
+:host ::ng-deep .promo_select .ng-select .ng-arrow-wrapper .ng-arrow {
+    color: $primary
+}
+
+:host ::ng-deep .promo_select .ng-select.ng-select-focused .ng-select-container .ng-arrow-wrapper .ng-arrow {
+    color: $primary !important
+}
+
+.btn_update {
+    border: 0;
+    color: $Amaranth;
+    text-decoration: none;
+    font-size: 15px;
+    float: right;
+}
+
+.start-data {
+    width: 100px;
+
+    // margin-left: 18%;
+    .reset-default-wrapper {
+        margin: -0.25em 0 !important;
+
+        .mat-form-field-wrapper {
+            margin: 0 !important;
+        }
+    }
+}
+
+.form-input {
+    width: 90px;
+    height: 29px;
+}
+
+.date_picker {
+    position: relative;
+    bottom: 3px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.calicon {
+    background-color: $primary;
+    height: 29px !important;
+    border-radius: 3px;
+    width: 30px;
+    margin: 0 0 0 4px !important;
+    position: relative;
+    bottom: 1px;
+}
+
+.filstdate {
+    position: relative;
+    bottom: 14px;
+}
+
+.discount_planner .modal-body .mat-form-field-appearance-outline .mat-form-field-infix {
+    // width: 100px !important;
+    padding-right: 0px !important;
+}
+
+.prodcat {
+    // width: 282px;
+    height: 30px !important;
+    background: $white 0% 0% no-repeat padding-box;
+    border: 0px solid $gray-92;
+    border-radius: 3px;
+    opacity: 1;
+    padding: 0;
+    font-size: 12px;
+}
+
+.form-element {
+    // padding-right: 20px;
+    margin-right: 3%;
+
+    .form-label {
+        padding-right: 8px;
+
+        label {
+            color: $gray-44;
+            margin-bottom: 0;
+            font-size: 13px;
+        }
+    }
+
+    .form-input {
+        width: 120px;
+        height: 29px;
+    }
+
+    .start-data {
+        width: 156px;
+        margin-left: 18%;
+
+        .reset-default-wrapper {
+            margin: -0.25em 0 !important;
+
+            .mat-form-field-wrapper {
+                margin: 0 !important;
+            }
+        }
+    }
+
+    .package-id {
+        input {
+            height: 31px;
+            border-radius: 3px;
+            font-size: 13px;
+            width: 124%;
+        }
+    }
+
+    .package-name {
+        input {
+            height: 31px;
+            border-radius: 3px;
+            font-size: 13px;
+            width: 148%;
+        }
+    }
+}
+
+.check {
+    // width: 135% !important;
+}
+
+.pop_up{
+    padding-left:50px;
+}
+
+::ng-deep .tableLayout .dis_channel .c-btn .ng-star-inserted {
+    white-space: nowrap !important;
+    // padding-right: 10px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}

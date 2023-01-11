@@ -1,0 +1,128 @@
+/*
+ * Application global variables.
+ */
+
+// Set Font Awesome font path
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+
+// ---------------------------------------------------------------------------
+// Bootstrap variables
+//
+// Override Bootstrap variables here to suite your theme.
+// Copy variables you want to customize from node_modules/bootstrap/scss/_variables.scss
+
+@import "~bootstrap/scss/functions";
+
+//
+// Color system
+//
+
+$white: #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$gray-93: #EDEDED;
+$gray-92: #EBEBEB;
+$gray-97: #F7F7F8;
+$gray98: #fafafa;
+$gray-44:#707070;
+$gray-31: #4f4f4f29;
+
+$gray-1: #ddd;
+$gray-2: #B9B9B9;
+$gray-3: #7F7F7F;
+$gray-4: #999999; // Gray
+$gray-5: #eee;
+$gray-101:#6c757d;
+$gray-102:#8E8E8E;
+$gray-103:#555;
+$gray-104:#ccc;
+$gray-105:#888;
+
+$colour-1:#b8aeae;
+$gray-6: #676767;
+$gray-7: #6c757d;
+$gray-8: #888;
+$gray-9: #ccc;
+
+$Davy-grey: #555;
+$Suva-Grey: #8E8E8E;
+$nevada: #6F7070;
+
+$silver-1: #c1c1c1;
+
+$Eclipse: #383838;
+
+$black: #000;
+
+$blue: #175384;
+$indigo: #6610f2;
+$purple: #6f42c1;
+$pink: #e83e8c;
+$red: rgb(192, 82, 104);
+$orange: #fd7e14;
+$yellow: #be8f04;
+$green: #089769;
+$teal: #20c997;
+$cyan: #17a2b8;
+$dark-red:#ff0000;
+
+$primary: rgb(229, 1, 1);
+$secondary: $gray-100;
+$success: #089769;
+$info: $cyan;
+$warning: rgb(229, 1, 1);
+$danger: hsl(358, 100%, 43%);
+$light: $white;
+$dark: $black;
+$red: #FF0000;
+$light-red: #f0f0f0;
+$dark-red: #f44336;
+$Amaranth: #dc3545;
+
+$theme-colors: (
+  primary: $primary,
+  secondary: $secondary,
+  success: $success,
+  info: $info,
+  warning: $warning,
+  danger: $danger,
+  light: $light,
+  dark: $dark,
+);
+
+$bg-success: #e5fff2;
+$bg-danger: #fdeaee;
+$bg-warning: #fff4d3;
+$bg-default: #e7e3e4;
+$border-color: #ced4da;
+$search-icon-color: #a3a3a3;
+$loader-color: #363333;
+$loader-background: #e6e6e6;
+$spinner-border-width-sm: 0.1em;
+$box-shadow: #00000029;
+$smoke-white: #EFEFEF;
+$warm-white: #f1f1f1;
+$strong-red: rgb(230, 13, 13);
+$black-mana: #868686;
+$gainsboro: #dcdcdc;
+$safetyOrange: #FF6702;
+
+
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+$app-text-color: $black;
+$app-border-color: $gray-400;
+$mcd-text-color: #FFBC0D;
+$scroll-track-bg: $gray-100;
+$scroll-thumb-bg: $blue;
+$scroll-thumb-hover-bg: $blue;
+$error-highlight: #fbe3e4;
+$warning-highlight: $bg-warning;

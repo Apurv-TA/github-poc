@@ -1,0 +1,127 @@
+.container__row_help {
+    box-shadow: 0px 1px 2px #00000029;
+    border: 1px solid #EDEDED;
+    border-radius: 12px 0 0 12px;
+    background: #fff;
+    border-right: 0;
+}
+.back__arow{
+    display: flex;align-items: center;margin-top: 10px;cursor: pointer;
+}
+.help__cont__box {
+    padding: 20px;
+    border-bottom: 1px solid #EDEDED;
+}
+img.faq__image {
+    margin-right: 10px;
+    margin-top: -4px;
+    position: relative !important;
+    top: 24px;
+
+}
+h5.help__title {
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "Speedee_Rg";
+    color: #000000;
+    position: relative;
+}
+.box__content h6 {
+    color: #3C3C3C;
+    font-size: 16px;
+    font-family: "Speedee_Rg";
+}
+.box__content { padding-left: 50px;}
+.box__content p {
+    color: #3C3C3C;
+    font-size: 14px;
+    opacity: 0.5;
+}
+.box__content h6 {margin-bottom: 0;margin-top: 20px;}
+h5.help__title:after {
+    content: "";
+    position: absolute;
+    width: 44px;
+    height: 3px;
+    background: #FFBC0D;
+    bottom: -4px;
+    left: 0;
+}
+a.faq_download_btn {
+    color: #DB0006;
+    font-size: 13px;
+    font-family: "Speedee_Rg";
+    // margin-right: 15px;
+    cursor: pointer;
+    text-decoration: none;
+}
+p.mat__des {font-size: 14px;}
+span.back__text {
+    margin-top: 7px;
+    font-size: 20px;
+    font-family: "Speedee_Rg";
+}
+.card{
+    border-radius: 14px;
+    // width: 310px;
+    // margin-top: 10%;
+    box-shadow: 0px 1px 2px #00000029;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    height: 400px;
+    padding: 0;
+    // cursor: pointer;
+}
+
+.title {
+    font-size: 18px;
+    position: relative;
+    top: 15px;
+    text-align: center;
+}
+.faq {
+    margin-top: 20px;
+    font-size: 14px;
+}
+.faqans {
+    font-size: 15px;
+}
+.cursor {
+    cursor: pointer;
+}
+.padding {
+    padding-left: 0;
+}
+.bgcolor {
+    height: 160px;
+    width: 100%;
+    background-color: #FFBC0D;
+    color: #fff;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+.faqimg {
+    height: 60px;
+    width: 60px;
+    margin: 7% 0 0 41%;
+}
+.faqcontent {
+    margin: 5% 0 0 3%;
+}
+.contactemail {
+    font-size: 14px;
+}
+.cardleft {
+    margin: 0 0 0 26%;
+}
+.termscontent {
+    width: 70%;
+    margin-left: 15%;
+    text-align: justify;
+}
+.left {
+    padding: 0;
+}
+
+td{
+    padding-left: 10px;
+}

@@ -1,0 +1,358 @@
+@import "../../../../theme/theme.scss";
+
+/* RUSSIA LANG START  */
+::ng-deep .russia h4.title {
+    font: normal normal normal 18px/13px Speedee !important;
+    font-family: 'Speedee_Rg';
+}
+
+::ng-deep .russia .lang_select {
+    margin-top: 10px;
+}
+
+/* RUSSIA LANG END */
+
+a.profile_box {
+    color: $black;
+}
+
+.home_icon {
+    filter: brightness(0);
+}
+
+li.active .home_icon {
+    filter: brightness(5);
+}
+
+li.active a {
+    color: $primary !important;
+}
+
+.firstClass {
+    color: $primary !important;
+}
+
+.secondClass {
+    color: $black !important;
+}
+
+div#top_navbar {
+    background: $white;
+    padding: 10px;
+    border-bottom: 4px solid $mcd-text-color;
+    height: 60px;
+    box-shadow: 0px 3px 5px $box-shadow;
+}
+
+.topbar_row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $black;
+    margin-top: 2px;
+}
+
+:host ::ng-deep .Russia .russia {
+    margin-top: 10px !important;
+}
+
+app-root [dir='English'] .logo_container h4.title :before {
+    content: "";
+    position: absolute;
+    left: -12px;
+    height: 21px;
+    width: 1px;
+    background: $black;
+    top: -2px !important;
+}
+
+ul.top_menu li {
+    display: inline;
+    padding: 0 12px;
+    // margin: 0 0 0 20px;
+}
+
+ul.top_menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+}
+
+.lang_select ul li {
+    display: block;
+}
+
+.lang_select ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-left: 37px;
+}
+
+.logo_container h4 {
+    margin: 0;
+}
+
+// .profile img {margin-top: -4px;}
+ul.top_menu li a {
+    color: $black;
+    text-decoration: none;
+    font-weight: 500;
+    font: normal normal normal 16px/20px;
+    letter-spacing: 0px;
+    opacity: 1;
+}
+
+.logo_container h4.title {
+    position: relative;
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+.logo_container h4.title:before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    height: 26px;
+    width: 1px;
+    background: $black;
+    top: -2px;
+    font: normal normal normal 18px/13px Speedee;
+    font-family: 'Speedee_Rg';
+}
+
+.profile_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    // width: 100%;
+    max-width: 385px;
+    // margin-top: 20px;
+}
+
+a.profile_box h5 {
+    display: flex;
+    align-items: center;
+}
+
+.username {
+    padding: 0px 0 0 15px;
+    white-space: nowrap;
+    margin-right: 2px;
+}
+
+.user {
+    // margin-left: 10px;
+    cursor: pointer;
+    // margin-top: 1px;
+    font-size: 15px;
+}
+
+.font {
+    font-size: 15px;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.disableAnchor{
+    pointer-events: none;
+}
+
+.wrapper {
+    cursor: not-allowed !important;
+    opacity: .65;
+}
+
+.rightborder {
+    padding: 1px 15px 0px 15px;
+    border-right: 2px solid;
+}
+
+a.profile_box .mat-icon {
+    margin-right: 10px;
+}
+
+// .profile_container a:after {
+//     content: "";
+//     position: absolute;
+//     right: -12px;
+//     top: 4px;
+//     width: 1.3px;
+//     height: 20px;
+//     background: $black;
+// }
+.profile_container a:last-child:after {
+    display: none;
+}
+
+.profile_container a {
+    position: relative;
+}
+
+ul.top_menu li.active,
+ul.top_menu li {
+    position: relative;
+}
+
+ul.top_menu li.active:after,
+ul.top_menu li:hover::after {
+    content: "";
+    position: absolute;
+    // background: #fdfdff;
+    width: 100%;
+    height: 4px;
+    left: 0;
+    bottom: -21px;
+}
+
+ul.top_menu li:hover::after {
+    bottom: -26px;
+}
+
+:host ::ng-deep .lang_select .mat-form-field-underline {
+    display: none !important;
+}
+
+:host ::ng-deep .lang_select .mat-form-field-appearance-fill .mat-form-field-infix {
+    padding: 0%;
+}
+
+:host ::ng-deep .lang_select .mat-form-field-infix {
+    border-top: 0;
+}
+
+:host ::ng-deep .lang_select .mat-form-field-appearance-fill .mat-form-field-flex {
+    padding-top: 0;
+}
+
+.lang_select {
+    width: 100px;
+}
+
+:host ::ng-deep .lang_select .mat-form-field {
+    width: 100%;
+    width: 100%;
+    background: $white;
+    height: 35px;
+    padding: 10px 0;
+    border-radius: 10px;
+}
+
+:host ::ng-deep .lang_select .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+    transform: translateY(0%);
+}
+
+:host ::ng-deep .lang_select .mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex {
+    background: transparent;
+}
+
+:host ::ng-deep .btn-primary {
+    color: $black;
+    background-color: $white;
+    border-color: $white;
+}
+
+:host ::ng-deep .btn-primary:hover {
+    color: $black;
+    background-color: $white;
+    border-color: $white;
+}
+
+:host ::ng-deep .btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+    color: $black;
+    background-color: $white;
+    border-color: $white;
+}
+
+:host ::ng-deep .btn-primary.focus,
+.btn-primary:focus {
+    color: $black;
+    background-color: $white;
+    border-color: $white;
+    box-shadow: none;
+}
+
+:host ::ng-deep .dropdown-menu {
+    width: auto;
+    margin: 0 0 0 -113px
+}
+
+:host ::ng-deep .btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: none;
+}
+
+.mobile_menu_list {
+    margin: 0;
+    padding: 0;
+    background: $white;
+    position: absolute;
+    left: 0;
+    width: 88%;
+    right: 0;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+ul.top_menu_menu {
+    padding: 0;
+}
+
+.menu_icon {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.mobile_menu_list ul li a {
+    color: $primary;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 18px;
+}
+
+.menu_icon {
+    display: none;
+}
+
+
+
+/* MOBILE RESPONSIVE START */
+@media only screen and (max-width:580px) {
+    .profile_container_mobile {
+        margin-top: 7px;
+    }
+
+    .menu_icon {
+        display: block;
+    }
+
+    .logo_container h4.title {
+        display: none;
+    }
+
+    .profile_container {
+        display: none !important;
+    }
+
+    ul.top_menu {
+        display: none !important;
+    }
+
+    .mobile_menu_list {
+        z-index: 9999 !important;
+    }
+}

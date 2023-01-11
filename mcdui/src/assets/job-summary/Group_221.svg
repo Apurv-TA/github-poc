@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="156" height="32" viewBox="0 0 156 32">
+  <g id="Group_221" data-name="Group 221" transform="translate(-624.113 -669.271)">
+    <path id="Path_294" data-name="Path 294" d="M20.734,0H135.266C146.717,0,156,7.163,156,16s-9.283,16-20.734,16H20.734C9.283,32,0,24.837,0,16S9.283,0,20.734,0Z" transform="translate(624.113 669.271)" fill="#e50101"/>
+    <g id="Group_222" data-name="Group 222" transform="translate(632.535 677.271)">
+      <text id="CONFIGURE_PROMO" data-name="CONFIGURE PROMO" transform="translate(55 12)" fill="#fff" font-size="12" font-family="Speedee-Regular, Speedee"><tspan x="-55" y="0">CONFIGURE PROMO</tspan></text>
+      <g id="Group_167" data-name="Group 167" transform="translate(135.374 11.578) rotate(-90)">
+        <line id="Line_98" data-name="Line 98" x1="3.636" y1="3.579" transform="translate(0 0)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1"/>
+        <line id="Line_99" data-name="Line 99" y1="3.505" x2="3.52" transform="translate(3.636 0.074)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,382 @@
+<div class="container-fluid">
+    <div class="row">
+        <section class="d-flex justify-content-between w-100 header-area">
+            <div>
+                <p class="heading">Feed Selection</p>
+            </div>
+        </section>
+
+        <section class="d-flex w-100 filters">
+            <div class="d-flex form-element align-items-center">
+                <div class="form-input package-name">
+                    <input type="text" class="form-control" name="scenarioID" [(ngModel)]="scenarioID" placeholder="ID">
+                </div>
+            </div>
+
+
+            <div class="d-flex form-element align-items-center">
+                <div class="form-input package-name">
+                    <input type="text" class="form-control" name="scenarioName" [(ngModel)]="scenarioName"
+                        placeholder="Name">
+                </div>
+            </div>
+
+
+
+            <div class="d-flex form-element align-items-center">
+                <div class="form-input start-data">
+                    <mat-form-field class="w-100 reset-default-wrapper" appearance="outline">
+                        <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker1" class="date_picker"
+                            (dateChange)="start_Dt($event)" [(ngModel)]="stDate" placeholder="Start Date" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker1">
+                            <mat-icon matDatepickerToggleIcon class="calicon filstdate">
+                                <img src="assets/offer-configuration/dateicon.png" style="margin-top: -10px;">
+                            </mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="d-flex form-element align-items-center">
+                <div class="form-input">
+                    <angular2-multiselect class="form-control prodcat" [(ngModel)]="geo"
+                        [settings]="geodropdownSettings" [data]="geoData" (onSelect)="onGeoSelect($event)"
+                        (onSelectAll)="onGeoSelectAll($event)" (onDeSelect)="onGeoDeSelect($event)"
+                        (onDeSelectAll)="onGeoDeSelectAll($event)" placeholder="Geo">
+                    </angular2-multiselect>
+                </div>
+            </div>
+
+
+            <div class="d-flex form-element align-items-center">
+                <div class="form-input">
+                    <angular2-multiselect class="form-control prodcat" [(ngModel)]="promoType"
+                        [settings]="promodropdownSettings" [data]="promoTypeData" (onSelect)="onPromoSelect($event)"
+                        (onSelectAll)="onSelectAll($event)" (onDeSelect)="onpromoDeSelect($event)"
+                        (onDeSelectAll)="onDeSelectAll($event)" placeholder="Promo Type">
+                    </angular2-multiselect>
+
+                </div>
+            </div>
+
+            <div class="form-action">
+                <button type="button" (click)="filterDTO()" class="btn btn-outline-danger ftr_btn"><img
+                        src="assets/job-summary/sliders.svg"
+                        style="margin-top: -5px; margin-right: 5px">{{'lang.scenario_planner.filter'
+                    | translate}}</button>
+                <button type="button" (click)="resetFilter()" class="btn btn-outline-danger reset_btn"><img
+                        src="assets/job-summary/clockcounterclockwise.svg"
+                        style="margin-top: -5px; margin-right: 5px;">{{'lang.scenario_planner.reset' |
+                    translate}}</button>
+            </div>
+        </section>
+        <mat-card class="offercard">
+
+            <h6 class="segment-label col-md-8">{{'lang.scenario_compare.scenario_name_note' | translate}}
+                <span class="text-danger">*</span>
+            </h6>
+            <h6 class="segment-label col-md-8">{{'lang.scenario_compare.scenario_selection_note_expand' | translate}}
+                <span class="text-danger">*</span>
+            </h6>
+            <table mat-table [dataSource]="dataSource" class="w-100" matSort (matSortChange)="getSortedData($event)">
+                <!-- segment ID Column -->
+                <ng-container matColumnDef="scenario_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="thscen thborder">
+                        <b class="clrblack">{{'lang.scenario_compare.scenario_name' | translate}}</b>
+                    </th>
+                    <td mat-cell *matCellDef="let row;let i= index" colspan="8">
+                        <mat-accordion multi="false" class="example-headers-align">
+                            <!-- #enddocregion multi -->
+                            <mat-expansion-panel multi [expanded]='OpenState[i]' (opened)="expandedDataSource(row.offers,i);" (closed)="panelOpenState = false"
+                                hideToggle="true">
+                                <mat-expansion-panel-header class="pad">
+                                    <mat-panel-title (click)="$event.stopPropagation()">
+                                        <mat-radio-button (click)="$event.stopPropagation()"
+                                            (change)="scenarioChange(row,$event)" [checked]="selection.isSelected(row)"
+                                            class="checkalign" style="margin-top: -8px;">
+                                        </mat-radio-button>
+                                        <span class="count" style="width: 290px;padding-top: -5px; padding-left: 5px;">
+
+                                            <b class="scenario"
+                                                (click)="scenaioResult(row.scenario_id, row.scenario_name)"
+                                                style="color: red; opacity: 0.8; margin-bottom: 8px;">{{row.scenario_name}}</b>
+
+                                        </span>
+
+                                        <span class="count" style="width: 80px; padding-right: 16px">
+                                            <p class="scenario_id m-0">{{row.scenario_id}}</p>
+                                        </span>
+                                        <span class="count" style="width: 95px; padding-right: 20px">
+
+                                            <p class="no_of_promos m-0">{{row.no_of_promos}}</p>
+                                        </span>
+                                        <span class="count" style="width: 220px;">
+
+                                            <p class="start_date_table m-0">
+                                                {{row.start_date | datePipeCustom}} - {{row.end_date | datePipeCustom}}
+                                            </p>
+                                        </span>
+                                        <span class="count" style="width: 192px;">
+
+                                            <ng-container *ngFor="let geo of row.geo.slice(0,1)">
+                                                <p class="geo m-0">{{geo | shorten}}
+                                                    <a class="showmore"
+                                                        (click)="$event.stopPropagation(); showCoopTableModel(coopTableData,row.offers);"
+                                                        *ngIf="row.geo[0].length>10">Show
+                                                        More...</a>
+                                                </p>
+                                            </ng-container>
+                                        </span>
+                                        <span class="count" style="width: 120px;">
+
+                                            <p class="channel m-0">{{row.channel}}</p>
+                                        </span>
+                                        <span class="count" style="width: 100px;">
+
+                                            <p class="promo_type m-0">{{row.promo_type}}</p>
+                                        </span>
+                                        <span class="count">
+
+                                            <p class="last_updated m-0">{{row.modified_at | datePipeCustom}}</p>
+                                        </span>
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        <span class="material-icons open icon">add</span>
+                                        <span class="material-icons close icon">remove</span>
+                                    </mat-panel-description>
+
+                                </mat-expansion-panel-header>
+
+                                <div>
+                                    <div class="tablescroll">
+                                        <ng-container *ngIf="row.offers != []">
+                                            <table mat-table [dataSource]="expDataSource" matSort #empTbSort="matSort" (matSortChange)="innersort($event)">
+
+                                        <ng-container matColumnDef="start_date">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="subHeader"> {{'lang.scenario_compare.start_date' |
+                                                translate}} </th>
+                                            <td mat-cell *matCellDef="let element" class="subHeaderTableData">
+                                                {{element.start_date | datePipeCustom}} - {{element.end_date | datePipeCustom}}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="duration">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="subHeader"> {{'lang.scenario_compare.duration' |
+                                                translate}} </th>
+                                            <td mat-cell *matCellDef="let element" class="subHeaderTableData text-right">
+                                                {{element.duration}}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="coop">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="subHeader"> {{'lang.scenario_compare.coop' |
+                                                translate}} </th>
+                                            <td mat-cell *matCellDef="let element" class="subHeaderTableData">
+                                                {{element.coop}}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="channel">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="subHeader"> {{'lang.scenario_compare.channel' |
+                                                translate}} </th>
+                                            <td mat-cell *matCellDef="let element" class="subHeaderTableData">
+                                                {{element.channel}}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="promo_type">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="subHeader"> {{'lang.scenario_compare.promo_type' |
+                                                translate}} </th>
+                                            <td mat-cell *matCellDef="let element" class="subHeaderTableData">
+                                                {{element.promo_type}}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="dis_mech_desc">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="subHeader"> {{'lang.scenario_compare.dis_mech_desc' |
+                                                translate}} </th>
+                                            <td mat-cell *matCellDef="let element" class="subHeaderTableData">
+                                                {{element.dis_mech_desc}}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="offer_desc">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="subHeader"> {{'lang.scenario_compare.offer_desc' |
+                                                translate}} </th>
+                                            <td mat-cell *matCellDef="let element" class="subHeaderTableData">
+                                                {{element.offer_desc}}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="offer_price">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="subHeader"> {{'lang.scenario_compare.offer_price' |
+                                                translate}} </th>
+                                            <td mat-cell *matCellDef="let element" class="subHeaderTableData text-right">
+                                                {{element.offer_price | number: '1.0-2'}}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="discount_depth">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="subHeader"> {{'lang.scenario_compare.discount_depth' |
+                                                translate}} </th>
+                                            <td mat-cell *matCellDef="let element" class="subHeaderTableData text-right">
+                                                {{element.discount_depth | number: '1.0-2' | round }}
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsSub" class="stickyHeaderOnScroll"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumnsSub;"></tr>
+                                        </table>
+                                        </ng-container>
+                                    </div>
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </td>
+                </ng-container>
+
+                <!-- scenario ID Column -->
+                <ng-container matColumnDef="scenario_id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="thscid thborder"> <b
+                            class="clrblack">{{'lang.scenario_compare.scenario_id' | translate}}</b> </th>
+                    <td mat-cell *matCellDef="let row">
+                        {{row.scenario_id}}
+                    </td>
+                </ng-container>
+                <!-- No.of Promos Column -->
+                <ng-container matColumnDef="no_of_promos">
+                    <th mat-header-cell *matHeaderCellDef class="thnop thborder"> <b class="clrblack text-right">{{'No
+                            Of Promos' | translate}}</b> </th>
+                    <td mat-cell *matCellDef="let row">
+                        {{row.no_of_promos}}
+                    </td>
+                </ng-container>
+
+                <!-- GC Column -->
+
+                <ng-container matColumnDef="start_date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="thstdate thborder"> <b
+                            class="clrblack text-right">{{'lang.jobsummary.start' | translate}}</b> </th>
+                    <td mat-cell *matCellDef="let row"> {{row.start_date}}</td>
+                </ng-container>
+
+                <!-- UG Column -->
+                <ng-container matColumnDef="geo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="thgeo thborder"> <b
+                            class="clrblack text-right">{{'lang.jobsummary.geoName' | translate}}</b>
+                    </th>
+                    <td mat-cell *matCellDef="let row"> {{row.geo}}</td>
+                </ng-container>
+
+                <!-- Avg Check Column -->
+                <ng-container matColumnDef="channel">
+                    <th mat-header-cell *matHeaderCellDef class="thchannel thborder"> <b
+                            class="clrblack text-right">{{'lang.jobsummary.channel' | translate}}</b> </th>
+                    <td mat-cell *matCellDef="let row"> {{row.channel}}</td>
+                </ng-container>
+
+                <!-- GP Change Column -->
+                <ng-container matColumnDef="promo_type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="thptype thborder"> <b
+                            class="clrblack text-right">{{'lang.jobsummary.promoType' | translate}}</b> </th>
+                    <td mat-cell *matCellDef="let row"> {{row.promo_type}}</td>
+                </ng-container>
+
+                <!-- Net Sales Column -->
+                <ng-container matColumnDef="modified_at">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="thlupd thborder"> <b
+                            class="clrblack text-right">{{'lang.jobsummary.last' | translate}}</b> </th>
+                    <td mat-cell *matCellDef="let row">{{row.modified_at}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsD;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell center" colspan="8">{{'lang.jobsummary.nodata' | translate}}</td>
+                </tr>
+            </table>
+            <mat-paginator class="paginator--right" #paginator [length]="count" (page)="pageEvent($event)"
+                [pageSize]="limit" [pageIndex]="pageIndex" [pageSizeOptions]="[5,10,20]" [showFirstLastButtons]="true">
+            </mat-paginator>
+            <button mat-button color="warn" class="importbtn" [disabled]="downloadbtn"
+                (click)="scenarioDownload()">{{'DOWNLOAD' | translate}}</button>
+        </mat-card>
+    </div>
+    <ng-template #coopTableData let-modal>
+        <div class="modal-header">
+            <!-- <h5 class="modal-title" id="modal-basic-title">Geo List</h5> -->
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body prodscroll">
+            <div class="datatable">
+                <table mat-table [dataSource]="gList" matSort (matSortChange)="getSortedData($event)">
+                    <ng-container matColumnDef="coop_name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="pl-2 offerwidth pr-2"> <b
+                                class="clrblack">{{'lang.jobsummary.geoName' | translate}}</b> </th>
+                        <td mat-cell *matCellDef="let row" class="offerData">
+                            {{row.coop}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="promo_type">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="pl-2 offerwidth pr-2"> <b
+                                class="clrblack">{{'lang.jobsummary.promoType' | translate}}</b> </th>
+                        <td mat-cell *matCellDef="let row" class="offerData">
+                            {{row.promo_type}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="start_date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="pl-2 offerwidth pr-2"> <b
+                                class="clrblack">{{'lang.jobsummary.start' | translate}}</b> </th>
+                        <td mat-cell *matCellDef="let row" class="offerData">
+                            {{row.start_date}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="duration">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="pl-2 offerwidth pr-2"> <b
+                                class="clrblack">{{'lang.jobsummary.duration' | translate}}</b> </th>
+                        <td mat-cell *matCellDef="let row" class="offerData">
+                            {{row.duration}} {{row.duration != 1? 'weeks': 'week'}}
+                        </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="geosDisplayColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: geosDisplayColumns;"></tr>
+                </table>
+            </div>
+            <!-- <pre>{{itemList | json}}</pre> -->
+            <!-- <ul class="listborder"> -->
+            <!-- <h6 class="product">{{prod.categoryname}}</h6> -->
+            <!-- <li class="items" *ngFor="let item of itemList">
+              {{item}}
+            </li>
+          </ul> -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+        </div>
+    </ng-template>
+    <ng-template #promomechPopup let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">{{PopUpHeading}}</h5>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            {{PopUpValue}}
+        </div>
+        <div class="modal-footer">
+            <!-- <a type="button" class="submit_btn" (click)="Save()">Yes</button> -->
+            <a class="save_yes" (click)="cancelDismis()">{{'lang.popup.Ok' | translate}}</a>
+        </div>
+    </ng-template>
+</div>

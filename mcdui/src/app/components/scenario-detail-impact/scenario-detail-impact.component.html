@@ -1,0 +1,46 @@
+<div class="container-fluid recommended_impact">
+    <div class="row">
+        <div class="col-md-6 left-align">
+
+            <img src="assets/offer-configuration/left-arrow.png" (click)="redirectToOffer()" class="leftarrow"
+                alt="Back" style="cursor: pointer;">
+            <h6 class="title" (click)="redirectToOffer()">{{'lang.discount_config.titleimpact' | translate}}&nbsp;
+                {{packageName}}</h6>
+        </div>
+        <div class="col-md-6">
+            <div class="excel_btn_container"
+                [ngClass]="(!graphShow)?'position-relative text-right':'position-absolute text-right'">
+                <i class="fa fa-file-excel-o excel text-success" aria-hidden="true"
+                    [ngClass]="(graphShow)?'d-inline':'d-none'"></i>
+                <h6 class="excelcont" [ngClass]="(graphShow)?'d-inline':'d-none'" (click)="exportDownloadDto()">
+                    {{'lang.rec_discount.excel_scenario' |
+                    translate}}</h6>
+                <div class="select_grid">
+                    <i class="fa fa-line-chart" [ngClass]="(!graphShow)?'graph_active':'graph_inactive'"
+                        (click)="showGraph()" aria-hidden="true"></i>
+                    <i class="fa fa-table" [ngClass]="(graphShow)?'graph_active':'graph_inactive'" (click)="showTable()"
+                        aria-hidden="true"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row pt-5">
+        <div class="col-md-12 table-align">
+
+            <!-- To show table -->
+            <mat-tab-group mat-stretch-tabs [(selectedIndex)]="tabIndex" (selectedTabChange)="changeTab($event)">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <span>{{'lang.discount_config.byprod' | translate}}</span>
+                    </ng-template>
+                    <app-scenario-impact-byproduct *ngIf="tabIndex === 1 && graphShow"></app-scenario-impact-byproduct>
+                    <app-scenario-impact-graph *ngIf="tabIndex === 1 && !graphShow" [graphData]="graphData">
+                    </app-scenario-impact-graph>
+
+                </mat-tab>
+            </mat-tab-group>
+
+        </div>
+    </div>
+</div>

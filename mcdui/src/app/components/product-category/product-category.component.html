@@ -1,0 +1,150 @@
+
+<div class="row m-0 p-0">
+    <div class="col-md-6 m-0 p-0 drop_down_cont">
+        <div class="select_cont m-0 p-0">
+            <span class="impact_title_1">{{'lang.discount_config.region' | translate}}</span>
+            <ng-select class="form-control" class="form-control startdt" (ngModelChange)="geoChangeEvent($event)"
+                [(ngModel)]="selectedGeoValue">
+                <ng-option *ngFor="let val of coopDropdownList" [value]="val">
+                    {{val}}
+                </ng-option>
+
+
+            </ng-select>
+        </div>
+    </div>
+
+    <div class="col-md-6 m-0 p-0 drop_down_cont">
+        <div class="select_cont kpi_select m-0 p-0">
+            <span class="impact_title_2">{{'lang.discount_config.kpiType' | translate}}</span>
+            <ng-select class="form-control" class="form-control startdt" (ngModelChange)="kpiChangeEvent($event)"
+                [(ngModel)]="selectedKpiValue">
+                <ng-option [value]="1">{{'lang.rec_discount.change' | translate}}</ng-option>
+                <ng-option [value]="2">{{'lang.rec_discount.lift_value' | translate}}</ng-option>
+                <ng-option [value]="3">{{'lang.rec_discount.scenario_value' | translate}}</ng-option>
+                <ng-option [value]="4">{{'lang.rec_discount.baseline_value' | translate}}</ng-option>
+
+            </ng-select>
+        </div>
+
+
+    </div>
+</div>
+
+<div *ngIf="!showHideTable" class="pt-3">
+    <p>Please select Geo from the dropdown</p>
+</div>
+
+<div class="row pt-5" [hidden]="!showHideTable">
+    <div class="col-md-12">
+        <table #table2="matSort" mat-table [dataSource]="dataSource1" matSort 
+        (matSortChange)="sortData1($event)" class="w-100" >
+            <!-- geo ID Column -->
+            <ng-container matColumnDef="serial_no">
+                <th mat-header-cell *matHeaderCellDef class="m-0 p-0">
+                    <b class="clrblack">{{'lang.discount_config.sl' |
+                        translate}}
+                    </b>
+                </th>
+                <td mat-cell *matCellDef="let i=index" class="num">
+
+                    {{i+1}}
+
+                </td>
+                <!-- {{i+1 + (paginator.pageIndex * paginator.pageSize)}} -->
+            </ng-container>
+            <!-- geo name Column -->
+            <ng-container matColumnDef="granularity_value">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <b class="clrblack">{{'lang.discount_config.prod_cat' |
+                        translate}}
+                    </b>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <span>{{row.granularity_value}}</span>
+
+                </td>
+            </ng-container>
+
+            <!-- Sales Change Column -->
+            <ng-container matColumnDef="sales">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="thwidth m-0 p-0">
+                    <b class="clrblack">{{'lang.discount_config.sales' | translate}}&nbsp;
+                        <span *ngIf="selectedKpiValue == 1">(%)</span>
+                        <!-- <span *ngIf="selectedKpiValue == 2">({{currencyCode}})</span>
+                        <span *ngIf="selectedKpiValue == 3">({{currencyCode}})</span>
+                        <span *ngIf="selectedKpiValue == 4">({{currencyCode}})</span> -->
+                    </b>
+                </th>
+
+                <td mat-cell *matCellDef="let row" >
+                    <span class="rightalign m-0 mr-3 p-0" *ngIf="selectedKpiValue == 1">{{row.sales | number :'0.1-1' | numbersdisplay}}</span>    
+                    <span class="rightalign m-0 mr-3 p-0" *ngIf="selectedKpiValue !== 1">{{row.sales | numbersdisplay}}</span>    
+                </td>
+
+
+            </ng-container>
+
+            <!-- Gross Margin Column -->
+            <ng-container matColumnDef="gp">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="thwidth m-0 p-0">
+                    <b class="clrblack">{{'lang.discount_config.gm' | translate}}&nbsp;
+                        <span *ngIf="selectedKpiValue == 1">(%)</span>
+                        <!-- <span *ngIf="selectedKpiValue == 2">({{currencyCode}})</span>
+                        <span *ngIf="selectedKpiValue == 3">({{currencyCode}})</span>
+                        <span *ngIf="selectedKpiValue == 4">({{currencyCode}})</span> -->
+                    </b>
+                </th>
+
+                <td mat-cell *matCellDef="let row" >
+                    <span class="rightalign m-0 mr-3 p-0" *ngIf="selectedKpiValue == 1">{{row.gp | number :'0.1-1' | numbersdisplay}}</span>    
+                    <span class="rightalign m-0 mr-3 p-0" *ngIf="selectedKpiValue !== 1">{{row.gp | numbersdisplay}}</span>
+                </td>
+            </ng-container>
+
+            <!-- UPT Column -->
+            <ng-container matColumnDef="upt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="thwidth m-0 p-0">
+                    <b class="clrblack">{{'lang.discount_config.upt' | translate}}&nbsp;
+                        <span *ngIf="selectedKpiValue == 1">(%)</span>
+                        <!-- <span *ngIf="selectedKpiValue == 2">({{currencyCode}})</span>
+                        <span *ngIf="selectedKpiValue == 3">({{currencyCode}})</span>
+                        <span *ngIf="selectedKpiValue == 4">({{currencyCode}})</span> -->
+                    </b>
+                </th>
+
+                <td mat-cell *matCellDef="let row">
+                    <span class="rightalign m-0 mr-3 p-0" *ngIf="selectedKpiValue == 1">{{row.upt | number :'0.1-1' | numbersdisplay}}</span>    
+                    <span class="rightalign m-0 mr-3 p-0" *ngIf="selectedKpiValue !== 1">{{row.upt | numbersdisplay}}</span>
+                </td>
+
+            </ng-container>
+
+            <!-- URW Column -->
+            <ng-container matColumnDef="urw">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="thwidth m-0 p-0">
+                    <b class="clrblack">{{'lang.discount_config.urw' | translate}}&nbsp;
+                        <!-- <span *ngIf="selectedKpiValue == 1">({{currencyCode}})</span>
+                        <span *ngIf="selectedKpiValue == 2">({{currencyCode}})</span>
+                        <span *ngIf="selectedKpiValue == 3">({{currencyCode}})</span> -->
+                        <span *ngIf="selectedKpiValue == 1">(%)</span>
+                    </b>
+                </th>
+
+                <td mat-cell *matCellDef="let row">
+                    <span class="rightalign m-0 mr-3 p-0" *ngIf="selectedKpiValue == 1">{{row.urw | number :'0.1-1' | numbersdisplay}}</span>    
+                    <span class="rightalign m-0 mr-3 p-0" *ngIf="selectedKpiValue !== 1">{{row.urw | numbersdisplay}}</span>
+                </td>
+
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter</td>
+            </tr>
+        </table>
+    </div>
+</div>

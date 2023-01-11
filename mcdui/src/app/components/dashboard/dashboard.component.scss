@@ -1,0 +1,100 @@
+.card {
+    border-radius: 14px;
+    // width: 310px;
+    margin-top: 30%;
+    box-shadow: 0px 1px 2px #00000029;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    height: 240px;
+    cursor: pointer;
+}
+
+.disableDiv {
+    pointer-events: none;
+
+}
+
+.wrapper {
+    cursor: not-allowed !important;
+    opacity: .65;
+}
+
+.dashboard_box h5.title:before {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 44px;
+    background: #FFBC0D;
+    top: 120px;
+}
+
+.disrec {
+    height: 25px;
+    width: 28px;
+    margin: 20px 0 30px 5px !important;
+}
+
+.disrecom {
+    margin-left: 15px;
+}
+
+.scenplan {
+    margin-left: 5px;
+}
+
+.feedsel {
+    position: relative;
+    right: 10px;
+}
+
+.dicsplit {
+    float: left;
+    height: 500px;
+    padding-right: 0;
+}
+
+.dsdiv {
+    margin-top: 5px;
+}
+
+.otherdiv {
+    padding-left: 0;
+}
+
+.fccard {
+    margin-right: 15px;
+}
+
+.dashboard_box .title {
+    color: #000000;
+    font-size: 18px;
+}
+
+.dashboard_box {
+    margin-bottom: 30px !important;
+    margin-left: 6px;
+}
+
+.content {
+    font-size: 13px;
+    margin-top: 40px;
+    color: #3C3C3C;
+    opacity: 0.8;
+    text-align: left;
+}
+
+.borderdash {
+    border-right: 1px dashed #B9B9B9;
+    opacity: 0.7;
+}
+
+@media only screen and (max-width:580px) {
+
+    .dashboard_box p.content:before,
+    .borderdash {
+        display: none;
+    }
+
+    .mobile_menu_list {
+        z-index: 9999 !important;
+    }
+}

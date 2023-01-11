@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="row headpadding">
+    <div [ngClass]="!disable_import_recommender_page ? 'col d-flex wrapper' : 'col d-flex backArrow' ">
+      <img 
+        src="assets/offer-configuration/left-arrow.png"
+        (click)="navToScenarioResult()"
+        alt="Back"
+        [ngClass]="{'disableLeftArrow': !disable_import_recommender_page}"
+      />
+      <h6 class="title">{{scenarioName}}</h6>
+      
+    </div>
+    <div class="col-12 padding___bottom">
+      <app-scenario-planner-discount >
+      </app-scenario-planner-discount>
+    </div>
+    <a class="scen__btn" (click)="navToScenarioComparison()">{{
+      'lang.scenario_compare.Scenario_Comparison_caps' | translate
+    }}</a>
+  </div>
+</div>

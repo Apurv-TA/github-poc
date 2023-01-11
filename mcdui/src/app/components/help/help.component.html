@@ -1,0 +1,135 @@
+<!-- <div class="container-fluid" style="overflow: hidden;">
+    <div class="row">
+        <div class="col-12">
+            <span class="back__arow" (click)="backToHome()">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+                <span class="back__text">{{'lang.help.help' | translate}}</span>
+            </span>
+            <div class="container__row_help">
+                <div class="help__cont__box">
+                    <img src="assets/dashboard/help-circle-outline.png" class="faq__image" alt="Help">
+                    <div class="box__content">
+                        <h5 class="help__title">{{'lang.help.faq' | translate}}</h5>
+                        <h6>{{'lang.help.faq_question' | translate}}</h6>
+                        <p>{{'lang.help.learn_more' | translate}}</p>
+                        <a href={{downloadFAQ}} target="_blank" class="faq_download_btn">{{'lang.help.download' |
+                            translate}}</a>
+                    </div>
+                </div>
+                <div class="help__cont__box">
+                    <div class="box__content">
+                        <h5 class="help__title">{{'lang.help.contact' | translate}}</h5>
+                        <h6>{{'lang.help.cont_further' | translate}}</h6>
+                        <h6>{{'lang.login.email' | translate}} : {{supportEmail}}</h6>
+                        <div class="btn__container my-3">
+                            <a href={{downloadUserManual}} target="_blank"
+                                class="faq_download_btn">{{'lang.help.manualuser' | translate}}</a>
+                            <a href="{{downloadTrainingVideo}}" target="_blank" 
+                                class="faq_download_btn">{{'lang.help.video_cont' | translate}}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="help__cont__box">
+                    <div class="box__content">
+                        <h5 class="help__title">{{'lang.help.terms_head' | translate}}</h5>
+                        <h6>{{'lang.help.terms_title' | translate}}</h6>
+                        <p class="mat__des">{{'lang.help.terms_desc' | translate}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="container-fluid">
+    <span class="back__arow" (click)="backToHome()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+        <span class="back__text">{{'lang.help.help' | translate}}</span>
+    </span>
+    <div class="row">
+
+        <!-- <div class="col-md-3 cardleft">
+            <mat-card class="card cursor" (click)="supportSummary()">
+                <div class="dashboard_box bgcolor">
+                    <img src="assets/dashboard/customer-service.png" class="faqimg" alt="Service">
+                    <h5 class="title">Service Support</h5>
+                </div>
+            </mat-card>
+        </div> -->
+        <div class="col-md-3 padding cardleft">
+            <mat-card class="card">
+                <div class="dashboard_box bgcolor ">
+                    <img src="assets/dashboard/faq.png" class="faqimg" alt="Help">
+                    <h5 class="title">{{'lang.help.faq' | translate}}</h5>
+                </div>
+                <div class="faqcontent">
+                    <a href={{downloadFAQ}} target="_blank" class="faq_download_btn">{{'lang.help.download' |
+                        translate}}</a>
+                        <a class="faq_download_btn col-md-6" href={{downloadUserManual}}>{{'lang.help.manualuser' | translate}}</a>
+                    <div class="btn__container my-3">
+                        <h6 class="faq">Watch Training Video</h6>
+                    </div>   
+                    <div class="btn__container my-3">
+                        <table>
+                            <tr>
+                                <td>
+                                    <a class="faq_download_btn col-md-6 left" href={{login_and_help}} target="_blank">{{'lang.help.login_and_help' | translate}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a class="faq_download_btn col-md-6 left" href={{promo_recommender}} target="_blank">{{'lang.help.promo_recommender' | translate}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a class="faq_download_btn col-md-6 left" href={{scenario_planner}} target="_blank">{{'lang.help.scenario_planner' | translate}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a class="faq_download_btn col-md-6 left" href={{scenario_comparison}} target="_blank">{{'lang.help.scenario_comparison' | translate}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a class="faq_download_btn col-md-6 left" href={{feed_creation}} target="_blank">{{'lang.help.feed_creation' | translate}}</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+            </mat-card>
+        </div>
+        <div class="col-md-3 padding">
+            <mat-card class="card">
+                <div class="dashboard_box bgcolor">
+                    <img src="assets/dashboard/call.png" class="faqimg" alt="Contact">
+                    <h5 class="title">{{'lang.help.contact' | translate}}</h5>
+                </div>
+                <div class="faqcontent">
+                    <h6 class="faq">{{'lang.help.cont_further' | translate}}</h6>
+                    <p class="contactemail">{{'lang.login.email' | translate}} : {{supportEmail}}</p>
+                    <!-- <div class="btn__container my-3">
+                        <a class="faq_download_btn">{{'lang.help.manualuser' | translate}}</a>
+                        <a class="faq_download_btn">{{'lang.help.video_cont' | translate}}</a>
+                    </div> -->
+                </div>
+            </mat-card>
+        </div>
+        <div class="col-md-12 padding">
+            <!-- <mat-card class="card fccard"> -->
+            <!-- <div class="dashboard_box bgcolor">
+                    <img src="assets/dashboard/accept.png" class="faqimg" alt="Terms">
+                    <h5 class="title">{{'lang.help.terms_head' | translate}}</h5>
+                </div> -->
+            <!-- <h5 class="title ">{{'lang.help.terms_head' | translate}}</h5> -->
+            <!-- <div class="faqcontent termscontent">
+                <h6 class="faq">{{'lang.help.terms_title' | translate}}</h6>
+                <p class="mat__des">{{'lang.help.terms_desc' | translate}}</p>
+            </div> -->
+            <!-- </mat-card> -->
+        </div>
+
+    </div>
+</div>

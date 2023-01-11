@@ -1,0 +1,15 @@
+@import "../../../theme/theme.scss";
+
+
+.clrblack {
+    color: $app-text-color;
+    display: inline-grid;
+}
+.tablabel {
+    margin: 20px 0 0 15px;
+}
+
+// :host ::ng-deep .mat-paginator {
+//     display: inline-block;
+//     float: right;
+// }

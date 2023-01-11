@@ -1,0 +1,264 @@
+@import "../../../theme/theme.scss";
+
+.card {
+    border-radius: 14px;
+    width: 100%;
+    margin: 0px 30px 30px 30px;
+    box-shadow: 0px 1px 2px $box-shadow;
+    background: $white 0% 0% no-repeat padding-box;
+    height: auto;
+}
+
+.title {
+    letter-spacing: 0px;
+    color: $black;
+    opacity: 1;
+    margin: 24px 0 12px 20px;
+    font-size: 20px;
+    opacity: 1;
+}
+
+.leftarrow {
+    width: 8px;
+    height: 15px;
+    margin: 25px 0 12px 28px;
+}
+
+.tabselect {
+    border: 0;
+    background: transparent;
+}
+
+.tabactive {
+    font-weight: bold;
+    color: $danger;
+    border-bottom: 4px solid $danger;
+}
+
+.tabinactive {
+    color: $black;
+}
+
+.segment_dropdown {
+    position: relative;
+    bottom: 10px;
+}
+
+.left {
+    float: left;
+}
+
+.dis_rec {
+    font-family: 'Speedee_Rg' !important;
+    color: $gray-6;
+}
+
+.excel {
+    width: 17px;
+    height: 20px;
+    display: inline-block;
+}
+
+.excelcont {
+    font-size: 12px;
+    display: inline-block;
+    border-right: 1px solid $gainsboro;
+    padding-right: 20px;
+    margin-right: 10px;
+    line-height: 24px;
+    padding-left: 5px;
+}
+
+.excel_btn_container {
+    position: absolute;
+    top: 15px;
+    cursor: pointer;
+    right: 45px;
+    z-index: 9;
+    background: $gray98;
+
+}
+
+.select_grid {
+    background: $white;
+    display: inline-block;
+    border-radius: 4px;
+}
+
+.select_grid .fa {
+    font-size: 24px;
+    color: $danger;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.select_grid .fa.graph_active {
+    color: $white;
+}
+
+.graph_active {
+    background-color: $danger;
+}
+
+.graph_outter {
+    padding: 10px 20px;
+    background: $white;
+    border: 1px solid $gray-5;
+    border-radius: 4px;
+}
+
+.graph_outter h3 {
+    font-size: 18px;
+}
+
+.delcolor {
+    color: $primary;
+}
+
+a.cancel_btn {
+    color: $black;
+    font-size: 13px;
+    margin-left: 30px;
+    cursor: pointer;
+    box-shadow: 0px 3px 6px $box-shadow;
+    padding: 10px;
+    display: inline-block;
+    max-width: 158px;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    text-decoration: none;
+}
+
+a.save_yesss {
+    background: $primary 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    color: $white;
+    padding: 10px;
+    display: inline-block;
+    max-width: 158px;
+    width: 17%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.kpilabel {
+    font-size: 12px;
+    font-family: 'Speedee_Rg';
+    letter-spacing: 0px;
+    color: $black;
+    opacity: 0.5;
+    float: right;
+    position: absolute;
+    right: 14%;
+    padding: 4px 0 0 0;
+}
+
+a.save_no {
+    background: $Suva-Grey 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    color: $white;
+    padding: 10px;
+    display: inline-block;
+    max-width: 158px;
+    width: 17%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    margin-left: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media only screen and (max-width:500px) {
+    .excel_btn_container {
+        position: relative;
+    }
+}
+
+
+
+@media only screen and (max-width:1300px) {
+    .kpilabel {
+        font-size: 12px;
+        font-family: 'Speedee_Rg';
+        letter-spacing: 0px;
+        color: $black;
+        opacity: 0.5;
+        float: right;
+        position: absolute;
+        right: 16%;
+        padding: 4px 0 0 0;
+    }
+}
+
+.left-align {
+    display: flex;
+}
+
+.table-align {
+    padding-left: 42px;
+    padding-right: 43px
+}
+
+:host ::ng-deep .mat-tab-body.mat-tab-body-active {
+    background: $white 0% 0% no-repeat padding-box;
+    box-shadow: 0px 1px 2px $box-shadow;
+    border: 1px solid $gray-93;
+    border-radius: 12px;
+    opacity: 1;
+    padding-right: 32px;
+    padding-left: 32px;
+    padding-top: 18px;
+    padding-bottom: 8px;
+}
+
+:host ::ng-deep .mat-tab-body-content {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding-bottom: 30px;
+}
+
+:host ::ng-deep .recommended_impact .mat-tab-body-wrapper {
+    border: none;
+    padding: 0px;
+}
+
+/* width */
+:host ::ng-deep .mat-tab-body-content::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    border-radius: 3px;
+}
+
+/* Track */
+:host ::ng-deep .mat-tab-body-content::-webkit-scrollbar-track {
+    background: $warm-white;
+    border-radius: 3px;
+}
+
+/* Handle */
+:host ::ng-deep .mat-tab-body-content::-webkit-scrollbar-thumb {
+    background: $gray-600;
+    border-radius: 4px;
+    opacity: 1;
+}
+
+:host ::ng-deep .mat-tab-label{
+    height: 48px;
+    padding: 0 24px;
+    cursor: pointer;
+    box-sizing: border-box;
+    opacity: 1;
+    min-width: 160px;
+    text-align: center;
+    display: inline-flex;
+    justify-content: left;
+    align-items: center;
+    white-space: nowrap;
+    position: relative;
+}

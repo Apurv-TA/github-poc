@@ -1,0 +1,158 @@
+@import "../../../theme/theme.scss";
+
+.table__box {
+    background: $white 0% 0% no-repeat padding-box;
+    box-shadow: 0px 1px 2px $box-shadow;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 35px;
+}
+
+
+.setopacity{
+    opacity: 1;
+}
+span.zero_cont {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 54px;
+    text-align: center;
+    border: 0px solid;
+}
+span.zero_cont span:first-child {
+    border-right-style: dashed !important;
+    border-right-color: rgb(185 185 185 / 32%) !important;
+    border-right-width: 1px;
+    padding: 0 10px;
+}
+.clrblack{
+    color: $black !important;
+    font-size: 13px !important;
+}
+.clrblacksubtitle{
+     color: $black !important;
+    font-size: 12px !important;
+}
+
+.kpilabel {
+    font-size: 12px;
+    font-family: "Speedee_Rg";
+    letter-spacing: 0px;
+    color: $black;
+    opacity: 0.5;
+    position: absolute;
+    left: 43%;
+    top: 31%;
+}
+
+
+
+.dis_rec{
+    font-family: 'Speedee_Rg' !important;   
+    color: $gray-6;
+   }
+
+
+@media only screen and (max-width:1300px){
+    .kpilabel {
+     font-size: 12px;
+     font-family: "Speedee_Rg";
+     letter-spacing: 0px;
+     color: $black;
+     opacity: 0.5;
+     position: absolute;
+     left: 31%;
+     top: 31%;
+ }
+ }   
+
+ .table_box_title_align {
+    font-size: 18px;
+    letter-spacing: 0px;
+    color: $black;
+    opacity: 1;
+    padding-left: 16px;
+}
+
+:host ::ng-deep .drop_down_cont .ng-select .ng-select-container:after {
+    display: none;
+}
+
+:host ::ng-deep .drop_down_cont .ng-select.ng-select-single .ng-select-container .ng-arrow-wrapper {
+    bottom: 31px;
+}
+
+:host ::ng-deep .drop_down_cont .ng-select .ng-select-container .ng-value-container {
+    margin-top: -12px;
+    padding-left: 8px;
+}
+
+:host ::ng-deep .drop_down_cont span.ng-clear-wrapper {
+    display: none;
+}
+
+:host ::ng-deep .drop_down_cont .ng-dropdown-panel {
+    margin-top: 20px;
+}
+
+:host ::ng-deep .drop_down_cont .ng-select .ng-arrow-wrapper .ng-arrow {
+    color: $primary
+}
+
+:host ::ng-deep .drop_down_cont .ng-select .ng-input {
+    display: none !important;
+}
+
+:host ::ng-deep .drop_down_cont .select_cont {
+    // margin-right: 20px;
+}
+
+:host ::ng-deep .drop_down_cont .ng-select.ng-select-focused .ng-select-container .ng-arrow-wrapper .ng-arrow {
+    color: $primary  !important
+}
+
+.drop_down_cont .select_cont {
+    // width: 168PX;
+    float: right;
+}
+
+.startdt {
+    height: 23px;
+    width: 129px;
+    background: $white 0% 0% no-repeat padding-box;
+    border: 1px solid $gray-92;
+    border-radius: 3px;
+    opacity: 1;
+    font-size: 13px;
+    padding: 0;
+}
+
+.select_cont {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.kpi_select {
+    position: absolute;
+    left: 25px;
+}
+
+.impact_title_1 {
+    font-size: 12px !important;
+    color: $black;
+    opacity: 0.5;
+    width: 85px;
+}
+
+.impact_title_2 {
+    font-size: 12px !important;
+    color: $black;
+    opacity: 0.5;
+    width: 67px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}

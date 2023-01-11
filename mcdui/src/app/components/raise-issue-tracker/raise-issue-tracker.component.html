@@ -1,0 +1,81 @@
+<div class="container-fluid recommended_impact">
+    <div class="row">
+        <h6 class="title">
+            Service Support Summary</h6>
+        <div class="col-md-12">
+            <h6 class="newticket" (click)="createTicket(ticketModal)">+ Create New Ticket</h6>
+            <!-- To show table -->
+            <mat-tab-group [(selectedIndex)]="tabIndex" (selectedTabChange)="changeTab($event)">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <span>Pending</span>
+                    </ng-template>
+                    <app-pending-issue></app-pending-issue>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <span>Closed</span>
+                    </ng-template>
+                    <app-closed-issue *ngIf="tabIndex === 1"></app-closed-issue>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+
+<!-- Create Ticket Popup -->
+<ng-template #ticketModal let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">Create New Support Request</h6>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body prodscroll">
+        <div class="form-group">
+            <label class="reqlabel margin">Request Title</label>
+            <input type="text" class="form-control issuename" name="name" [(ngModel)]="reqName">
+        </div>
+        <div class="promo_select form-group">
+            <label class="reqlabel">Request Type</label>
+            <ng-select class="form-control reqtype" [searchable]="false" name="reqtype" [(ngModel)]="reqType">
+                <ng-option *ngFor="let type of requestType" [value]="type.request_type_id">
+                    {{type.request_name}}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="promo_select form-group">
+            <label class="reqlabel">Priority</label>
+            <ng-select class="form-control priority" [searchable]="false" name="prior" [(ngModel)]="priority">
+                <ng-option *ngFor="let prior of priorityList" [value]="prior.priority_type_id">
+                    {{prior.priority_name}}
+                </ng-option>
+            </ng-select>
+        </div>
+        <div class="promo_select form-group">
+            <label class="reqlabel">Notes</label>
+            <textarea class="form-control issuecmt" name="comments" [(ngModel)]="comments"></textarea>
+        </div>
+        <div class="promo_select form-group">
+            <label class="reqlabel">Attachments</label>
+            <mat-form-field floatPlaceholder="never" appearance="outline" class="attach">
+                <input [hidden]="true" (change)="onFileSelect($event)" type="file" accept="all/*" #fileSelect>
+                <input readonly matInput [(ngModel)]="filename" />
+                <button *ngIf="this.base64File" (click)="this.base64File = null; this.filename = null" matSuffix
+                    matTooltip="Remove selected file" [matTooltipPosition]="'above'" type="button" color="warn"
+                    mat-icon-button>
+                    <mat-icon class="upload">close</mat-icon>
+                </button>
+                <button matSuffix mat-icon-button (click)="fileSelect.click();" matTooltip="Select a file"
+                    [matTooltipPosition]="'above'">
+                    <mat-icon class="upload">file_upload</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="save_cancel" (click)="modal.close('Save click')">Cancel</a>
+        <!-- <a class="save_yes" (click)="createTicketDTO()">Submit</a> -->
+        <button mat-button color="warn" class="save_yes" (click)="createTicketDTO()">Submit</button>
+    </div>
+</ng-template>

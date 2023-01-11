@@ -1,0 +1,36 @@
+<div class="container-fluid recommended_impact">
+    <div class="row">
+
+
+        <div class="col-md-12">
+            <div class="back_icon_cont">
+                <img src="assets/offer-configuration/left-arrow.png" class="leftarrow" alt="Back"
+                    style="cursor: pointer;" (click)="backtoSelection()">
+                <h6>{{'lang.scenario_compare.Scenario_Comparison' | translate}}</h6>
+            </div>
+            <div class="excel_btn_container">
+                <i class="fa fa-file-excel-o excel text-success" aria-hidden="true"
+                    [ngClass]="(graphShow)?'d-inline':'d-none'"></i>
+                <h6 class="excelcont" [ngClass]="(graphShow)?'d-inline':'d-none'" (click)="exportComparison()">
+                    {{'lang.scenario_compare.exportcomp' |
+                    translate}}</h6>
+                <div class="select_grid">
+                    <i class="fa fa-line-chart" [ngClass]="(!graphShow)?'graph_active':'graph_inactive'"
+                        (click)="showGraph()" aria-hidden="true"></i>
+                    <i class="fa fa-table" [ngClass]="(graphShow)?'graph_active':'graph_inactive'" (click)="showTable()"
+                        aria-hidden="true"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="col-12 mr_bt" *ngIf="graphShow">
+        <app-scenario-comparision-table></app-scenario-comparision-table>
+    </div>
+
+    <div class="col-12 mr_bt" *ngIf="!graphShow">
+        <app-scenario-comparision-graph></app-scenario-comparision-graph>
+    </div>
+</div>

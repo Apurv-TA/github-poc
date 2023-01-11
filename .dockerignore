@@ -1,0 +1,33 @@
+# mcdapi
+mcdapi/_static
+mcdapi/index.rst
+mcdapi/docker-compose.yml
+mcdapi/nginx
+mcdapi/.behaverc
+mcdapi/conda.txt
+mcdapi/docker-compose.yml
+mcdapi/make.bat
+mcdapi/Makefile
+
+# mcdui
+mcdui/.firebase
+mcdui/.editorconfig
+mcdui/.browserslistrc
+mcdui/node_modules
+mcdui/e2e
+mcdui/dist
+mcdui/nginx
+
+# general
+.git
+**/.gitignore
+**/*.zip
+**/*.md
+**/*.rst
+**/.vscode
+**/sphinxdocs
+
+# mcdds
+mcdds/deploy
+mcdds/notebooks
+mcdds/production/russia

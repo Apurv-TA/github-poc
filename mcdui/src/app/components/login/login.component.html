@@ -1,0 +1,62 @@
+<section id="login">
+    <input class="startdt langsel input__drop" readonly [(ngModel)]="selectedLanguage">
+    <span class="lang">{{'lang.login.language' | translate}}</span>
+    <form [formGroup]="loginForm" (ngSubmit)="Signin()">
+        <div class="row divheight">
+
+            <div class="col-md-7 leftside">
+                <h1 class="title">{{'lang.login.welcome' | translate}}!</h1>
+                <div class="form_cont">
+                    <img src="assets/login/email.png" alt="Email" class="emailicon">
+                    <input formControlName="email_login" type="text" name="username" class="form_input inputemail"
+                        placeholder="{{'lang.login.email' | translate}}" required (keyup)="emailChange($event)"
+                        (keydown.space)="$event.preventDefault()">
+
+                    <div *ngIf="g.email_login.errors && (g.email_login.dirty || g.email_login.touched)">
+                        <mat-error *ngIf="g.email_login.errors?.['required']" class="usererrmsg">
+                            {{'lang.login.userrequired' |
+                            translate}}</mat-error>
+                        <mat-error *ngIf="g.email_login.errors?.['pattern']" class="usererrmsg">
+                            {{'lang.login.validusername' |
+                            translate}}</mat-error>
+
+                    </div>
+                </div>
+                <div class="form_cont">
+                    <img src="assets/login/lock.png" alt="Email" class="lockicon">
+                    <input formControlName="pass_login" type="password" name="password"
+                        class="form_input inputemail password_field" placeholder="{{'lang.login.password' | translate}}"
+                        required (keyup)="passwordChange($event)">
+                    <div *ngIf="g.pass_login.errors && (g.pass_login.dirty || g.pass_login.touched)">
+                        <mat-error *ngIf="g.pass_login.errors?.['required']" class="usererrmsg">
+                            {{'lang.login.passrequired' |
+                            translate}}</mat-error>
+                    </div>
+                </div>
+                <div class="form_cont">
+                    <div class="rember ">
+                        <mat-checkbox class="example-margin" (change)="RememberMe($event)" formControlName="is_remember"
+                            [checked]="is_remember" aria-label="Remember Me">{{'lang.login.remember' | translate}}
+                        </mat-checkbox>
+                    </div>
+                    <p class="usererrmsg text-center mt-3 p-0" *ngIf="incorrectValidation">
+                        {{'lang.login.errorValidation' | translate}}
+                    </p>
+                </div>
+                <div class="">
+                    <button mat-button color="warn" class="signinbtn" type="submit">{{'lang.login.Signin' |
+                        translate}}</button>
+                </div>
+
+                <a class="forgot cursorhand" (click)="goForgetPasswordPage()">{{'lang.login.forgot_password' |
+                    translate}}?</a>
+            </div>
+
+            <div class="col-md-5 leftright">
+                <div class="imgdiv">
+                    <img src="assets/login/arches.png" alt="Logo" height="500px" class="Mcdlogo">
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

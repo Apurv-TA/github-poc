@@ -1,0 +1,51 @@
+.card{
+    border-radius: 14px;
+    width: 100%;
+    margin: 20px 0 0 0;
+    box-shadow: 0px 1px 2px #00000029;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    // height: 545px;
+}
+.kpi {
+    font-size: 14px;
+}
+.description {
+    font-size: 14px;
+    text-align: justify;
+}
+
+.clrblack {
+    color: #000;
+}
+td {
+    padding-top: 10px !important;
+    font-size: 13px;
+}
+ul {
+    margin: 0 0 10px 0;
+}
+.formula {
+    width: 47%;
+}
+.scroll {
+    height: 500px;
+    overflow-y: scroll;
+}
+.serialno {
+    width: 10%;
+}
+.close-button{
+  position: absolute;
+  right: 18%;
+  top: 4%;
+}
+
+::ng-deep .icon-outside .close-button{
+  float: right;
+  top:-52px;
+  right:-52px;
+}
+
+::ng-deep .icon-outside .mat-dialog-container {
+ overflow: unset
+}

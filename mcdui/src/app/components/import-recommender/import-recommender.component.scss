@@ -1,0 +1,533 @@
+@import "../../../theme/theme.scss";
+
+.card{
+    border-radius: 14px;
+    width: 100%;
+    margin: 0px 30px 25px 30px;
+    box-shadow: 0px 1px 2px $box-shadow;
+    background: $white 0% 0% no-repeat padding-box;
+    // height: 545px;
+}
+.offercard {
+    border-radius: 14px;
+    width: 100%;
+    margin: 50px 30px 25px 30px;
+    box-shadow: 0px 1px 2px $box-shadow;
+    background: $white 0% 0% no-repeat padding-box;
+    // height: 545px;
+}
+.title {
+    font-size: 20px;
+    letter-spacing: 0px;
+    color: $black;
+    opacity: 1;
+}
+.titleimport {
+    letter-spacing: 0px;
+    color: $black;
+    margin: 1px 0 15px 25px;
+    font-size: 15px;
+}
+.infoicon {
+    width: 29px;
+    height: 29px;
+    margin-left: 49%;
+    margin-top: 140px;
+    display: block;
+}
+.nocontent {
+    letter-spacing: 0px;
+    color: $black;
+    opacity: 1;
+    margin-top: 15px;
+    text-align: center;
+}
+.center {
+    text-align: center;
+}
+.importborder {
+    border: 1px dashed $gray-2;
+    width: 587px;
+    height: 1px;
+    margin-left: 340px;
+}   
+.create {
+    letter-spacing: 0px;
+    color: $black;
+    margin-top: 18px;
+    margin-right: 55px;
+    font-size: 14px;
+}
+.leftarrow {
+    width: 8px;
+    height: 13px;
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    cursor: pointer;
+}
+.packagename{
+    margin: 5px 0 0 15px;
+    height: 30px;
+    float: left;
+    font-size: 12px;
+}
+.package {
+    letter-spacing: 0px;
+    color: $nevada;
+    font-size: 12px;
+}
+.left {
+    margin-left: 160px;
+}
+.startdate {
+    font-size: 12px;
+    letter-spacing: 0px;
+    color: $nevada;
+    margin-left: 27px;
+}
+.startleft {
+    margin-left: 78px;
+}
+.segmentleft {
+    margin-left: 9px;
+}
+.discountleft {
+    margin-left: 146px;
+}
+.packageidleft {
+    margin-left: 50px;
+}
+.dataleft{
+    margin-left: 20px;
+    font-size: 12px;
+    letter-spacing: 0px;
+    color: $primary;
+    font-weight: 500;
+    cursor: pointer;
+}
+.bordbottom {
+    border-bottom: 1px dashed $gray-2;
+    opacity: 0.77;
+    padding-bottom: 15px;
+}
+.fontfix{
+   font-size: 12px;  
+     letter-spacing: 0px;
+    color: $black;
+    font-weight: 500;
+}
+.stdate {
+    margin-left: 20px;
+    font-size: 12px;
+    letter-spacing: 0px;
+    color: $black;
+    font-weight: 500;
+    width: 160px;
+}
+.stdates {
+    font-size: 12px;
+    letter-spacing: 0px;
+    color: $black;
+    font-weight: 500;
+    width: 160px;
+}
+.fontfix{
+   font-size: 12px;  
+     letter-spacing: 0px;
+    color: $black;
+    font-weight: 500;
+}
+.startdat {
+    font-weight: 600;
+    height: 40px;
+    margin-left: 10px;
+    float: left;
+    width: 150px;
+}
+
+.importbtn {
+    position: relative;
+    left: 43%;
+    margin-top: 5px;
+    width: 158px;
+    height: 42px;
+    background: $danger 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    border-radius: 27px;
+    opacity: 1;
+    color: $white;
+    font-size: 13px;
+    // margin-bottom: 30px;
+}
+.startdt {
+    font-size: 13px;
+    position: relative;
+    bottom: 19px;
+}
+.crdate {
+    letter-spacing: 0px;
+    color: $gray-44;
+    opacity: 1;
+    font-size: 12px;
+    position: relative;
+    bottom: 20px;
+    right: 10px;
+}
+.create_date {
+    position: absolute;
+    right: 35px;
+    padding-top: 7px;
+}
+.start_date {
+    position: absolute;
+    right:35px;
+    padding-top: 7px;
+}
+.importicon {
+    height: 20px;
+    width: 17px;
+    margin: 0 10px 5px 0;
+}
+.showmore {
+    font-size: 12px;
+    color: $primary ;
+    margin: 0 0 0 10px;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+}
+.seglist {
+    font-size: 15px;
+}
+.createdate {
+    background-color:$primary;
+    width: 30px;
+    height: 30px !important;
+    padding-top: 7px;
+    position: relative;
+    bottom: 12px;
+    left: 5px;
+    border-radius: 5px;
+}
+.dateicon {
+    position: relative;
+    bottom: 10px;
+}
+.enddate {
+    margin: 2px 0 0 0px;
+}
+.calicon {
+    background-color:$primary;
+    height: 29px !important;
+    border-radius: 3px;
+    width: 30px;
+    margin: 0 0 0 4px !important;
+    position: relative;
+    bottom: 1px;
+}
+a.save_yes {
+    background: $primary 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    color: $white;
+    padding: 8px 0 0 0;
+    display: inline-block;
+    max-width: 100px;
+    width: 6%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 3px 0 0 7px;
+    height: 31px;
+}
+:host ::ng-deep .mat-radio-outer-circle{height: 18px !important;width: 18px !important;top: 2px !important;left: 1px !important;border-color: $danger;}
+:host ::ng-deep .mat-radio-inner-circle{transform: scale(0.4) !important;top: 1px !important;}
+:host ::ng-deep .mat-radio-container{height: 15px !important;}
+:host ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {background-color: $danger;}
+:host ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {border-color: $danger;}
+:host ::ng-deep .mat-form-field-flex{height: 35px;}
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {background-color: $white;}
+:host ::ng-deep .mat-select-value-text {color: $black  !important;}
+:host ::ng-deep .mat-option.mat-active {color: $danger !important;}
+:host ::ng-deep .mat-date-range-input-container {position: absolute;top: 0;font-size: 13px;}
+:host ::ng-deep .mat-date-range-input-start-wrapper {padding: 0 5px 0 0;}
+:host ::ng-deep .mat-date-range-input-start-wrapper .mat-date-range-input-inner {top: 2px !important;left: 5px;}
+:host ::ng-deep .mat-date-range-input-separator{color: $gray-4;}
+:host ::ng-deep .mat-form-field-outline-thick{color: $black !important;}
+.mat-button.mat-button-base.mat-warn.mat-button-disabled {
+    color: $white;
+    cursor: not-allowed;
+}
+.package_delete {
+    position: relative;
+  
+}
+.package_delete_icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.delcolor{
+    color: $primary;
+}
+.delcolor{
+    color: $primary;
+}
+a.cancel_btn {
+    color: $black;
+    font-size: 13px;
+    margin-left: 30px;
+    cursor: pointer;
+    box-shadow: 0px 3px 6px $box-shadow;
+    padding: 10px;
+    display: inline-block;
+    max-width: 158px;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    text-decoration: none;
+}
+a.save_yesss {
+    background: $primary 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    color: $white;
+    padding: 10px;
+    display: inline-block;
+    max-width: 158px;
+    width: 17%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    text-decoration: none;
+    cursor: pointer;
+}
+a.save_no {
+    background: $Suva-Grey 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    color: $white;
+    padding: 10px;
+    display: inline-block;
+    max-width: 158px;
+    width: 17%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    margin-left: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cancelbtn {
+    position: relative;
+    left: 36%;
+    margin-top: 5px;
+    width: 158px;
+    height: 42px;
+    background: $white 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    border-radius: 27px;
+    opacity: 1;
+    color: $black;
+    font-size: 13px;
+    // margin-bottom: 30px;
+}
+
+button.mat-focus-indicator.cancelbtn.mat-button.mat-button-base.mat-button-disabled{
+    color: $black;
+    cursor: not-allowed;
+}
+
+:host ::ng-deep button.mat-focus-indicator.mat-icon-button.mat-button-base {background: none;} 
+
+.prodcat {
+    // width: 282px;
+    height: 30px !important;
+    background: $white 0% 0% no-repeat padding-box;
+    border: 0px solid $gray-92;
+    border-radius: 3px;
+    opacity: 1;
+    padding: 0;
+    font-size: 12px;
+}
+
+.widhieight {
+    height: 30px;
+    width: 197px;
+    margin-top: 5px;
+    float: left;
+    margin-left: 10px;
+    font-size: 13px;
+}
+
+.filters {
+    padding-top: 40px;
+    padding-right: 33px;
+    padding-bottom: 15px;
+    padding-left: 33px;
+    .form-element {
+        // padding-right: 20px;
+        margin-right: 3%;
+        .form-label {
+            padding-right: 8px;
+            label {
+                color: $gray-44;
+                margin-bottom: 0;
+                font-size: 13px;
+            }
+        }
+        .form-input {
+            width: 120px;
+            height: 29px;
+        }
+        .start-data {
+            width: 156px;
+            margin-left: 18%;
+            .reset-default-wrapper {
+                margin: -0.25em 0!important;
+                .mat-form-field-wrapper {
+                    margin: 0 !important;
+                }
+            }
+        }
+        .package-id {
+            input {
+                height: 31px;
+                border-radius: 3px;
+                font-size: 13px;
+                width: 124%;
+            }
+        }
+        .package-name {
+            input {
+                height: 31px;
+                border-radius: 3px;
+                font-size: 13px;
+                width: 148%;
+            }
+        }
+    }
+    .form-action {
+        margin-left: 8px;
+        button{
+            margin-right: 10px;
+            border-radius: 40px;
+            border-color: $primary;
+            width: 104px;
+            height: 32px;
+            img{
+                margin-top: -10px;
+                vertical-align: unset;
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.date_picker {
+    position: relative;
+    bottom: 18px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.calicon {
+    background-color:$primary;
+    height: 29px !important;
+    border-radius: 3px;
+    width: 30px;
+    margin: 0 0 0 4px !important;
+    position: relative;
+    bottom: 1px;
+}
+
+.filstdate {
+    position: relative;
+    bottom: 14px;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width : 10px;
+    height: 10px;
+    border-radius: 3px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: $warm-white; 
+    border-radius: 3px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $gray-8; 
+    border-radius: 6px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: $Davy-grey; 
+  }
+  :host ::ng-deep .prodcat  .multiselect-dropdown .dropdown-btn{
+      border: 1px solid $gray-92 !important;
+  }
+  :host ::ng-deep .ng-select .ng-select-container:after{display: none;}
+  :host ::ng-deep .ng-select.ng-select-single .ng-select-container .ng-arrow-wrapper{bottom: 31px;}
+  :host ::ng-deep .ng-select .ng-select-container .ng-value-container{ margin-top: -12px;padding-left: 8px;}
+  :host ::ng-deep  span.ng-clear-wrapper {display: none;}
+  :host ::ng-deep .ng-dropdown-panel {margin-top: 20px;}
+  :host ::ng-deep .ng-select .ng-arrow-wrapper .ng-arrow{color:$primary}
+  :host ::ng-deep .ng-select.ng-select-focused .ng-select-container .ng-arrow-wrapper .ng-arrow{color:$primary !important}
+  :host ::ng-deep .multiselect-dropdown .dropdown-btn .selected-item { max-width: 235px !important;}
+  :host ::ng-deep .mat-date-range-input {position: relative;bottom: 5px;font-size: 13px;}
+  :host ::ng-deep .mat-form-field-flex{height: 35px;}
+  :host ::ng-deep .mat-button-wrapper{height: 35px;position: relative;}
+  :host ::ng-deep .selected-list .c-btn{width:125% ;min-height: 31px;font-size: 13px;color: $gray-4;}
+  :host ::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {color: $gray-9;}
+  :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end {border-width: 1px;border-color: 1px solid $border-color;}
+  :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start {border-width: 1px;border-color: 1px solid $border-color;}
+  :host ::ng-deep .mat-input-element {font-weight: 400 !important;color: $gray-4 !important;}
+  :host ::ng-deep .mat-date-range-input-start-wrapper {padding: 0 5px 0 0;}
+  :host ::ng-deep .mat-date-range-input-start-wrapper .mat-date-range-input-inner {top: 2px !important;left: 5px;}
+  :host ::ng-deep .mat-date-range-input-separator{color: $gray-4;}
+  :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {background-color: $white;}
+  :host ::ng-deep .selected-list .c-list {position: relative;bottom: 5px;height: 18px;}
+  :host ::ng-deep .mat-form-field-outline-thick{color: $black !important;}
+  :host ::ng-deep .selected-list .c-list .c-token .c-label{text-overflow: ellipsis;white-space: nowrap;width: 95px !important;
+      overflow: hidden;}
+  
+  .icon-smaller{
+    //      font-size: medium;
+          color: $red;
+      }
+  
+      :host ::ng-deep .icon-smaller .mat-icon{
+          font-size: 16px !important;
+      }
+  
+  :host ::ng-deep button.mat-focus-indicator.mat-icon-button.mat-button-base {background: none;} 
+
+
+.offerwidth {
+    width: 10%;
+    white-space: nowrap;
+}
+
+
+.mat-input-element::placeholder{
+    color: $gray-4;
+ }
+
+:host ::ng-deep .list-area{
+width: 125% !important;
+}
+
+img{
+    vertical-align: text-bottom !important;
+    margin:4px;
+}
+

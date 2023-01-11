@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 dsdiv">
+            <mat-card class="card disrecom" (click)="discountRecommender()">
+                <img src="assets/dashboard/Discount-Recommendation.png" class="disrec" alt="Discount Recommender">
+                <div class="dashboard_box">
+                    <h5 class="title">{{'lang.menus.offer_recommend' | translate}}</h5>
+                    <p class="content">{{'lang.dashboard.offer_recommend_text' | translate}}</p>
+                </div>
+            </mat-card>
+        </div>
+        <div [ngClass]="!show_scenario_planner_card ? 'col-md-3 otherdiv wrapper' : 'col-md-3 otherdiv'" >
+            <div [ngClass]="{'disableDiv': !show_scenario_planner_card}">
+                <mat-card class="card" (click)="scenarioPlanner()">
+                    <img src="assets/dashboard/Scenario-Planner.png" class="disrec" alt="Scenario Planner">
+                    <div class="dashboard_box">
+                        <h5 class="title">{{'lang.menus.scenario_planner' | translate}}</h5>
+                        <p class="content">{{'lang.dashboard.scenario_planner_text' | translate}}</p>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        <div class="col-md-3 otherdiv">
+            <mat-card class="card" (click)="scenarioComparison()">
+                <img src="assets/dashboard/Scenario-Comparison.png" class="disrec" alt="Scenario Comparison">
+                <div class="dashboard_box">
+                    <h5 class="title">{{'lang.menus.scenario_comparison' | translate}}</h5>
+                    <p class="content">{{'lang.dashboard.scenario_comparison_text' | translate}}</p>
+                </div>
+            </mat-card>
+        </div>
+        <div class="col-md-3 otherdiv">
+            <mat-card class="card fccard" (click)="feedCreation()">
+                <img src="assets/dashboard/Feed-Creation.png" class="disrec" alt="Feed Creation">
+                <div class="dashboard_box">
+                    <h5 class="title">{{'lang.menus.feed_creation' | translate}}</h5>
+                    <p class="content">{{'lang.dashboard.feed_creation_text' | translate}}</p>
+                </div>
+            </mat-card>
+        </div>
+
+    </div>
+</div>

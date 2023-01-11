@@ -1,0 +1,58 @@
+.idea/
+.env
+.log
+.venv/
+media/
+mypython/
+*.pyc 
+**/__pycache__/
+**/migrations/**
+!**/migrations
+**/migrations/
+!**/migrations/__init__.py
+asgi.py
+*.sqlite3
+**/McD-Discount-Portal/mypython
+*.csv
+*.zip
+*.parquet
+*.xls
+*.xlsx
+
+# ignore joblib files
+*.joblib
+
+# ignore log files
+**/logs/
+**/*.log
+
+# ignore package version file
+**/_version.py
+
+.vscode/settings.json
+
+# Ignore dataset and model folders
+mcdds/data
+mcdds/artifacts
+mcdds/mlruns
+mcdds/notebooks/revan_dev/test.*
+
+#conf/local
+**/credential*
+**/secret*
+
+
+# Sphinx documentation
+docs/build/
+docs/source/_autosummary/
+# bonmin-linux64/
+
+# Ignore AWS-LAMBDA/ SAM deployment files
+template.yaml
+.aws-sam
+test.py
+data/
+samconfig.toml
+y
+api_tests.py
+

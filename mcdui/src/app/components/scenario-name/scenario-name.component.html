@@ -1,0 +1,708 @@
+<!-- Page content -->
+<div class="container-fluid">
+    <div class="row mx-0 mt-3">
+        <div class="scenarioname-container w-100 overflow-hidden pb-5 mb-5"
+            [ngClass]="(editAvailable)?'edit_available':''">
+            <!-- Page form start -->
+            <form [formGroup]="scenarioForm">
+                <div class="row mx-0 mb-3 scenario_head ">
+                    <div class="col-md-4 ">
+                        <img (click)="homePage()" src="assets/offer-configuration/left-arrow.png"
+                            class="leftarrow poniter" alt="Back" style="cursor: pointer;">
+                        <h6 (click)="homePage()" class="title d-inline-block px-2 poniter">{{'lang.scenarioName.name' |
+                            translate}}</h6>
+                    </div>
+
+                    <div *ngIf="editAvailable && discountLength.length < 5" class="col-md-2 px-0" style="display: block;
+                        margin-left: auto;margin-right: 2%;">
+                        <div class="excel-card  text-right" style="margin-top: 7%;">
+                            <img src="assets/scenario-planner/files.png" class="excel d-inline-block" alt="Excel">&nbsp;
+                            <h6 (click)="backImport()" class="excelcont excel_font pointer float-right">
+                                {{'lang.scenarioName.import' | translate}}
+                            </h6>
+                        </div>
+                    </div>
+
+                </div>
+                <div *ngIf="editAvailable" class="d-none row mx-0 mb-3 scenario_head edit_head">
+                    <div class="col-md-4 ">
+                        <img (click)="homePage()" src="assets/offer-configuration/left-arrow.png"
+                            class="leftarrow poniter" alt="Back" style="cursor: pointer;">
+                        <h6 (click)="homePage()" class="title d-inline-block px-2 poniter">{{'lang.scenarioName.name' |
+                            translate}}</h6>
+                    </div>
+
+                    <div class="col-md-2 px-0">
+                        <mat-form-field class="searchBox" appearance="outline">
+                            <input placeholder="Search" autocomplete="off" [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="searchString" (keyup)="applyFilterScenario($event)" matInput type="text" />
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <mat-card class="py-0">
+                    <div class="row scenario_name px-3">
+                        <div class="col-md-12 px-0">
+                            <span class="pr-3">{{'lang.scenarioName.name' | translate}}</span>
+                            <mat-form-field appearance="outline">
+                                <input autocomplete="off" maxlength="100" [readonly]="isEditFlow" matInput
+                                    placeholder="Scenario name" formControlName="scenario_name"
+                                    (keyup)="updateCreateScenarioConfig()" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 px-0 mb-4">
+                        <span class="pr-3 font-weight-bold">Active Promos</span>
+                        <p class="m-0 p-0 error_message">{{errorTextActivePromos}}</p>
+
+                    </div>
+
+
+                    <table #table1 mat-table [dataSource]="dataSourceScenarioFixedPromos" matSort
+                        class="tableLayout px-3">
+
+                        <!-- Start Date Column-->
+                        <ng-container matColumnDef="start_date">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.date' |
+                                    translate}}<span class="tabelreq text-danger ">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;" class="pr-2">
+                                {{row.start_date | date: 'mediumDate'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Duration Column-->
+                        <ng-container matColumnDef="duration">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.duration' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                <span>
+                                    <span>{{row.duration}}</span>
+                                    <span class="fontfix" *ngIf="row.duration > 1">&nbsp;{{'lang.scenario_planner.weeks'
+                                        |
+                                        translate}}</span>
+                                    <span class="fontfix" *ngIf="row.duration == 1">&nbsp;{{'lang.scenario_planner.week'
+                                        |
+                                        translate}}</span>
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Geo Column-->
+                        <ng-container matColumnDef="geo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.geo' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;" class="pr-3">
+                                {{row.geo}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Channel Column-->
+                        <ng-container matColumnDef="channel">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.channel' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                {{row.discount_channel}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Promo Type Column-->
+                        <ng-container matColumnDef="promo_type">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.promo_type' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                {{row.promo_type}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Promo Mechanic Column-->
+                        <ng-container matColumnDef="promomech_name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.mechanic' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                {{row.promomech_name}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Product Type Column-->
+                        <ng-container matColumnDef="product_type">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.type' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                {{row.product_type}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Promo Names Column-->
+                        <ng-container matColumnDef="item_name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 21%;">
+                                <b class="clrblack">{{'lang.scenarioName.promo_name' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b>
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                {{row.item_name}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Reg price Column-->
+                        <ng-container matColumnDef="base_price">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.regprice' |
+                                    translate}}<br />{{'lang.scenarioName.price' | translate}}({{currencyCode}})</b>
+                            </th>
+                            <td mat-cell class="pr-3 num" *matCellDef="let row;let i = index;">
+                                {{row.regular_price | number:'1.0-2'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Minimum Promo Price Column-->
+                        <ng-container matColumnDef="min_discount_price">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.min' |
+                                    translate}}<br />{{'lang.scenarioName.price' | translate}}({{currencyCode}})</b>
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index;" class="pr-3 num">
+                                {{row.min_discount_price | number:'1.0-2'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Promo Price Column-->
+                        <ng-container matColumnDef="promo_price">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.depth' |
+                                    translate}}<br />{{'lang.scenarioName.price' | translate}}({{currencyCode}})<span
+                                        class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;" class="num">
+                                <mat-label [ngClass]="(priceValid(row))">{{row.promo_price | number:'1.0-2'}}
+                                </mat-label>
+                            </td>
+                        </ng-container>
+
+                        <!-- Promo Depth Column-->
+                        <ng-container matColumnDef="discount_depth">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.depth' |
+                                    translate}}<br />{{'lang.scenario_compare.depth' |
+                                    translate}} (%)<span class="tabelreq text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;" class="num">
+                                <mat-label>{{row.discount_depth | number:'1.0-2'}}
+                                </mat-label>
+                            </td>
+                        </ng-container>
+
+                        <!-- Edit Column-->
+                        <ng-container matColumnDef="edit">
+                            <th style="width: 30px;" mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                <mat-icon class="poniter"
+                                    (click)="editScenarioPopup('fixed');editRow(row.scenario_unique_id);">edit
+                                </mat-icon>
+                            </td>
+                        </ng-container>
+
+                        <!-- Delete Column-->
+                        <ng-container matColumnDef="delete">
+                            <th style="width: 30px;" mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                <mat-icon class="poniter" (click)="removeSegment(row.scenario_unique_id, 'fixed')">
+                                    delete forever
+                                </mat-icon>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnActivePromos"></tr>
+                        <tr attr.data-background="{{(row.isDuplicate)?'bg-danger':''}}" mat-row
+                            *matRowDef="let row; columns: displayedColumnActivePromos;let i=index"></tr>
+                    </table>
+                    <div class="container-fluid px-0">
+                        <mat-paginator #paginatorTable1="matPaginator" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
+                        </mat-paginator>
+                    </div>
+                    <hr>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <a href="javascript:void(0)" class="addScenario" (click)="addScenarioPopup('fixed')">
+                                {{'lang.scenarioName.addPromos' | translate}} </a>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12 px-0 mb-3">
+                        <span class="pr-3 font-weight-bold">Promos</span>
+                    </div>
+
+                    <table #table2 mat-table [dataSource]="dataSourceScenario" matSort
+                        (matSortChange)="announceSortChange($event)" class="tableLayout px-3">
+
+                        <!-- Start Date Column-->
+                        <ng-container matColumnDef="start_date">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.date' |
+                                    translate}}<span class="tabelreq text-danger ">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;" class="pr-2">
+                                {{row.start_date | date: 'mediumDate'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Duration Column-->
+                        <ng-container matColumnDef="duration">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.duration' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                <span>
+                                    <span>{{row.duration}}</span>
+                                    <span class="fontfix" *ngIf="row.duration > 1">&nbsp;{{'lang.scenario_planner.weeks'
+                                        |
+                                        translate}}</span>
+                                    <span class="fontfix" *ngIf="row.duration == 1">&nbsp;{{'lang.scenario_planner.week'
+                                        |
+                                        translate}}</span>
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Geo Column-->
+                        <ng-container matColumnDef="geo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.geo' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;" class="pr-3">
+                                {{row.geo}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Channel Column-->
+                        <ng-container matColumnDef="channel">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.channel' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                {{row.discount_channel}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Promo Type Column-->
+                        <ng-container matColumnDef="promo_type">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.promo_type' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                {{row.promo_type}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Promo Mechanic Column-->
+                        <ng-container matColumnDef="promomech_name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.mechanic' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                {{row.promomech_name}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Product Type Column-->
+                        <ng-container matColumnDef="product_type">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.type' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                {{row.product_type}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Promo Names Column-->
+                        <ng-container matColumnDef="item_name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 21%;">
+                                <b class="clrblack">{{'lang.scenarioName.promo_name' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b>
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                {{row.item_name}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Reg price Column-->
+                        <ng-container matColumnDef="base_price">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.regprice' |
+                                    translate}}<br />{{'lang.scenarioName.price' | translate}}({{currencyCode}})</b>
+                            </th>
+                            <td mat-cell class="pr-3 num" *matCellDef="let row;let i = index;">
+                                {{row.base_price | number:'1.0-2'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Minimum Promo Price Column-->
+                        <ng-container matColumnDef="min_discount_price">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.min' |
+                                    translate}}<br />{{'lang.scenarioName.price' | translate}}({{currencyCode}})</b>
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index;" class="pr-3 num">
+                                {{row.min_discount_price | number:'1.0-2'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Promo Price Column-->
+                        <ng-container matColumnDef="promo_price">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.depth' |
+                                    translate}}<br />{{'lang.scenarioName.price' | translate}}({{currencyCode}})<span
+                                        class="tabelreq  text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;" class="num">
+                                <mat-label [ngClass]="(priceValid(row))">{{row.promo_price | number:'1.0-2'}}
+                                </mat-label>
+                            </td>
+                        </ng-container>
+
+                        <!-- Promo Depth Column-->
+                        <ng-container matColumnDef="discount_depth">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> <b
+                                    class="clrblack">{{'lang.scenarioName.depth' |
+                                    translate}}<br />{{'lang.scenario_compare.depth' |
+                                    translate}} (%)<span class="tabelreq text-danger">*</span></b> </th>
+                            <td mat-cell *matCellDef="let row;let i = index;" class="num">
+                                <mat-label [ngClass]="(depthValid(row))">{{row.discount_depth | number:'1.0-2'}}
+                                </mat-label>
+                            </td>
+                        </ng-container>
+
+                        <!-- Edit Column-->
+                        <ng-container matColumnDef="edit">
+                            <th style="width: 30px;" mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                <mat-icon class="poniter"
+                                    (click)="editScenarioPopup('recommended');editRow(row.scenario_unique_id);">edit
+                                </mat-icon>
+                            </td>
+                        </ng-container>
+
+                        <!-- Delete Column-->
+                        <ng-container matColumnDef="delete">
+                            <th style="width: 30px;" mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let row;let i = index;">
+                                <mat-icon class="poniter" (click)="removeSegment(row.scenario_unique_id)">delete forever
+                                </mat-icon>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnScenario"></tr>
+                        <tr attr.data-background="{{(row.isDuplicate)?'bg-danger':''}}" mat-row
+                            *matRowDef="let row; columns: displayedColumnScenario;let i=index"></tr>
+                    </table>
+                    <div class="container-fluid px-0">
+                        <mat-paginator #paginatorTable2="matPaginator" [pageSizeOptions]="[5, 10, 20]"> </mat-paginator>
+                    </div>
+                    <hr>
+
+
+                    <div class="d-none">
+                        <h3 class="my-4">{{'lang.scenarioName.competition'| translate}}</h3>
+                        <table mat-table [dataSource]="dataSource" formArrayName="competition_discount"
+                            class="w-100 px-3 compTable">
+                            <!-- segment ID Column -->
+                            <ng-container matColumnDef="competition_brand_name">
+                                <th mat-header-cell *matHeaderCellDef> <b class="clrblack">{{'lang.scenarioName.brand' |
+                                        translate}} </b> </th>
+                                <td style="width: 120px;" mat-cell *matCellDef="let row;let i = index;"
+                                    [formGroupName]="i">
+                                    <angular2-multiselect class="form-control" formControlName="competition_brand_name"
+                                        [settings]="brandDropdownSettings" (onOpen)="brandOpen()"
+                                        (onSelect)="onChangeBrand($event,i)" [data]="brandDrop">
+                                    </angular2-multiselect>
+
+                                </td>
+                            </ng-container>
+                            <!-- segment name Column discountData-->
+                            <ng-container matColumnDef="discount">
+                                <th mat-header-cell *matHeaderCellDef> <b
+                                        class="clrblack">{{'lang.scenarioName.compDiscount' | translate}}</b> </th>
+                                <td style="width: 120px;" mat-cell *matCellDef="let row;let i = index;"
+                                    [formGroupName]="i">
+                                    <angular2-multiselect class="form-control" formControlName="discount"
+                                        [settings]="discountDropdownSettings" (onSelect)="onChangeDiscount($event,i)"
+                                        [data]="discountData">
+                                    </angular2-multiselect>
+                                </td>
+
+                            </ng-container>
+                            <!-- GC Column -->
+                            <ng-container matColumnDef="depth">
+                                <th style="width: 120px;" mat-header-cell *matHeaderCellDef> <b
+                                        class="clrblack text-right">{{'lang.scenarioName.disDepth' | translate}}</b>
+                                </th>
+
+                                <td mat-cell *matCellDef="let row;let i = index;" [formGroupName]="i">
+                                    <mat-form-field appearance="outline">
+                                        <input (input)="changeCompDiscountDepth($event)" autocomplete="off" matInput
+                                            type="number" [min]="configList.competition_min_depth"
+                                            [max]="configList.competition_max_depth" (keypress)="omit_char($event)"
+                                            formControlName="discount_depth" />
+                                    </mat-form-field>
+                                    <mat-icon class="poniter deleteIcon" (click)="removeCompetition(i)">delete forever
+                                    </mat-icon>
+                                </td>
+
+                            </ng-container>
+
+
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                        </table>
+                        <p class="text-error text-right error_message">{{errorTextComp}}</p>
+                        <span *ngIf="getControlsComp().length <= 12"
+                            class=" addScenario poniter text-danger d-inline-block pb-3" (click)="addCompetition()">+
+                            {{'lang.scenarioName.row' |
+                            translate}}</span>
+                    </div>
+                    <!-- Form submit button enabled on if form is valid -->
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="javascript:void(0)" class="addScenario" (click)="addScenarioPopup('recommended')">
+                                {{'lang.scenarioName.addPromos' | translate}}</a>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <mat-card-actions>
+                            <button class="mb-5" (click)="showPopup(rulesData);" mat-button>
+                                {{'lang.scenarioName.help' | translate}}
+                            </button>
+                            <button class="mb-5" [ngClass]="saveandsubmit?'Btn2':'Btn1'"
+                                (click)="validatepromos(scenarioForm.value)" mat-button>
+                                {{'lang.scenarioName.validate' | translate}}
+                            </button>
+                            <button class="mb-5" [ngClass]="saveandsubmit?'Btn1':'Btn2'"
+                                (click)="save(scenarioForm.value, scenarioForm.valid,$event)" mat-button
+                                [disabled]="!saveandsubmit">
+                                {{'lang.scenarioName.submit' | translate}}
+                            </button> <button (click)="homePage()" class="btn-cancel font-weight-bold mb-4" mat-button>
+                                {{'lang.common.cancel' | translate}}
+                            </button>
+                        </mat-card-actions>
+                    </div>
+                </mat-card>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+<!--Save popup -->
+<ng-template #confirmPopup let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.scenarioName.confirm' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        {{'lang.scenarioName.confirm_text' | translate}}
+    </div>
+    <div class="modal-footer">
+        <a class="save_yes" (click)="patchScenario()"> {{'lang.common.yes' | translate}}</a>
+        <a class="save_no" (click)="dismiss()"> {{'lang.common.no' | translate}}</a>
+    </div>
+</ng-template>
+
+<ng-template #rulesData let-modal>
+    <div class="modal-header">
+        <!-- <h5 class="modal-title" id="modal-basic-title">Geo List</h5> -->
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div style="padding-left:20px">
+        <h5>{{'lang.scenarioName.TBD_heading' | translate}}</h5>
+    </div>
+    <div class="pop_up">
+        <div class="">{{'lang.scenarioName.rule_1' | translate}}</div>
+        <div class="">{{'lang.scenarioName.rule_2' | translate}}</div>
+        <div class="">{{'lang.scenarioName.rule_3' | translate}}</div>
+        <div class="">{{'lang.scenarioName.rule_4' | translate}}</div>
+        <div class="">{{'lang.scenarioName.rule_5' | translate}}</div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>
+
+
+<!--Add Edit popup -->
+<ng-template #addedit class="newmodal" let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">Add/Edit</h5>
+            <button type="button" class="close" aria-label="Close" (click)="dismissData()">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <form [formGroup]="editForm" novalidate onkeydown="return event.key != 'Enter';">
+            <div class="modal-body">
+                <p class="text-right error_message">{{errorText}}</p>
+                <p class="text-right error_message">{{errorTextPrice}}</p>
+
+
+                <table class="tableLayout w-100 px-3">
+                    <thead>
+                        <tr>
+                            <th> <b class="clrblack">{{'lang.scenarioName.date' |
+                                    translate}}<span class="tabelreq text-danger ">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.duration' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.geo' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.channel' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.promo_type' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.mechanic' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.type' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.promo_name' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.regprice' |
+                                    translate}}<br />{{'lang.scenarioName.price' | translate}}</b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.min' |
+                                    translate}}<br />{{'lang.scenarioName.price' | translate}}</b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.discount' |
+                                    translate}}<br />{{'lang.scenarioName.price' | translate}}<span
+                                        class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.depth' |
+                                    translate}}<br />{{'lang.scenario_compare.depth' |
+                                    translate}} (%)<span class="tabelreq text-danger">*</span></b> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr [ngClass]="validationDepth()">
+                            <td class="pr-1">
+
+                                <mat-form-field class="reset-default-wrapper check" appearance="outline">
+                                    <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker1"
+                                        formControlName="start_date" name="stadate" class="date_picker table_des_portal"
+                                        (dateChange)="updateCreateScenarioConfig()" [min]="minDate" readonly>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1">
+                                        <mat-icon matDatepickerToggleIcon class="calicon filstdate"
+                                            style="bottom: 2px;left: 2px;">
+                                            <img src="assets/offer-configuration/dateicon.png"
+                                                style="margin-top: -10px;">
+                                        </mat-icon>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+
+                            </td>
+
+                            <td class="segment_drop pr-2">
+
+                                <angular2-multiselect formControlName="duration" [settings]="durationDropdownSettings"
+                                    [data]="durationData" (click)="onDurationClick()"
+                                    (onSelect)="onDurationSelect($event)">
+                                </angular2-multiselect>
+
+                            </td>
+                            <td class="segment_drop pr-2">
+                                <angular2-multiselect formControlName="geo" (onSelect)="onChangeSegment($event)"
+                                     [settings]="segmentDropdownSettings" [data]="geoDrop">
+                                </angular2-multiselect>
+                            </td>
+                            <td class="dis_channel pr-2">
+                                <div class="editdisable">
+                                    <angular2-multiselect formControlName="discount_channel"
+                                        [settings]="discountChannelSettingsDisable" [data]="promoChannelList">
+                                    </angular2-multiselect>
+                                </div>
+                            </td>
+                            <td class="discount_mech pr-2">
+                                <angular2-multiselect formControlName="promo_type"
+                                    (onSelect)="onChangePromoTypeSelect($event)" [settings]="promoTypeDropdownSettings"
+                                    [data]="promoTypeList">
+                                </angular2-multiselect>
+                            </td>
+                            <td class="discount_mech pr-2">
+                                <angular2-multiselect formControlName="discount_mechanic"
+                                    (onSelect)="onChangeMechanicSelect($event)" [settings]="mechanicDropdownSettings"
+                                    [data]="promoMechChannelList">
+                                </angular2-multiselect>
+                            </td>
+                            <td class="pr-2">
+                                <angular2-multiselect formControlName="product_type"
+                                    (onSelect)="onChangeProductType($event)" [settings]="productDropdownSettings"
+                                    [data]="promoDropData">
+                                </angular2-multiselect>
+                            </td>
+
+                            <td class="item pr-2">
+                                <angular2-multiselect formControlName="items" (onSelect)="onChangeItem($event)"
+                                     [settings]="itemDropdownSettings" [data]="itemDropData">
+                                </angular2-multiselect>
+                            </td>
+                            <td class="pr-2">
+                                <mat-form-field appearance="outline" class="readOnly">
+                                    <input autocomplete="off" matInput type="text" formControlName="base_price"
+                                        readonly />
+                                </mat-form-field>
+                            </td>
+                            <td class="pr-2">
+                                <mat-form-field appearance="outline" class="readOnly">
+                                    <input autocomplete="off" matInput type="text" formControlName="min_discount_price"
+                                        readonly />
+                                </mat-form-field>
+                            </td>
+                            <td class="dis_price ">
+                                <mat-form-field appearance="outline" [ngClass]="(isReadOnly)?'readOnly':''">
+                                    <input autocomplete="off" formControlName="discount_price"
+                                        [min]="editForm.value.min_discount_price"
+                                        [max]="editForm.value.max_discount_price || editForm.value.base_price"
+                                        (input)="changeDiscountPrice($event)" matInput type="text"
+                                        [readonly]="isReadOnly" />
+                                </mat-form-field>
+                            </td>
+                            <td class="depth_price pr-2">
+                                <mat-form-field appearance="outline" [ngClass]="(isReadOnly)?'readOnly':''">
+                                    <input autocomplete="off" matInput type="number" formControlName="discount_depth"
+                                        (input)="changeDiscountDepth($event)" (keypress)="omit_char($event)"
+                                        [readonly]="isReadOnly" />
+
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+
+            </div>
+
+            <div class="modal-footer"
+                *ngIf="this.scenarioFlag == 'CREATE_PROMOS' && this.editButton == true && this.addFixedPromos == true">
+                <button class="saveBtn  mb-1" (click)="updateAddSegment()" mat-button [disabled]="isDisable">
+                    {{'lang.common.save' | translate}}
+                </button>
+
+            </div>
+            <div class="modal-footer"
+                *ngIf="!(this.scenarioFlag == 'CREATE_PROMOS' && this.editButton == true && this.addFixedPromos == true)">
+
+                <button class="saveBtn  mb-1" (click)="updateAddSegment()" mat-button
+                    [disabled]="editForm.invalid || isDisable">
+                    {{'lang.common.save' | translate}}
+                </button>
+
+            </div>
+        </form>
+    </div>
+</ng-template>

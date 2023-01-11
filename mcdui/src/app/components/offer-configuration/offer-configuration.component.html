@@ -1,0 +1,1003 @@
+<div class="container-fluid">
+
+    <form [formGroup]="offerConfigurationForm" *ngIf="(configList | json) != '{}'">
+        <div class="row" *ngIf="offerConfigurationForm!=undefined">
+            <img src="assets/offer-configuration/left-arrow.png" class="leftarrow" alt="Back" style="cursor: pointer;"
+                (click)="backtoSummary()">
+            <h6 class="title">{{'lang.discount_config.title' | translate}}</h6>
+            <mat-card class="card">
+                <div class="form-group col-md-4 promo_select d-flex align-items-end" style="float: left;" *ngIf="!national_check">
+                    <div>
+                        <label class="stdate">{{'lang.discount_config.region' | translate}}</label>
+                        <span class="ml-1 text-danger">*</span>
+                        <angular2-multiselect class="form-control prodcat geo_dropDown" style="width: 451px;"
+                            [settings]="segmentDropdownSettings" [data]="promoChannelList" [(ngModel)]="SelectedGeo"
+                            formControlName="promo_channel" (onSelect)="selPromoChannel($event)" (onSelectAll)="allselectPromoChannel($event)"
+                            (onDeSelect)="unSelPromoChannel($event)" (onDeSelectAll)="unSelPromoChannelAll($event)">
+                        </angular2-multiselect>
+                    </div>
+                    <div class="find_coop">
+                        <button type="button" class="btn btn-outline-danger" (click)="getCoopList()">
+                            {{'lang.scenario_planner.findCoop' | translate}}
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group col-md-4 promo_select d-flex align-items-end" style="float: left;" *ngIf="national_check">
+                    <div>
+                        <label><h4>{{'lang.discount_config.region' | translate}}</h4></label>
+                        <label><h5>{{'lang.discount_config.national' | translate}}</h5></label>
+                    </div>
+                </div>
+
+                <br>
+                <div class="border"></div>
+                <!-- <h6 class="objective col-md-8" [hidden]="true">{{'lang.discount_config.competition_discount' | translate}}</h6>
+                <div class="form-group promo_select" formArrayName="competition_discounts" [hidden]="true">
+                    <div *ngFor="let discount of offerConfigurationForm.get('competition_discounts')['controls']; let i = index;"
+                        [formGroupName]="i">
+                        <div class="form-group col-md-3 promo_select" style="float: left;">
+                            <label class="stdate">{{'lang.discount_config.brand' | translate}}</label>
+                            <ng-select class="form-control" class="form-control startdt"
+                                (change)="updateOfferConfiguration()" formControlName="competition_brand_id" [searchable]="false">
+                                <ng-option *ngFor="let brand of brandList" [value]="brand.competition_brand_id"
+                                    [disabled]="validateDiscountBrand(brand)">
+                                    {{brand.competition_brand_name}}
+                                </ng-option>
+                            </ng-select>
+                        </div>
+                        <div class="form-group col-md-3 promo_select" style="float: left;">
+                            <label class="stdate">{{'lang.discount_config.discount' | translate}}</label>
+                            <ng-select class="form-control" class="form-control startdt"
+                                (change)="updateOfferConfiguration()" formControlName="competition_offer_id"
+                                [searchable]="false">
+                                <ng-option *ngFor="let discount of dis_list" [value]="discount.comp_offer_desc">
+                                    {{discount.comp_offer_desc}}
+                                </ng-option>
+                            </ng-select>
+                        </div>
+                        <div class="form-group col-md-6" style="float: left;">
+                            <label class="stdate">{{'lang.discount_config.discount_depth' | translate}}
+
+                            </label>
+                            <div class="discount_depth">
+                                <input type="number" name="margin" [max]="configList.competition_max_depth"
+                                    [min]="configList.competition_min_depth" formControlName="discount_depth"
+                                    (change)="updateOfferConfiguration()" class="form-control margin inline-block"
+                                    (focusout)="onFocusOutEvent($event)">
+                                <span class="percentage">%</span>
+                                <span (click)="removeCompetitionDiscounts(i)" style="cursor: pointer;" *ngIf="i > 0">
+                                    <mat-icon class="percentage" style="color: #E50101;" matTooltip="cancel"
+                                        matTooltipPosition="above">
+                                        delete
+                                    </mat-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" [hidden]="true">
+                    <a href="javascript:void(0)" (click)="addCompetitionDiscounts()" class="addDiscounts"
+                        [hidden]="(offerConfigurationForm.getRawValue().competition_discounts.length >= 13)">
+                        + add discount</a>
+                </div>
+                <div class="border-segment" [hidden]="true"></div>
+                <h6 class="segment-label col-md-8">
+                    {{'lang.rec_discount.segment' | translate}}<span class="text-danger">*</span> <span class="ml-1">{{'lang.rec_discount.segment_note' | translate}}</span>
+                </h6> -->
+
+                <div class="row row_padding">
+                    <!-- Segment Section-->
+                    <div class="col-md-3 formborder" [ngClass]="{frmbrd: count==0, frmbrdExp: segmentList.length>7}">
+                        <section class="example-section srch" style="margin: 35px 10px 0 10px;">
+                            <div>
+                                <input type="text" placeholder="Search" class="w-100 filter_Segment" autocomplete="off" formControlName="search">
+                            </div>
+                        </section>
+                        <section class="example-section" style="margin: 15px 0px 0px 0px;">
+                            <div #btnexp *ngFor="let segment of segmentList | filter:offerConfigurationForm.get('search').value; let i = index;">
+                                <button class="accordion" (click)="toggleAccordian($event, i)" *ngIf="segment && (exp?expand_geos(btnexp, i,segment, segmentList):true)"> {{segment.coop_name}} </button>
+                                <div class="panel" >
+                                    <div
+                                        *ngFor="let subSegment of segment.child_nodes | filter:offerConfigurationForm.get('search').value; let nestedIndex = index;"
+                                        hide="!segment.isActive"
+                                        class="d-flex py-1">
+                                        <mat-checkbox
+                                            name="subSegment"
+                                            [(ngModel)]="subSegment.selected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            (change)="showOptions($event,subSegment,segment,i)"
+                                            >
+                                        </mat-checkbox>
+                                        <span (click)="getIndexBasedOnSegmentId(i); getCoopDetails(segment.coop_name, subSegment.coop_name, segment.ohm_id, subSegment.ohm_id);get_white_line(i,subSegment);"
+                                            *ngIf="subSegment.selected"
+                                            [ngClass]="{prereg: subsegment_highlight[i]&&seg_name==subSegment.coop_name,checkedSegment:subSegment.selected,'segment':true,'subSegment':true}"
+                                            class="inner_select_bg" style="cursor: pointer;">
+                                            {{subSegment.coop_name}}</span>
+                                        <span (click)="getIndexBasedOnSegmentId(i)" *ngIf="!subSegment.selected"
+                                            [ngClass]="{checkedSegment:subSegment.selected}"
+                                            class="inner_select_bg" style="cursor: pointer;">
+                                            {{subSegment.coop_name}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+                    </div>
+
+
+
+                    <div class="col-md-9 formbord" style="margin-left: 0;" *ngIf="disp">
+                        <br>
+                        <!-- objective group -->
+
+                        <div class="obj__Container" style="padding-bottom: 5px;" formGroupName="period">
+
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-2">
+                                    <label class="stdate applylabel" >{{'lang.discount_config.apply'| translate}}</label>
+                                </div>
+                                <div class="col-md-2"  style="float: right;">
+                                    <angular2-multiselect class="prodcat" [settings]="applyDropdownSettings" [data]="applySegementList"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedApplyConfiguration" (onSelect)="onApplySelect($event)"
+                                        (onSelectAll)="onApplySelectAll($event)" (onDeSelect)="onApplyDeSelect($event)"
+                                        (onDeSelectAll)="onApplyDeSelect($event)">
+                                    </angular2-multiselect>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="stdate">{{'lang.discount_config.date' | translate}}</label>
+                                    <span class="ml-1 text-danger" >* </span><br>
+                                    <input #startdatee matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker" class="startdt" formControlName="period_start_date"
+                                         (dateChange)="onDateChange()" [min]="minDateee" readonly
+                                        [ngClass]="(isPreviewScreen)?'dateError':''">
+                                    <mat-datepicker-toggle matSuffix [for]="picker" style="margin-left: -35px;">
+                                        <mat-icon matDatepickerToggleIcon style="background-color:#E50101;" class="calicon">
+                                            <img src="assets/offer-configuration/dateicon.png" style="margin-top: -10px;">
+                                        </mat-icon>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+
+                                    <div *ngIf="offerConfigureControl.start_date.invalid && (offerConfigureControl.start_date.dirty || offerConfigureControl.start_date.touched)"
+                                        class="position">
+                                        <mat-error *ngIf="offerConfigureControl.start_date.errors?.['required']" class="errmsg errmat">
+                                            {{'lang.discount_config.date_req' | translate}}
+                                        </mat-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 duration-bar">
+
+                                        <div class="form-group">
+                                            <label class="stdate"> {{'lang.discount_config.duration' | translate}} <span
+                                                    class="defdep">{{'(Default '}}{{durMinValue}} {{' - ' | translate}}{{durMaxValue}}{{' weeks)'}}
+                                                </span></label>
+                                            <div class="support-slider">
+                                            <ngx-slider class="range" formControlName="period_duration"  [(value)]="durationValue" [(highValue)]="durationHighValue"
+                                                (userChangeEnd)="valueChangeOnDuration($event);" [options]="durationOptions">
+                                            </ngx-slider>
+                                            </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="fixed_Promo">
+                            <div class="row pt-4">
+                                <div class="col-md-6">
+                                    <p class="font_size_13 fixed_Promo_heading">{{'lang.discount_config.fxdPromos' | translate}} <span>(promos running in the same period)</span><span class="ml-1 text-danger" >* </span></p>
+                                </div>
+                                <div class="col-md-6 d-inline-block" style="padding-left: 15%; white-space: nowrap;">
+                                    <p class="font_size_13 fixed_Promo_Last_Update">Last Updated: {{lastUpdated}}</p>
+                                    <button type="button" (click)="getFixedPromo(activePromoPopup)" class="btn btn-link btn_update">
+                                        <img src="assets/job-summary/clockcounterclockwise.svg" style="margin-right: 3px; display: inline-block;">
+                                        {{'lang.scenario_planner.update' | translate}}
+                                    </button>
+                                </div>
+                                <div class="col-md-12">
+                                    <table class="fixed_Promo_table">
+                                        <tr>
+                                          <th>Start Date</th>
+                                          <th>Business Unit</th>
+                                          <th>Duration</th>
+                                          <th>Promo Mechanic</th>
+                                          <th>Promo Name</th>
+                                          <th style="padding-left: 2%;">Promo Price</th>
+                                          <th style="padding-left: 2%;">% Promo Depth</th>
+                                        </tr>
+                                        <tr *ngFor="let item of fixed_Promo; let i = index;">
+                                            <td>{{ item.start_date }}</td>
+                                            <td>{{ item.coop }}</td>
+                                            <td class="num">{{ item.duration }}</td>
+                                            <td>{{ item.dis_mech_desc }}</td>
+                                            <td>{{ item.offer_desc}}</td>
+                                            <td class="num" style="padding-right: 2%;">{{ item.offer_price  | number: '0.2-2'}}</td>
+                                            <td class="num" style="padding-right: 2%;">{{ item.discount_depth_per  | number:'1.0-2'}}</td>
+                                            <td>
+                                                <mat-icon class="poniter"
+                                                (click)="editScenarioPopup();editRow(i);">edit
+                                                </mat-icon>
+                                            </td>
+                                            <td>
+                                                <mat-icon class="poniter"
+                                                (click)="removeSegment(i)">delete forever
+                                                </mat-icon>
+                                            </td>
+                                        </tr>
+                                      </table>
+                                </div>
+                                <hr>
+                                <div class="col-md-12" style="padding-left: 1%;">
+                                    <a href="javascript:void(0)" class="addScenario" (click)="addScenarioPopup()">
+                                        {{'lang.scenarioName.addPromos' | translate}}</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="obj__Container pt-4" style="padding-bottom: 5px;" formGroupName="objective">
+                            <div class="row">
+                                <h6 class="objective col-md-8">{{'lang.discount_config.objective' | translate}}
+                                    <span class="ml-1 text-danger cursorhand" (click)="objectiveModal(objectivePopup)">
+                                        <mat-icon matDatepickerToggleIcon class="calicon filstdate" style="padding-left:10px;">
+
+                                            <img src="assets/offer-configuration/info.png" style="margin-top: 25px; height:16px; width:16px;" >
+                                        </mat-icon>
+                                    </span>
+                                </h6>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group promo_select">
+                                        <label class="stdate">{{'lang.discount_config.max' | translate}}
+                                            <span class="defdep" *ngIf="seg_name=='Deal'" >({{'lang.discount_config.defaultmaxDeal' |
+                                                translate}})</span>
+                                                <span class="defdep" *ngIf="seg_name=='Value'" >({{'lang.discount_config.defaultmaxValue' |
+                                                    translate}})</span>
+                                                <span class="ml-1 text-danger">*</span>
+
+                                            </label>
+                                        <ng-select class="form-control startdt" formControlName="maximize"
+                                            [searchable]="false" placeholder="Select Maximize"
+
+                                            (change)="validateMaximize(maxWarningPopup)">
+                                            <ng-option *ngFor="let maximize of maximizeList" [value]="maximize">
+                                                {{maximize.objective_name}}
+                                            </ng-option>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <div>
+                                        <div class="form-group promo_select" formArrayName="lower_bound">
+                                            <label class="stdate">{{'lang.discount_config.lowerbound' |
+                                                translate}}<span class="defdep">({{'lang.discount_config.defnone' |
+                                                    translate}})</span></label><br>
+                                            <div *ngFor="let lower of offerConfigurationForm.get('objective').get('lower_bound')['controls']; let i = index;"
+                                                [formGroupName]="i">
+
+                                                <div class="flex__lower_bound1" style="margin-top: 2px;">
+                                                    <ng-select formControlName="lower_bound_name"
+                                                        (change)="updateOfferConfiguration()"
+
+                                                        class="form-control max inline-block " [searchable]="false"
+                                                        [clearable]="false" class="form-control startdt"
+                                                        placeholder="None">
+                                                        <ng-option value=''>None</ng-option>
+                                                        <ng-option *ngFor="let target of lowerBoundList; let j = index"
+                                                            [value]="target.objective_name"
+                                                            [disabled]="validateLowerBond(target)">
+                                                            {{target.objective_name}}
+                                                        </ng-option>
+                                                    </ng-select>
+                                                    <input type="number" name="margin" max="0" min="-5"
+                                                        formControlName="lower_bound_percentage"
+                                                        (change)="updateOfferConfiguration()"
+                                                        (keyup)="onKeyup($event,i)"
+                                                        class="form-control margin inline-block">
+                                                    <span class="percentage">%</span>
+                                                    <span (click)="removeLowerBond(i)" style="cursor: pointer;"
+                                                        *ngIf="i > 0">
+                                                        <mat-icon class="percentage" style="color: #E50101;"
+                                                            matTooltip="cancel" matTooltipPosition="above">
+                                                            delete
+                                                        </mat-icon>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                            <a
+                                                href="javascript:void(0)"
+                                                (click)="addLowerBond()"
+                                                class="addbound"
+                                                *ngIf="validateAddBound()">+
+                                                {{'lang.discount_config.add_bound' | translate}}
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="mins__container  product__border" formGroupName="product">
+                            <!-- product group -->
+                            <h6 class="objective">{{'lang.discount_config.product' | translate}}
+                                <span class="ml-1 text-danger" (click)="exportDownloadProductMapping()" style="font-weight:normal;">
+                                    <mat-icon matDatepickerToggleIcon class="calicon filstdate" style="padding-left:10px;">
+
+                                        <img src="assets/offer-configuration/downloadbtn.png" style="margin-top: 25px; height:16px; width:16px;" >
+                                    </mat-icon>
+                                    Product Mapping
+                                </span>
+                            </h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group inline-block" style="width: 200px;">
+                                        <label class="stdate">{{'lang.discount_config.prod_cat' | translate}}
+                                            <span class="defdep">({{'lang.discount_config.defall' |
+                                                translate}})</span><span class="ml-1 text-danger">*</span>
+                                        </label>
+                                        <angular2-multiselect class="form-control prodcat"
+                                            [settings]="productDropdownSettings" [data]="productListItems"
+                                             formControlName="product_item" [(ngModel)]="selectedProductList"
+                                            (onSelect)="onProductSelect($event)"
+                                            (onSelectAll)="onProductSelectAll($event)"
+                                            (onDeSelect)="onProductDeSelect($event,maxOfferWarningPopup)"
+                                            (onDeSelectAll)="onProductDeSelectAll($event,maxAllOfferWarningPopup)">
+                                        </angular2-multiselect>
+
+                                        <div *ngIf="productControl.product_item.invalid && (productControl.product_item.dirty || productControl.product_item.touched)"
+                                            class="position">
+                                            <mat-error *ngIf="productControl.product_item.errors?.['required']"
+                                                class="errmsg">
+                                                Product Category is required
+                                            </mat-error>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group inline-block" style="width: 30%; padding: 0 10px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" style="width: 300px;">
+                                        <label class="stdate">{{'lang.discount_config.item' | translate}}
+                                            <span class="defdep">({{'lang.discount_config.defall' |
+                                                translate}})</span>
+                                            <span class="ml-1 text-danger">*</span>
+                                        </label>
+                                        <angular2-multiselect class="form-control prodcat" formControlName="item"
+                                            [settings]="itemdropdownSettings" [data]="itemList" [disabled]="itemList.is_active" [(ngModel)]="selectedItemList"
+                                            (onSelect)="onItemSelect($event)" (onSelectAll)="onItemSelect($event)"
+                                            (onDeSelect)="onItemSelect($event)" (onDeSelectAll)="onItemSelect($event)"
+                                            >
+                                        </angular2-multiselect>
+
+                                        <div *ngIf="productControl.item.invalid && (productControl.item.dirty || productControl.item.touched)"
+                                            class="position">
+                                            <mat-error *ngIf="productControl.item.errors?.['required']" class="errmsg">
+                                                {{'lang.discount_config.prod_req' | translate}}
+                                            </mat-error>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row setmax">
+                                <div class="col-md-6" formArrayName="max_offers">
+
+                                    <div>
+                                        <div class="form-group promo_select">
+
+                                            <label class="stdate mb-0">{{'lang.discount_config.setmax' | translate}}</label><br>
+                                            <div *ngFor="let lower of offerConfigurationForm.get('product').get('max_offers')['controls']; let i = index;"
+                                                [formGroupName]="i" class="pt-2">
+                                                <div class="flex__lower_bound1">
+                                                    <ng-select formControlName="product_item" [searchable]="false"
+                                                        class="form-control max inline-block "
+                                                        class="form-control startdt" placeholder="Select Max offers"
+                                                        (change)="validateProductItem(i)">
+                                                        <ng-option value=''>None</ng-option>
+                                                        <ng-option
+                                                            *ngFor="let product of offerConfigurationForm.getRawValue().product.product_item; let j = index"
+                                                            [value]="product.category_id"
+                                                            [disabled]="validateProductCategory(product)">
+                                                            {{product.category}}
+                                                        </ng-option>
+                                                    </ng-select>
+                                                    <ng-select class="form-control margin inline-block startdt"
+                                                        [searchable]="false" formControlName="max_offer" placeholder=""
+                                                        (change)="updateOfferConfiguration()">
+
+                                                        <ng-option *ngFor="let maxOffer of maxOffersList"
+                                                            [value]="maxOffer.id">
+                                                            {{maxOffer.id}}
+                                                        </ng-option>
+                                                    </ng-select>
+
+                                                    <span *ngIf="i > 0" (click)="removeMaxOffer(i)"
+                                                        style="cursor: pointer;">
+                                                        <mat-icon class="percentage" style="color: #E50101;"
+                                                            matTooltip="cancel" matTooltipPosition="above">
+                                                            delete
+                                                        </mat-icon>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <a href="javascript:void(0)" (click)="addMaxOffer()" class="addbound"
+                                                *ngIf="validateAddProductCategory()">+ {{'lang.discount_config.addprod'
+                                                | translate}}</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="borderobj" style="margin-top:10px;"></div>
+                        <!-- Offer Group-->
+                        <div class="mins__container" formGroupName="offer">
+                            <h6 class="objective disdepth">{{'lang.discount_config.offer' | translate}}
+                            <span class="ml-1 text-danger" (click)="exportDownloadMechanicDetails()">*
+                                <mat-icon matDatepickerToggleIcon class="calicon filstdate" style="padding-left:12px;">
+
+                                    <img src="assets/offer-configuration/downloadbtn.png" style="margin-top: 25px; height:16px; width:16px;">
+                                </mat-icon>
+                                <span class="ml-2">Mechanic Details</span>
+
+                            </span></h6>
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group promo_select" style="width: 300px;">
+                                        <label class="stdate">{{'lang.discount_config.dis_mech' | translate}}
+                                            <span class="defdep">({{'lang.discount_config.defall' |
+                                                translate}})</span>
+                                        </label>
+                                        <angular2-multiselect class="form-control prodcat"
+                                            formControlName="promo_mechanic" [settings]="promoMechanicdropdownSettings"
+                                            [data]="promoMechChannelListItems" (onSelect)="onPromoMechanicSelect($event)" [(ngModel)]="selectedPromoList"
+                                            (onSelectAll)="onPromoMechanicSelect($event)"
+                                            (onDeSelect)="onPromoMechanicSelect($event)"
+                                            (onDeSelectAll)="onPromoMechanicSelect($event)">
+                                        </angular2-multiselect>
+
+
+                                        <div *ngIf="promoControl.promo_mechanic.invalid && (promoControl.promo_mechanic.dirty || promoControl.promo_mechanic.touched)"
+                                            class="position">
+                                            <mat-error *ngIf="promoControl.promo_mechanic.errors?.['required']"
+                                                class="errmsg">
+                                                {{'lang.discount_config.dis_mech_req' | translate}}
+                                            </mat-error>
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <p class="stdate linespace"> {{'lang.discount_config.discount_depth' | translate}} </p>
+                                        <p class="stdate linespace"> {{'('}}{{'lang.discount_config.depth' | translate}} </p>
+                                        <p
+                                                class="defdep linespace">{{'Promo on 1st item: ' | translate}}{{min_depth_1}}{{'% - '}}{{max_depth_1}}{{'%'}}
+                                        </p>
+                                        <p
+                                                class="defdep linespace">{{'Promo on 2st item: ' | translate}}{{min_depth_2}}{{'% - '}}{{max_depth_2}}{{'%)'}}
+                                        </p>
+                                        <div class="d-flex align-items-center">
+                                            <label for="first" class="stdate" style="width:118px;">{{'lang.discount_config.depth_one' | translate}}</label><!--[(value)]="disCountValue" [(highValue)]="disCountHighValue"-->
+                                            <ngx-slider class="range" formControlName="discount_depth" [value]="disCountValue" [highValue]="disCountHighValue"
+                                                (userChangeEnd)="valueChangeOnDepth1($event);" [options]="disvountoptions">
+                                            </ngx-slider>
+                                        </div>
+                                        <div class="d-flex align-items-center pt-2">
+                                            <label for="first" class="stdate" style="width:118px;">{{'lang.discount_config.depth_two' | translate}}</label>
+                                            <ngx-slider class="range" formControlName="discount_depth_two" [value]="disCountValue_two" [highValue]="disCountHighValue_two"
+                                                (userChangeEnd)="valueChangeOnDepth2($event);" [options]="disvountoptions_two">
+                                            </ngx-slider>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="stdate">{{'lang.discount_config.noofoffer' | translate}}<span
+                                                class="defdep">{{'(Default '}}{{noofpromos_min}}{{' - '}}{{noofpromos_max}}{{')'}}
+                                            </span></label> <br>
+                                        <ngx-slider class="range col-md-6" formControlName="no_of_offers" [value]="offerValue" [highValue]="offerHighValue"
+                                            (userChangeEnd)="valueChangeOnNoOfOffers($event);" [options]="offeroptions"></ngx-slider>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" formArrayName="daypart">
+                                    <div>
+                                        <div class="form-group promo_select">
+                                            <label class="stdate">{{'lang.discount_config.setdaypart' | translate}}</label>
+                                            <div *ngFor="let lower of offerConfigurationForm.get('offer').get('daypart')['controls']; let i = index;"
+                                                    [formGroupName]="i" class="pt-2">
+                                                    <div class="flex__lower_bound1">
+                                                        <ng-select formControlName="dayPart_item" [searchable]="false" [ngModel]="selected_coop?.data?.promo_list?.daypart[i]?.dayPart_item"
+                                                            class="form-control max inline-block "
+                                                            class="form-control startdt"
+                                                            (change)="validateProductItem(i)">
+                                                            <ng-option value=''>None</ng-option>
+                                                            <ng-option
+                                                                *ngFor="let dayPart of dayPartList; let j = index"
+                                                                [value]="dayPart.dayPart_id"
+                                                                [disabled]="validateDayPartCategory(dayPart)">
+                                                                {{dayPart.dayPart_name}}
+                                                            </ng-option>
+                                                        </ng-select>
+                                                        <ng-select class="form-control margin inline-block startdt" [ngModel]="selected_coop?.data?.promo_list?.daypart[i]?.dayPart_offer"
+                                                            [searchable]="false" formControlName="dayPart_offer" placeholder=""
+                                                            (change)="updateOfferConfiguration()">
+
+                                                            <ng-option *ngFor="let maxOffer of dayPartOffersList"
+                                                                [value]="maxOffer.id">
+                                                                {{maxOffer.id}}
+                                                            </ng-option>
+                                                        </ng-select>
+                                                        <span *ngIf="i > 0" (click)="removeDayPart(i)"
+                                                            style="cursor: pointer;">
+                                                            <mat-icon class="percentage" style="color: #E50101;"
+                                                                matTooltip="cancel" matTooltipPosition="above">
+                                                                delete
+                                                            </mat-icon>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <a href="javascript:void(0)" (click)="addDatPart()" class="addbound"
+                                                    *ngIf="validateAddDaypart()">+ {{'lang.discount_config.addDayPart'
+                                                    | translate}}</a>
+
+
+                                            <div *ngIf="productControl.item.invalid && (productControl.item.dirty || productControl.item.touched)"
+                                                class="position">
+                                                <mat-error *ngIf="productControl.item.errors?.['required']" class="errmsg">
+                                                    {{'lang.discount_config.prod_req' | translate}}
+                                                </mat-error>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="borderoffer"></div>
+                        <h6 class="objective">{{'lang.discount_config.competition_discount' | translate}}</h6>
+                        <div class="form-group promo_select" formArrayName="competition_discounts">
+                            <div *ngFor="let discount of offerConfigurationForm.get('competition_discounts')['controls']; let i = index;"
+                                [formGroupName]="i">
+                                <div class="form-group col-md-6 promo_select" style="float: left;">
+                                    <label class="stdate" *ngIf="i==0">{{'lang.discount_config.brand' | translate}}</label>
+                                    <ng-select class="form-control" class="form-control startdt" [ngModel]="selected_coop?.data?.competition_discountss[i]?.competition_brand_id"
+                                        (change)="updateOfferConfiguration();" formControlName="competition_brand_id" [searchable]="false">
+                                        <ng-option *ngFor="let brand of brandList" [value]="brand.competition_brand_name"
+                                            [disabled]="validateDiscountBrand(brand)">
+                                            {{brand.competition_brand_name}}
+                                        </ng-option>
+                                    </ng-select>
+
+                                </div>
+                                <div class="form-group col-md-3 promo_select" style="float: left;">
+                                    <label class="stdate" *ngIf="i==0">{{'lang.discount_config.discount' | translate}}</label>
+                                    <ng-select class="form-control" class="form-control startdt"  [ngModel]="selected_coop?.data?.competition_discountss[i]?.competition_offer_id"
+                                        (change)="updateOfferConfiguration()" formControlName="competition_offer_id"
+                                        [searchable]="false">
+                                        <ng-option *ngFor="let discount of dis_list" [value]="discount.comp_offer_desc">
+                                            {{discount.comp_offer_desc}}
+                                        </ng-option>
+                                    </ng-select>
+                                </div>
+                                <div class="form-group col-md-3" style="float: left;">
+                                    <label class="stdate" *ngIf="i==0">{{'lang.discount_config.discount_depth' | translate}}
+
+                                    </label>
+                                    <div class="discount_depth">
+                                        <input type="number" name="margin" [max]="configList.competition_max_depth" [ngModel]="selected_coop?.data?.competition_discountss[i]?.discount_depth"
+                                            [min]="configList.competition_min_depth" formControlName="discount_depth"
+                                            (change)="updateOfferConfiguration()" class="form-control margin inline-block"
+                                            (focusout)="onFocusOutEvent($event)">
+                                        <span class="percentage">%</span>
+                                        <span (click)="removeCompetitionDiscounts(i)" style="cursor: pointer;" *ngIf="i > 0">
+                                            <mat-icon class="percentage" style="color: #E50101;" matTooltip="cancel"
+                                                matTooltipPosition="above">
+                                                delete
+                                            </mat-icon>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <a href="javascript:void(0)" (click)="addCompetitionDiscounts()" class="addDiscounts position-relative">
+                                + add discount</a>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="borderjob"></div>
+                <div class="col-md-12">
+                    <label class="stdate" style="margin-top: 30px;">{{'lang.discount_config.packagename' |
+                        translate}}</label>
+                    <input type="text" name="job_name" class="form-control jobname" formControlName="offer_package_name"
+                        (change)="updateOfferConfiguration()" maxlength="100"
+                        [readonly]="offerConfiguration.is_edit &&  !isCopyScreen">
+                    <button mat-button color="warn" class="previewbtn" style="margin-left: 32%;" (click)="validateFormData(previewPopUp,validatePopUp,validatePopUp2)"
+                        >{{'lang.common.preview' |
+                        translate}}</button>
+                    <button mat-button color="warn" class="cancelbtn"
+                        (click)="cancelModel(cancelPopup)">{{'lang.common.cancel' |
+                        translate}}</button>
+                </div>
+            </mat-card>
+        </div>
+    </form>
+</div>
+
+<!--Cancel popup -->
+<ng-template #cancelPopup let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.popup.confirmation' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cancelDismis()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6>{{'lang.help.confirm' | translate}}</h6>
+    </div>
+    <div class="modal-footer">
+        <a class="save_yes" (click)="cancelGo()">{{'lang.popup.yes' | translate}}</a>
+        <a class="save_no" (click)="cancelDismis()">{{'lang.popup.no' | translate}}</a>
+    </div>
+</ng-template>
+<!--Save popup -->
+<ng-template #maxWarningPopup let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.popup.confirmation' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cancelDismis()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6>{{'lang.constantData.lowerBondWarningMessage' | translate}}</h6>
+    </div>
+    <div class="modal-footer">
+        <a class="save_yes" (click)="removeLowerBondByIndex()">{{'lang.popup.yes' | translate}}</a>
+        <a class="save_no" (click)="patchPreviousLBValue()">{{'lang.popup.no' | translate}}</a>
+    </div>
+</ng-template>
+
+<!--Objective popup -->
+<ng-template #objectivePopup let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Objectives</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cancelDismis()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body prodscroll">
+        <table class="table_layout">
+            <tr>
+                <th class="table_header_layout"><b class="clrblack">KPI Name</b></th>
+                <th class="table_header_layout"><b class="clrblack">KPI Definition</b></th>
+                <th class="table_header_layout"><b class="clrblack">KPI Formulae</b></th>
+            </tr>
+                <tr>
+                    <td class="table_header_layout">Guest Count / GC</td>
+                    <td class="table_header_layout">No. of Transactions</td>
+                    <td class="table_header_layout"># Transactions</td>
+                </tr>
+                <tr>
+                    <td class="table_header_layout">Sales ($)</td>
+                    <td class="table_header_layout">Total dollars Sales</td>
+                    <td class="table_header_layout">Qty* (1-% on Promo) * Base Price + Qty * % on Promo * Promo Price</td>
+                </tr>
+                <tr>
+                    <td class="table_header_layout">Gross Margin / GM ($)</td>
+                    <td class="table_header_layout">Total sales minus the total cost of the goods sold</td>
+                    <td class="table_header_layout">Sales - (Qty * F&P cost)</td>
+                </tr>
+                <tr>
+                    <td class="table_header_layout">Average Check / AC ($)</td>
+                    <td class="table_header_layout">Amount spent per transaction</td>
+                    <td class="table_header_layout">Sum(Sales) / Sum(GC)</td>
+                </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a class="save_no" (click)="cancelDismis()">{{'lang.common.ok' | translate}}</a>
+    </div>
+</ng-template>
+
+<!--validate popup -->
+<ng-template #validatePopUp let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.popup.warning' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cancelDismis()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6>{{'lang.constantData.validatePackageWarningMessage' | translate}}</h6>
+    </div>
+    <div class="modal-footer">
+        <a class="save_yes" (click)="cancelDismis()">{{'lang.popup.yes' | translate}}</a>
+    </div>
+</ng-template>
+<ng-template #validatePopUp2 let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.popup.warning' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cancelDismis()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6>{{'lang.constantData.validatePackageWarningMessage2' | translate}}</h6>
+    </div>
+    <div class="modal-footer">
+        <a class="save_yes" (click)="cancelDismis()">{{'lang.popup.yes' | translate}}</a>
+    </div>
+</ng-template>
+<ng-template #copyPopUp let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.popup.note' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="summaryNavigation()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6>{{'lang.constantData.copyWarningMessage' | translate}}</h6>
+    </div>
+    <div class="modal-footer">
+        <a class="save_yes" (click)="summaryNavigation()">{{'lang.popup.yes' | translate}}</a>
+    </div>
+</ng-template>
+<ng-template #copyPopUp let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.popup.note' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="summaryNavigation()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6>{{'lang.constantData.copyWarningMessage' | translate}}</h6>
+    </div>
+    <div class="modal-footer">
+        <a class="save_yes" (click)="summaryNavigation()">{{'lang.popup.yes' | translate}}</a>
+    </div>
+</ng-template>
+
+
+
+<!--Save popup -->
+<ng-template #maxOfferWarningPopup let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.popup.confirmation' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="patchPreviousMaxValue()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6>{{'lang.constantData.maxDiscountsWarningMessage' | translate}}</h6>
+    </div>
+    <div class="modal-footer">
+        <a class="save_yes" (click)="removeItemAndProductByIndex()">{{'lang.popup.yes' | translate}}</a>
+        <a class="save_no" (click)="patchPreviousMaxValue()">{{'lang.popup.no' | translate}}</a>
+    </div>
+</ng-template>
+
+<!--Active promos popup -->
+<ng-template #activePromoPopup let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.popup.confirmation' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="patchPreviousFixedPromos()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6>{{'lang.constantData.activePromoWarningMessage' | translate}}</h6>
+    </div>
+    <div class="modal-footer">
+        <a class="save_yes" (click)="getPromos_fixed()">{{'lang.popup.yes' | translate}}</a>
+        <a class="save_no" (click)="patchPreviousFixedPromos()">{{'lang.popup.no' | translate}}</a>
+    </div>
+</ng-template>
+
+<!--Save popup -->
+<ng-template #maxAllOfferWarningPopup let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.popup.confirmation' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="patchPreviousMaxValue()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6>{{'lang.constantData.maxDiscountsWarningMessage' | translate}}</h6>
+    </div>
+    <div class="modal-footer">
+        <a class="save_yes" (click)="removeAllItemAndProduct()">{{'lang.popup.yes' | translate}}</a>
+        <a class="save_no" (click)="patchPreviousMaxValue()">{{'lang.popup.no' | translate}}</a>
+    </div>
+</ng-template>
+
+
+<!--Add Edit popup -->
+<ng-template #addedit class="newmodal" let-modal>
+
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">Add/Edit</h5>
+            <button type="button" class="close" aria-label="Close" (click)="dismissData()">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <form [formGroup]="editForm" novalidate onkeydown="return event.key != 'Enter';">
+            <div class="modal-body">
+                <p class="text-error text-right error_message">{{errorText}}</p>
+                <p class="text-error text-right error_message">{{errorTextPrice}}</p>
+
+
+                <table class="tableLayout w-100 px-3">
+                    <thead>
+                        <tr>
+                            <th> <b class="clrblack">{{'lang.scenarioName.date' |
+                                    translate}}<span class="tabelreq text-danger ">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.duration' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.geo' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.channel' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.promo_type' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.mechanic' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.type' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.promo_name' |
+                                    translate}}<span class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.regprice' |
+                                    translate}}<br />{{'lang.scenarioName.price' | translate}}</b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.min' |
+                                    translate}}<br />{{'lang.scenarioName.price' | translate}}</b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.discount' |
+                                translate}}<br />{{'lang.scenarioName.price' | translate}}<span
+                                    class="tabelreq  text-danger">*</span></b> </th>
+                            <th> <b class="clrblack">{{'lang.scenarioName.depth' |
+                                    translate}}<br />{{'lang.scenario_compare.depth' |
+                                    translate}} (%)<span class="tabelreq text-danger">*</span></b> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr [ngClass]="validationDepth()">
+                            <td class="pr-1">
+                                    <mat-form-field class="reset-default-wrapper ModalCustomClass" appearance="outline" style="width: 90% !important">
+                                        <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker1" formControlName="start_date" name="stadate" class="date_picker table_des_portal"
+                                        [min]="minDateee" readonly (dateChange)="onDateChangeactive()">
+                                        <mat-datepicker-toggle matSuffix [for]="picker1">
+                                            <mat-icon matDatepickerToggleIcon class="calicon1 filstdate" style="bottom: 2px;left: 2px;">
+                                                <img src="assets/offer-configuration/dateicon.png" style="margin-top: -10px;">
+                                            </mat-icon>
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                            </td>
+                            <td class="segment_drop pr-2">
+                                  <angular2-multiselect formControlName="duration"
+                                    [settings]="durationDropdownSettings" [data]="durationData"
+                                    (click)="onDurationClick()"
+                                    (onSelect)="onDurationSelect($event)">
+                                  </angular2-multiselect>
+                            </td>
+                            <td class="segment_drop geoModal pr-2">
+                                <div class="editdisable">
+                                <angular2-multiselect formControlName="geo"
+                                    [settings]="segmentDropdownSettingsModal"
+                                    [data]="geoDrop">
+                                </angular2-multiselect>
+                                </div>
+                            </td>
+                            <td class="dis_channel pr-2">
+                                <div class="editdisable">
+                                    <angular2-multiselect formControlName="discount_channel"
+                                        [settings]="discountChannelSettingsDisable" [data]="promoChannelListModal">
+                                    </angular2-multiselect>
+                                </div>
+                            </td>
+                            <td class="discount_mech pr-2">
+                                <div class="editdisable">
+                                <angular2-multiselect formControlName="promo_type"
+                                    (onSelect)="onChangePromoTypeSelect($event)" [settings]="promoTypeDropdownSettings"
+                                    [data]="promoTypeList">
+                                </angular2-multiselect>
+                                </div>
+                            </td>
+                            <td class="discount_mech pr-2">
+                                <angular2-multiselect formControlName="discount_mechanic"
+                                    (onSelect)="onChangeMechanicSelect($event)" [settings]="mechanicDropdownSettings"
+                                    [data]="promoMechChannelListModal">
+                                </angular2-multiselect>
+                            </td>
+                            <td class="pr-2 productTypeModal">
+                                <angular2-multiselect formControlName="product_type"
+                                    (onSelect)="onChangeProductType($event)" [settings]="productDropdownSettingsModal"
+                                    [data]="promoDropData">
+                                </angular2-multiselect>
+                            </td>
+
+                            <td class="item pr-2">
+                                <angular2-multiselect formControlName="items" (onSelect)="onChangeItem($event)"
+                                [settings]="itemDropdownSettings1" [data]="itemDropData">
+                                </angular2-multiselect>
+                            </td>
+                            <td class="bp pr-2">
+                                <mat-form-field appearance="outline" class="readOnly" style="width: 90% !important" class="ModalCustomClass">
+                                    <input autocomplete="off" matInput type="text" formControlName="base_price"
+                                        readonly />
+                                </mat-form-field>
+                            </td>
+                            <td class="mdp pr-2">
+                                <mat-form-field appearance="outline" class="readOnly" style="width: 90% !important" class="ModalCustomClass">
+                                    <input autocomplete="off" matInput type="text" formControlName="min_discount_price"
+                                        readonly />
+                                </mat-form-field>
+                            </td>
+                            <td class="dis_price">
+                                <mat-form-field appearance="outline" [ngClass]="(isReadOnly)?'readOnly':''" style="width: 90% !important" class="ModalCustomClass">
+                                    <input autocomplete="off" formControlName="discount_price"
+                                        [min]="editForm.value.min_discount_price" [max]="editForm.value.base_price || editForm.value.max_discount_price"
+                                        (input)="changeDiscountPrice($event)" matInput type="text"
+                                         [readonly]="isReadOnly" />
+                                </mat-form-field>
+                            </td>
+                            <td class="depth_price pr-2">
+                                <mat-form-field appearance="outline" [ngClass]="(isReadOnly)?'readOnly':''" style="width: 90% !important" class="ModalCustomClass">
+                                    <input autocomplete="off" matInput type="number"
+                                         formControlName="discount_depth"
+                                         (input)="changeDiscountDepth($event)"
+                                        (keypress)="omit_char($event)" [readonly]="isReadOnly" />
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+
+            </div>
+            <div class="modal-footer" *ngIf="editButton">
+                <button class="saveBtnModal  mb-1" (click)="updateAddSegment()" mat-button [disabled]="isDisable">
+                    {{'lang.common.save' | translate}}
+                </button>
+            </div>
+            <div class="modal-footer" *ngIf="!editButton">
+                <button class="saveBtnModal  mb-1" (click)="updateAddSegment()" mat-button [disabled]="editForm.invalid || isDisable">
+                    {{'lang.common.save' | translate}}
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<!--Preview popup -->
+<ng-template #previewPopUp let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.common.preview' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="cancelDismis()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-offer-recommender></app-offer-recommender>
+    </div>
+</ng-template>

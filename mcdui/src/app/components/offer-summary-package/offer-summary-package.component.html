@@ -1,0 +1,18 @@
+<div class="container-fluid">
+
+    <div class="row headpadding">
+        <div class="col d-flex">
+            <img src="assets/offer-configuration/left-arrow.png" class="leftarrow" alt="Back" class="cursorhand"
+                (click)="goBack()">
+            <h6 class="title">{{packageName}}</h6>
+        </div>
+        <div class="col-12">
+            <app-offer-package-details (setDiscountPackagePage)="getDiscountPackageName($event)">
+            </app-offer-package-details>
+        </div>
+
+        <div class="col-12 padding___bottom">
+            <app-offer-package-recommended-offers [promoRecommenderFlag] = 'promoRecommenderFlag'></app-offer-package-recommended-offers>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,453 @@
+<div class="container-fluid" *ngIf="undefined!=previewResponse">
+    <div class="row">
+        <img src="assets/offer-configuration/left-arrow.png" class="leftarrow" alt="Back"
+            (click)="redirectToOfferConfig()" *ngIf="prev_back">
+        <h6 class="title" style="cursor: pointer;" *ngIf="prev">{{'lang.common.preview' |
+            translate}}</h6>
+        <div class="col-md-12">
+            <div class="date-container" >
+                <div *ngFor="let preview of previewResponse;" class="mb-5">
+                    <h6 class="mb-4">{{preview.coop_name}} {{preview.promo_type}}</h6>
+                    <div class="date_box_container">
+                        <div class="date_box">
+                            <span class="date_title">{{'lang.discount_config.date' | translate}} :</span>
+                            <h6>{{preview.start_date | datePipeCustom}}</h6>
+                        </div>
+                        <div class="date_box">
+                            <span class="date_title">{{'lang.discount_config.duration' | translate}} :</span>
+                            <ng-container *ngIf="preview.period.period_duration == 1">
+                                <h6>{{preview.duration[1]}} {{'lang.discount_config.week' | translate}}</h6>
+                            </ng-container>
+                            <ng-container *ngIf="preview.period.period_duration != 1">
+                                <h6>{{preview.duration[0]}} - {{preview.duration[1]}} {{'lang.discount_config.weeks' | translate}}</h6>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <h5 class="comp__title" [hidden]="true">{{'lang.discount_config.competition_discount' | translate}}</h5>
+                    <div class="date_box_container" [hidden]="true">
+                        <div class="date_box">
+                            <span class="date_title">{{'lang.discount_config.brand' | translate}} :</span>
+                            <ng-container *ngIf="!showbtnhide">
+                                <h6>- Nil -</h6>
+                            </ng-container>
+                            <ng-container *ngIf="showbtnhide">
+                                <h6>{{compDiscounts[0].competition_brand_name}}</h6>
+                            </ng-container>
+
+                        </div>
+                        <div class="date_box">
+                            <span class="date_title">{{'lang.discount_config.discounts' | translate}} :</span>
+                            <ng-container *ngIf="!showbtnhide">
+                                <h6>- Nil -</h6>
+                            </ng-container>
+                            <ng-container *ngIf="showbtnhide">
+                                <h6>{{compDiscounts[0].competition_offer_name}}</h6>
+                            </ng-container>
+                        </div>
+                        <div class="date_box">
+                            <span class="date_title">{{'lang.discount_config.discount_depth' | translate}} :</span>
+                            <ng-container *ngIf="!showbtnhide">
+                                <h6>- Nil -</h6>
+                            </ng-container>
+                            <ng-container *ngIf="showbtnhide">
+                                <h6>{{compDiscounts[0].discount_depth}}%</h6>
+                            </ng-container>
+                        </div><a class="showmore-compDisc" *ngIf="showmore"
+                            (click)="showCompDiscModel(compDescModal,compDiscounts)">{{'lang.discount_config.showmore' |
+                            translate}}...</a>
+                    </div>
+                    <!-- pre registration entrollment start-->
+                    <div class="content_box_cont">
+                        <h5 class="content__title">{{preview.segment_name}}</h5>
+                        <div class="row borderline">
+                            <div class="col-md-2">
+                                <label class="objective">{{'lang.discount_config.objective' | translate}}</label>
+                            </div>
+                            <div class="col-md-5 ">
+                                <label class="maximize">{{'lang.discount_config.max' | translate}}</label>
+                                <span class="marleft">:</span>
+                                <div class="maxcont maxvalue">
+                                    <ul class="litype">
+                                        <li> {{preview.objective.maximize.objective_name}}</li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="maximize">{{'lang.discount_config.lowerbound' | translate}}</label>
+                                <span class="marleft">:</span>
+                                <div class="maxcont maxvalue">
+                                    <ul class="litype">
+                                        <ng-container *ngIf="preview.objective.lower_bound.length == 0">
+                                            - Nil -
+                                        </ng-container>
+                                        <ng-container *ngIf="preview.objective.lower_bound.length != 0">
+                                            <li *ngFor="let low of preview.objective.lower_bound">
+                                                <ng-container *ngIf="low.lower_bound_name == ''">
+                                                    - Nil -
+                                                </ng-container>
+                                                <ng-container *ngIf="low.lower_bound_name != ''">
+                                                    {{low.lower_bound_name}} <span class="hyphen">-</span>
+                                                    {{low.lower_bound_percentage}}%
+                                                </ng-container>
+                                            </li>
+                                        </ng-container>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row borderline">
+                            <div class="col-md-2">
+                                <label class="objective">{{'lang.discount_config.product' | translate}}</label>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="maximize">{{'lang.discount_config.prod_cat' | translate}}</label>
+                                <span class="prodspan">:</span>
+                                <div class="maxcont maxvalue less">
+                                    <ul class="litype">
+                                        <li class="crop" *ngFor="let product of preview.product.product_item">
+                                            {{product.category}}
+                                        </li>
+                                        <a class="showmore" *ngIf="preview.product.product_item.length > 2"
+                                            (click)="showCategoryModel(categModal,preview.product.product_item)">{{'lang.discount_config.showmore'
+                                            | translate}}...</a>
+                                    </ul>
+                                </div>
+                                <br>
+                                <label class="maximize">Max Offers</label>
+                                <span class="maxspan">:</span>
+
+                                <div class="maxcont maxvalue less">
+                                    <ng-container *ngIf="preview.product.max_offers.length == 0">
+                                        <ul class="litype">
+                                            <li class="crop">
+                                                - Nil -
+                                            </li>
+                                        </ul>
+                                    </ng-container>
+                                    <ng-container *ngIf="preview.product.max_offers.length != 0">
+                                        <ul class="litype" *ngFor="let product of preview.product.max_offers">
+                                            <ng-container *ngIf="product.product_item == ''">
+                                                - Nil -
+                                            </ng-container>
+                                            <ng-container *ngIf="product.product_item != ''">
+                                                <li class="maxcrop">
+                                                    {{product.product_item}} - {{product.max_offer}}
+                                                </li>
+                                                <a class="showmore-maxOffer" *ngIf="preview.product.max_offers.length > 1"
+                                                    (click)="showMaxOffersModel(maxOffers,preview.product.max_offers)">Show
+                                                    More...</a>
+                                            </ng-container>
+
+                                        </ul>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+                            <div class="col-md-5">
+                                <label class="maximize">{{'lang.discount_config.item' | translate}}</label>
+                                <span class="itemspan">:</span>
+                                <div class="maxcont maxvalue less" [class.show]="show">
+                                    <ul class="litype">
+                                        <li class="crop_item" *ngFor="let item of preview.product.item;let i=index;">
+                                            {{item.item_name}}
+                                        </li>
+                                        <a class="showmore" *ngIf="preview.product.item.length > 2"
+                                            (click)="showItemModel(itemModal,preview.product.item)">{{'lang.discount_config.showmore'
+                                            | translate}}
+                                            ...</a>
+                                    </ul>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="row borderline" >
+                            <div class="col-md-2">
+                                <label class="objective">{{'lang.discount_config.discount' | translate}}</label>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="maximize">{{'lang.discount_config.dis_mech' | translate}}</label>
+                                <span class="promech">:</span>
+                                <div class="maxcont maxvalue less">
+                                    <ul class="litype">
+                                        <li class="mechcrop"
+                                            *ngFor="let promo of preview.offer.promo_mechanic;let i=index;">
+                                            {{promo.promomech_name}}
+                                        </li>
+                                        <a class="showmore" *ngIf="preview.offer.promo_mechanic.length > 2"
+                                            (click)="showPromoMechanicModel(promoMechanic,preview.offer.promo_mechanic)">{{'lang.discount_config.showmore'
+                                            | translate}}
+                                            ...</a>
+                                    </ul>
+                                </div>
+                                <br>
+                                <label class="maximize">{{'lang.discount_config.noofoffer' | translate}}</label>
+                                <span class="offdur">:</span>
+                                <div class="maxcont maxvalue">
+                                    <ul class="litype">
+                                        <li>
+                                            {{preview.offer.no_of_offers[0]}} - {{preview.offer.no_of_offers[1]}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="maximize">{{'lang.discount_config.depth' | translate}}</label>
+                                <span class="disdep">:</span>
+                                <div class="maxcont maxvalue">
+                                    <ul class="litype">
+                                        <li>
+                                            {{'lang.discount_config.depth_one' | translate}}: {{preview.offer.discount_depth[0]}}% -
+                                            {{preview.offer.discount_depth[1]}}%
+                                        </li>
+                                        <li>
+                                            {{'lang.discount_config.depth_two' | translate}}: {{preview.offer.discount_depth_two[0]}}% -
+                                            {{preview.offer.discount_depth_two[1]}}%
+                                        </li>
+                                    </ul>
+                                </div>
+                                <br>
+                                <label class="maximize">Item Category</label>
+                                <span class="itemspan" style="margin-left: 76px;">:</span>
+
+                                <div class="maxcont maxvalue less">
+                                    <ng-container *ngIf="preview.offer.daypart.length == 0">
+                                        <ul class="litype">
+                                            <li class="crop">
+                                                - Nil -
+                                            </li>
+                                        </ul>
+                                    </ng-container>
+                                    <ng-container *ngIf="preview.offer.daypart.length != 0">
+                                        <ul class="litype" *ngFor="let daypart of preview.offer.daypart">
+                                            <ng-container *ngIf="daypart.dayPart_item == ''">
+                                                - Nil -
+                                            </ng-container>
+                                            <ng-container *ngIf="daypart.dayPart_item != ''">
+                                                <li class="maxcrop">
+                                                    {{daypart.dayPart_item}} - {{daypart.dayPart_offer}}
+                                                </li>
+                                                <a class="showmore-dayPart" *ngIf="preview.offer.daypart.length > 1"
+                                                    (click)="showDayPartModel(dayPartModal,preview.offer.daypart)">Show
+                                                    More...</a>
+                                            </ng-container>
+
+                                        </ul>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row lineborder" [hidden]="true">
+                            <div class="col-md-4">
+                                <label class="objective">{{'lang.discount_config.competitor' | translate}}</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="maximize">Lorem Ipsum</label>
+                                <span class="compoff">:</span>
+                                <div class="maxcont maxvalue">
+                                    <ul class="litype">
+                                        <li>Lorem Ipsum</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="maximize">Lorem Ipsum</label>
+                                <span class="compoff1">:</span>
+                                <div class="maxcont maxvalue">
+                                    <ul class="litype">
+                                        <li>Lorem Ipsum</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row borderline">
+                        <div class="col-md-4">
+                            <label class="objective">{{'lang.discount_config.active_promos' | translate}}</label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="maxcont maxvalue">
+                                <ul class="litype pl-0">
+                                    <li *ngIf="preview.fixed_promos.length>0">Yes</li>
+                                    <li *ngIf="preview.fixed_promos.length==0">No</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="button_cont">
+                    <a class="submit_btn" (click)="submitModel(previewModel)"
+                            *ngIf="this.offerConfigId == undefined || this.isCopyScreen">{{'lang.common.submit' | translate}}</a>
+                    <a class="cancel_btn" (click)="cancelModel(cancelpopup)" *ngIf="cancelshow">{{'lang.common.cancel' |
+                            translate}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Item show popup -->
+<ng-template #itemModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.discount_config.itemlist' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body prodscroll">
+        <ul class="listborder" *ngFor="let prod of itemList">
+            <h6 class="product">{{prod.category_name}}</h6>
+            <li class="items" *ngFor="let item of prod.items">
+                {{item.item_name}}
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a class="save_no" (click)="modal.close('Save click')">{{'lang.common.ok' | translate}}</a>
+    </div>
+</ng-template>
+
+<!-- Product Category show popup -->
+<ng-template #categModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.discount_config.prod_list' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <ul>
+            <h6 class="product">{{'lang.discount_config.prod_cat' | translate}}</h6>
+            <li class="items" *ngFor="let product of categoryList;let i=index;">
+                {{product.category}}
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a class="save_no" (click)="modal.close('Save click')">{{'lang.common.ok' | translate}}</a>
+    </div>
+</ng-template>
+
+<!--Submit popup -->
+<ng-template #previewModel let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.discount_config.confirm' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6>{{'lang.discount_config.confirm_text' | translate}}</h6>
+    </div>
+    <div class="modal-footer">
+        <a class="save_yes" (click)="submitOfferDto()">{{'lang.common.yes' | translate}}</a>
+        <a class="save_no" (click)="modal.close('Save click')">{{'lang.common.no' | translate}}</a>
+    </div>
+</ng-template>
+
+<!--Cancel popup -->
+<ng-template #cancelpopup let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.discount_config.confirm' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6>{{'lang.discount_config.cancel_text' | translate}}</h6>
+    </div>
+    <div class="modal-footer">
+        <a class="save_yes" (click)="discardOffer()">{{'lang.common.yes' | translate}}</a>
+        <a class="save_no" (click)="modal.close('Save click')">{{'lang.common.no' | translate}}</a>
+    </div>
+</ng-template>
+
+<!-- MoxOffer show popup -->
+<ng-template #maxOffers let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Max-Offers</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body prodscroll">
+        <ul>
+            <li class="items" *ngFor="let offers of maxOffersList;let i=index;">
+                {{offers.product_item}} - {{offers.max_offer}}
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a class="save_no" (click)="modal.close('Save click')">Ok</a>
+    </div>
+</ng-template>
+
+<!--DayPart Model show popup -->
+<ng-template #dayPartModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Item Category</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body prodscroll">
+        <ul>
+            <li class="items" *ngFor="let dayPart of dayPartList;let i=index;">
+                {{dayPart.dayPart_item}} - {{dayPart.dayPart_offer}}
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a class="save_no" (click)="modal.close('Save click')">Ok</a>
+    </div>
+</ng-template>
+
+
+<!-- Promo Mechanic show popup -->
+<ng-template #promoMechanic let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{'lang.discount_config.dis_mech' | translate}}</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body prodscroll">
+        <ul>
+            <li class="items" *ngFor="let offers of promoMechanicList;let i=index;">
+                {{offers.promomech_name}}
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a class="save_no" (click)="modal.close('Save click')">{{'lang.common.ok' | translate}}</a>
+    </div>
+</ng-template>
+
+<!-- Competition Discount show popup -->
+<ng-template #compDescModal let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">{{'lang.discount_config.comp_discount' | translate}}</h6>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body prodscroll">
+        <table class="innertable">
+            <tr>
+                <th>{{'lang.discount_config.competition_brand_name' | translate}}</th>
+                <th>{{'lang.discount_config.discounts' | translate}}</th>
+                <th>{{'lang.discount_config.discount_depth' | translate}}</th>
+            </tr>
+            <tr *ngFor="let comp of compDisc;let i=index;">
+                <td>{{comp.competition_brand_name}}</td>
+                <td>{{comp.competition_offer_name}}</td>
+                <td>{{comp.discount_depth}}%</td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a class="save_no" (click)="modal.close('Save click')">{{'lang.common.ok' | translate}}</a>
+    </div>
+</ng-template>

@@ -1,0 +1,882 @@
+@import "../../../theme/theme.scss";
+
+.card {
+    border-radius: 14px;
+    width: 100%;
+    margin: 25px 30px 25px 30px;
+    box-shadow: 0px 1px 2px $box-shadow;
+    background: $white 0% 0% no-repeat padding-box;
+    height: 545px;
+}
+
+.offercard {
+    border-radius: 14px;
+    width: 100%;
+    margin: 0px 30px 25px 30px;
+    box-shadow: 0px 1px 2px $box-shadow;
+    background: $white 0% 0% no-repeat padding-box;
+    // height: 545px;
+}
+
+.title {
+    letter-spacing: 0px;
+    color: $black;
+    opacity: 1;
+    margin: 24px 0 12px 30px;
+}
+
+.header-area {
+    padding: 30px 32px 15px;
+
+    p.heading {
+        font-size: 20px;
+    }
+}
+
+.create_date {
+    position: absolute;
+    right: 35px;
+    padding-top: 7px;
+}
+
+.discduration {
+    background: $white 0% 0% no-repeat padding-box;
+    border-radius: 3px;
+    opacity: 1;
+    width: 200px;
+    height: 30px !important;
+    font-size: 13px;
+    padding: 0;
+}
+
+.promo_select {
+    float: left;
+    margin: 4px 0 0 15px;
+}
+
+.importbtn {
+    position: relative;
+    left: 45%;
+    margin-top: 30px;
+    width: 158px;
+    height: 42px;
+    background: $danger 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    border-radius: 27px;
+    opacity: 1;
+    color: $white;
+    font-size: 13px;
+   
+}
+
+.startdt {
+    font-size: 13px;
+    position: relative;
+    bottom: 19px;
+}
+
+.crdate {
+    letter-spacing: 0px;
+    color: $gray-44;
+    opacity: 1;
+    font-size: 12px;
+    position: relative;
+    bottom: 20px;
+    right: 10px;
+}
+
+.start_date {
+    position: absolute;
+    right: 35px;
+    padding-top: 7px;
+}
+
+.calicon {
+    background-color: $primary;
+    height: 29px !important;
+    border-radius: 3px;
+    width: 30px;
+    margin: 0 0 0 4px !important;
+    position: relative;
+    bottom: 1px;
+}
+
+.filstdate {
+    position: relative;
+    bottom: 18px;
+    left: 2px;
+}
+
+.createdby {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 240px;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+}
+
+.dateicon {
+    position: relative;
+    bottom: 10px;
+}
+
+.enddate {
+    margin: 2px 0 0 0px;
+}
+
+th {
+    color: $black;
+}
+
+.check {
+    position: absolute;
+    top: 35px;
+    left: 35px;
+}
+
+.checkth {
+    padding-left: 25px;
+}
+
+td {
+    font-size: 12px;
+    padding: 0 !important;
+    font-weight: 500;
+}
+
+.count {
+    color: $gray-6;
+    padding-top: 5px;
+    
+}
+
+.label {
+    color: $gray-44;
+    font-weight: 500;
+}
+
+.scenid {
+    margin: 0 15px 0 60px;
+}
+
+.disdur {
+    margin: 0 15px 0 26px;
+}
+
+.stdt {
+    margin: 0 15px 0 68px;
+}
+
+.createby {
+    margin: 0 15px 0 65px;
+    display: inline-block;
+}
+
+.lastupdt {
+    margin: 0 15px 0 51px;
+}
+
+mat-panel-title {
+    font-size: 13px;
+}
+
+.stdate_in {
+    height: 50px;
+    font-size: 12px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.dura_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.geo_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.channel_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.protp_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.prommech_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.Promname_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.prompric_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.promdep_in {
+    font-size: 12px;
+    margin-left: 50px;
+    height: 50px;
+    padding-top: -15px;
+    width: 100px;
+    background: $white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.datatable {
+    position: relative;
+    width: 100%;
+    overflow: auto;
+}
+
+.clrblack {
+    color: $black;
+    display: inline-grid;
+}
+td.num {
+    text-align: center;
+}
+
+.width {
+    width: 100%;
+    font-size: 13px;
+   
+}
+
+.offerwidth {
+    width: auto;
+    white-space: nowrap;
+}
+
+.offerData{
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+.scenario {
+    color: $black;
+}
+
+.scenario_id,
+.no_of_promos {
+    color: $black;
+    opacity: 1;
+    padding-top: 10px;
+    text-align: right;
+}
+
+.start_date_table,
+.geo,
+.channel {
+   
+    color: $black;
+    opacity: 1;
+    padding-top: 10px;
+    text-align: left;
+}
+
+.promo_type,
+.last_updated {
+    color: $black;
+    opacity: 1;
+    padding-top: 10px;
+    margin-right: 20px;
+    text-align: left;
+}
+
+.thborder {
+    border-bottom: 2px dashed $gray-2;
+}
+
+.thscid {
+    width: 35px;
+    white-space: nowrap;
+    text-align: center;
+    padding-left:20px;
+}
+
+.thnop {
+    width: 85px;
+    white-space: nowrap;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.thgeo {
+    white-space: nowrap;
+    width: 202px;
+    text-align: left;
+    padding-left: 40px;
+}
+
+.thchannel {
+    white-space: nowrap;
+    width: 120px;
+    text-align: left;
+    padding-left: 20px;
+
+}
+
+.thptype {
+    white-space: nowrap;
+    width: 100px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+
+.thlupd {
+    white-space: nowrap;
+    width: 150px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.thstdate {
+    white-space: nowrap;
+    width: 190px;
+    text-align: left;
+    padding-left:20px;
+}
+
+.pad {
+    padding: 0;
+    height:auto;
+}
+
+.thscen {
+    width: 320px;
+    text-align: center;
+}
+
+
+.tdstd {
+    width: 15%;
+}
+
+.tddur {
+    width: 10%;
+}
+
+.tdgeo {
+    width: 10%;
+}
+
+.tdchnl {
+    width: 10%;
+}
+
+.tdptype {
+    width: 10%;
+}
+
+.tdpmech {
+    width: 15%;
+}
+
+.tdpname {
+    width: 15%;
+}
+
+.tdpprz {
+    width: 10%;
+}
+
+.tdpdepth {
+    width: 5%;
+}
+
+
+.left {
+    float: left;
+    width: 24%;
+    margin-bottom: 30px;
+    margin-top: 1px;
+}
+
+.showmore {
+    color: $primary;
+    margin: 0 0 0 6px;
+    cursor: pointer;
+    font-size: 11px;
+    text-decoration: none;
+}
+
+.innertable {
+    position: relative;
+    width: 100%;
+    float: right;
+}
+
+.dashborder {
+    
+    border-bottom: 1px dashed $gray-2;
+}
+
+.nosegment {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 7%;
+    font-weight: 500;
+}
+
+.widborder {
+    width: 60%;
+    border-bottom: 1px dashed $gray-2;
+}
+
+.lableborder {
+    margin-bottom: 12px;
+}
+
+.tabwidth {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.overall {
+    width: 34%;
+}
+
+.icon {
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    font-size: 20px;
+}
+
+.tablescroll {
+    height: 150px;
+    overflow-y: scroll;
+}
+
+.checkalign {
+    padding: 18px 0px 0px 5px !important;
+}
+
+.vertical {
+    vertical-align: top;
+}
+
+.hrborder {
+    position: relative;
+    top: 140px;
+}
+
+.mat-button.mat-button-base.mat-warn.mat-button-disabled {
+    color: $white;
+    cursor: not-allowed;
+}
+
+a.save_yes {
+    background: $primary 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    color: $white;
+    padding: 6px;
+    display: inline-block;
+    max-width: 158px;
+    width: 6%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 3px 0 0 15px;
+}
+
+.segment-label {
+    color: $gray-7;
+    font-size: 13px;
+    margin: 15px 0 00;
+}
+
+.date_picker {
+    position: relative;
+    bottom: 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.ftr_btn {
+    margin-left: 15px;
+    border-radius: 40px;
+    width: 104px;
+    height: 32px;
+}
+
+::placeholder {
+    color: $gray-4;
+}
+
+.search {
+    position: absolute;
+    right: 49%;
+    padding-top: 11px;
+}
+
+.inputsearch {
+    height: 30px;
+    font-size: 12px;
+}
+
+.center {
+    text-align: center;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: $warm-white;
+    border-radius: 3px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $gray-8;
+    border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: $Davy-grey;
+}
+
+:host ::ng-deep .mat-form-field-flex {
+    height: 35px;
+}
+
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: $white;
+}
+
+:host ::ng-deep .mat-select-value-text {
+    color: $black !important;
+}
+
+:host ::ng-deep .mat-date-range-input-container {
+    position: absolute;
+    top: 0;
+    font-size: 13px;
+}
+
+:host ::ng-deep .mat-expansion-panel {
+    box-shadow: none;
+}
+
+:host ::ng-deep .mat-expansion-panel-body {
+    padding: 0 0 20px 0;
+}
+
+:host ::ng-deep .mat-input-element {
+    font-weight: 400 !important;
+    color: $gray-4 !important;
+}
+
+:host ::ng-deep .mat-expansion-panel-header-description .open,
+.mat-expanded .mat-expansion-panel-header-description .close {
+    display: inline-block;
+}
+
+:host ::ng-deep .mat-expanded .mat-expansion-panel-header-description .open,
+.mat-expansion-panel-header-description .close {
+    display: none;
+}
+
+:host ::ng-deep .mat-date-range-input-start-wrapper {
+    padding: 0 6px 0 0;
+}
+
+:host ::ng-deep .mat-date-range-input-start-wrapper .mat-date-range-input-inner {
+    top: 2px !important;
+    left: 5px;
+}
+
+:host ::ng-deep .mat-date-range-input-separator {
+    color: $gray-4;
+}
+
+:host ::ng-deep .mat-form-field-outline-thick {
+    color: $black !important;
+}
+
+:host ::ng-deep .promo_select .ng-select .ng-select-container:after {
+    display: none;
+}
+
+:host ::ng-deep .promo_select .ng-select.ng-select-single .ng-select-container .ng-arrow-wrapper {
+    bottom: 27px;
+    right: 3px;
+}
+
+:host ::ng-deep .promo_select .ng-select .ng-select-container .ng-value-container {
+    margin-top: -12px;
+    padding-left: 8px;
+}
+
+:host ::ng-deep .promo_select span.ng-clear-wrapper {
+    display: none;
+}
+
+:host ::ng-deep .promo_select .ng-dropdown-panel {
+    margin-top: 20px;
+}
+
+:host ::ng-deep .promo_select .ng-select .ng-arrow-wrapper .ng-arrow {
+    color: $primary
+}
+
+:host ::ng-deep .promo_select .ng-select.ng-select-focused .ng-select-container .ng-arrow-wrapper .ng-arrow {
+    color: $primary !important
+}
+
+:host ::ng-deep .ng-select .ng-select-container .ng-value-container .ng-placeholder {
+    color: $gray-4;
+}
+
+.icon-smaller {
+    font-size: medium;
+    color: $red;
+}
+
+a.cancel_btn {
+    color: $black;
+    font-size: 13px;
+    margin-left: 30px;
+    cursor: pointer;
+    box-shadow: 0px 3px 6px $box-shadow;
+    padding: 10px;
+    display: inline-block;
+    max-width: 158px;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    text-decoration: none;
+}
+
+a.save_yesss {
+    background: $primary 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    color: $white;
+    padding: 10px;
+    display: inline-block;
+    max-width: 158px;
+    width: 17%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a.save_no {
+    background: $Suva-Grey 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px $box-shadow;
+    color: $white;
+    padding: 10px;
+    display: inline-block;
+    max-width: 158px;
+    width: 17%;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 60px;
+    margin-left: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.prodcat {
+   
+    height: 29px !important;
+    background: $white 0% 0% no-repeat padding-box;
+    border: 0px solid $gray-92;
+    border-radius: 3px;
+    opacity: 1;
+    padding: 0;
+    font-size: 12px;
+}
+
+:host ::ng-deep .prodcat .multiselect-dropdown .dropdown-btn {
+    border: 1px solid $gray-92 !important;
+}
+
+:host ::ng-deep .selected-list .c-btn {
+    min-height: 30px;
+    font-size: 13px;
+    color: $gray-4;
+    padding: 5px 7px
+}
+
+:host ::ng-deep .selected-list .c-list .c-token .c-label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 74px !important;
+    overflow: hidden;
+}
+
+:host ::ng-deep .selected-list .c-list .c-token {
+    padding: 4px 12px 4px 8px !important
+}
+
+:host ::ng-deep .selected-list .c-list {position: relative;bottom: 5px;height: 18px;}
+
+
+.filters {
+    padding: 15px 30px;
+
+    .form-element {
+        padding-right: 20px;
+
+        .form-label {
+            padding-right: 8px;
+
+            label {
+                color: $gray-44;
+                margin-bottom: 0;
+                font-size: 13px;
+            }
+        }
+
+        .form-input {
+            width: 120px;
+            height: 29px;
+        }
+
+        .start-data {
+            width: 156px;
+
+            .reset-default-wrapper {
+                margin: -0.25em 0 !important;
+
+                .mat-form-field-wrapper {
+                    margin: 0 !important;
+                }
+            }
+        }
+
+        .package-name {
+            input {
+                height: 29px;
+                border-radius: 3px;
+                font-size: 13px;
+            }
+        }
+    }
+
+    .form-action {
+        margin-left: 8px;
+
+        button {
+            margin-right: 10px;
+            border-radius: 40px;
+            border-color: $primary;
+            width: 104px;
+            height: 32px;
+
+            img {
+                margin-top: -10px;
+                vertical-align: unset;
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.disableBtn{
+    pointer-events: none;
+    opacity: .35;
+}
+
+.subHeader{
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    white-space: nowrap;
+}
+
+.subHeaderTableData{
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+.stickyHeaderOnScroll{
+    position: sticky;
+    top: 0;
+}
+
+img{
+    vertical-align: text-bottom !important;
+    margin:4px;
+}

@@ -1,0 +1,78 @@
+<div class="container-fluid recommended_impact">
+    <div class="row">
+        <div class="col-md-6 left-align">
+
+            <img src="assets/offer-configuration/left-arrow.png" (click)="redirectToOffer()" class="leftarrow"
+                alt="Back" style="cursor: pointer;">
+            <h6 class="title" (click)="redirectToOffer()">{{'lang.discount_config.titleimpact' | translate}}&nbsp;
+                {{packageName}}</h6>
+        </div>
+        <div class="col-md-6">
+            <div class="excel_btn_container"
+                [ngClass]="(!graphShow)?'position-relative text-right':'position-absolute text-right'">
+                <i class="fa fa-file-excel-o excel text-success" aria-hidden="true"
+                    [ngClass]="(graphShow)?'d-inline':'d-none'"></i>
+                <h6 class="excelcont" [ngClass]="(graphShow)?'d-inline':'d-none'" (click)="exportDownloadDto()">
+                    {{'lang.scenario_planner.exportimpact'
+                    |
+                    translate}}</h6>
+                <div class="select_grid">
+                    <i class="fa fa-line-chart" [ngClass]="(!graphShow)?'graph_active':'graph_inactive'"
+                        (click)="showGraph()" aria-hidden="true"></i>
+                    <i class="fa fa-table" [ngClass]="(graphShow)?'graph_active':'graph_inactive'" (click)="showTable()"
+                        aria-hidden="true"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row pt-5">
+        <div class="col-md-12 table-align">
+
+            <!-- To show table -->
+            <mat-tab-group mat-stretch-tabs [(selectedIndex)]="tabIndex" (selectedTabChange)="changeTab($event)" [disableRipple]="true">
+                <mat-tab >
+                    <ng-template mat-tab-label>
+                        <span>{{'lang.discount_config.byprod' | translate}}</span>
+                    </ng-template>
+                    <app-product-category *ngIf="tabIndex === 2 && graphShow"></app-product-category>
+                    <app-impact-graph *ngIf="tabIndex === 2 && !graphShow" [graphData]="graphData"
+                    [setHeight]="styleHeight">
+                </app-impact-graph>
+                    
+                </mat-tab>
+            </mat-tab-group>
+
+            <!-- To show chart -->
+            <!-- <div *ngIf="!graphShow" class="w-100 mt-4 pt-3 graph_outter">
+                <h3 class="left" *ngIf="tabIndex === 0">{{'lang.discount_config.byseg' |
+                    translate}}&nbsp;-&nbsp;<span class="dis_rec">{{'lang.rec_discount.change'
+                        | translate}} (%)</span></h3>
+                <h3 class="left" *ngIf="tabIndex === 2">{{'lang.discount_config.byprod' |
+                    translate}}&nbsp;-&nbsp;<span class="dis_rec">{{'lang.rec_discount.change'
+                        | translate}} (%)</span></h3>
+                <label class="kpilabel">{{'lang.discount_config.selectKpi' | translate}}</label>
+                <mat-select *ngIf="tabIndex === 1" class="segment_dropdown" [(ngModel)]="selectedProduct"
+                    [(value)]="selectedProduct" (ngModelChange)="changeProduct(selectedProduct)">
+                    <mat-option [value]="segment.metric_code" *ngFor="let segment of productListDropdown">
+                        {{segment.kpi_label_name}}
+                    </mat-option>
+                </mat-select>
+                <mat-select *ngIf="tabIndex === 0" class="segment_dropdown" name="segment" [(ngModel)]="selectedSegment"
+                    [(value)]="selectedSegment" (ngModelChange)="changeSegment(selectedSegment)">
+                    <mat-option [value]="segment.metric_code" *ngFor="let segment of segmentListDropdown">
+                        {{segment.kpi_label_name}}
+                    </mat-option>
+                </mat-select>
+              
+                <app-impact-graph *ngIf="tabIndex === 0 && getSegmentViewdata" [graphData]="graphData"
+                    [setHeight]="styleHeight">
+                </app-impact-graph>
+                <app-impact-graph *ngIf="tabIndex === 1 && getProductViewdata" [graphData]="graphData"
+                    [setHeight]="styleHeight">
+                </app-impact-graph>
+            </div> -->
+
+        </div>
+    </div>
+</div>

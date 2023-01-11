@@ -1,0 +1,345 @@
+<div class="container-fluid">
+  <div class="row">
+    <section class="d-flex justify-content-between w-100 header-area">
+      <div>
+        <p class="heading">Promo Package Summary</p>
+      </div>
+      <div *ngIf="!emptyshow">
+        <button type="button" class="btn btn-danger config-Promo" (click)="configureOffer()"
+          [disabled]="!show_promo_config_button">
+          {{'lang.jobsummary.config' | translate}}
+        </button>
+      </div>
+    </section>
+
+    <section class="d-flex w-100 filters" *ngIf="!emptyshow">
+
+      <div class="d-flex form-element align-items-center">
+
+        <div class="form-input package-name">
+          <input type="text" class="form-control" name="offerId" [(ngModel)]="offerId" placeholder="ID">
+        </div>
+      </div>
+
+      <div class="d-flex form-element align-items-center">
+        <div class="form-input package-name">
+          <input type="text" class="form-control" name="offerName" [(ngModel)]="offerName" placeholder="Name">
+        </div>
+      </div>
+
+      <div class="d-flex form-element align-items-center">
+
+        <div class="form-input start-data">
+          <mat-form-field class="w-100 reset-default-wrapper" appearance="outline">
+            <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker1" [(ngModel)]="filterdate"
+              (dateChange)="dateRangeChange($event)" class="date_picker" readonly placeholder="Start Date">
+            <mat-datepicker-toggle [disableRipple]="true" matSuffix [for]="picker1">
+              <mat-icon matDatepickerToggleIcon class="calicon filstdate">
+                <img src="assets/offer-configuration/dateicon.png" style="margin-top: -10px;">
+              </mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="d-flex form-element align-items-center">
+
+        <div class="form-input">
+          <angular2-multiselect class="form-control prodcat" [(ngModel)]="geo_name" [settings]="geodropdownSettings"
+            [data]="geoData" (onSelect)="onGeoSelect($event)" (onSelectAll)="onGeoSelectAll($event)"
+            (onDeSelect)="onGeoDeSelect($event)" (onDeSelectAll)="onGeoDeSelectAll($event)" placeholder="Business Unit">
+          </angular2-multiselect>
+        </div>
+      </div>
+
+
+
+      <div class="d-flex form-element align-items-center">
+
+        <div class="form-input">
+          <angular2-multiselect class="form-control prodcat" [(ngModel)]="promo_type" [settings]="promodropdownSettings"
+            [data]="promoChannelData" (onSelect)="onPromoSelect($event)" (onSelectAll)="onSelectAll($event)"
+            (onDeSelect)="onpromoDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)" placeholder="Promo Type">
+          </angular2-multiselect>
+        </div>
+      </div>
+
+      <div class="d-flex form-element align-items-center">
+
+        <div class="form-input">
+          <angular2-multiselect class="form-control prodcat" [(ngModel)]="status_name"
+            [settings]="statusdropdownSettings" [data]="statusData" (onSelect)="onStatusSelect($event)"
+            (onSelectAll)="onStatusSelectAll($event)" (onDeSelect)="onStatusDeSelect($event)"
+            (onDeSelectAll)="onStatusDeSelectAll($event)" placeholder="Status">
+          </angular2-multiselect>
+        </div>
+      </div>
+
+
+      <div class="form-action">
+        <button type="button" (click)="filterDTO()" class="btn btn-outline-danger"><img
+            src="assets/job-summary/sliders.svg" style="margin-top: -10px;">{{'lang.scenario_planner.filter' |
+          translate}}</button>
+        <button type="button" (click)="Reset()" class="btn btn-outline-danger"><img
+            src="assets/job-summary/clockcounterclockwise.svg"
+            style="margin-top: -10px;">{{'lang.scenario_planner.reset' | translate}}</button>
+      </div>
+
+
+
+    </section>
+
+    <mat-card class="card jobSummary" [ngClass]="{'removebox_style': emptyshow}">
+
+      <h6 class="segment-label col-md-8" *ngIf="!emptyshow">{{'lang.jobsummary.icon_note' |
+        translate}}
+        <span class="text-danger">*</span>
+      </h6>
+      <h6 class="segment-label col-md-8" *ngIf="!emptyshow">{{'lang.jobsummary.package_summary_impact_note' |
+        translate}}
+        <span class="text-danger">*</span>
+      </h6>
+      <div class="" *ngIf="emptyshow"> <!-- && configure_discount-->
+        <img src="assets/job-summary/circle-outline.png" class="infoicon" alt="Help">
+        <p class="nocontent">{{'lang.jobsummary.empty' | translate}}</p>
+        <div class="center">
+          <button mat-button color="warn" class="signinbtn" (click)="configureOffer()">{{'lang.jobsummary.configcaps' |
+            translate}}
+            <img src="assets/job-summary/right-arrow.png" class="arrow" alt="Help">
+          </button>
+        </div>
+      </div>
+      <div class="datatable" *ngIf="!emptyshow">
+        <table mat-table [dataSource]="dataSource" class="width" matSort (matSortChange)="getSortedData($event)">
+          <!-- Offer Package ID Column -->
+          <ng-container matColumnDef="scenario_id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="offerwidth"> <b
+                class="clrblack">{{'lang.jobsummary.scenario_id' |
+                translate}}</b> </th>
+            <td mat-cell *matCellDef="let row">
+              <p class="scenAlign m-0">{{row.scenario_id}} </p>
+            </td>
+          </ng-container>
+
+          <!-- Offer Package Name Column -->
+          <ng-container matColumnDef="scenario_name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="packagewidth"> <b
+                class="clrblack">{{'lang.jobsummary.scenario_name' |
+                translate}}</b> </th>
+            <td mat-cell *matCellDef="let row"
+              (click)="onOfferdetailNavigation(row.status,row.package_id,row.edit,row.scenario_id)">
+              <span
+                [ngClass]=" row.status != 'Saved' ? 'package_text cursorhand' : 'package_text'">{{row.scenario_name}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Start Date Column -->
+          <ng-container matColumnDef="start_date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="datewidth">
+              <b class="clrblack">{{'lang.jobsummary.start' | translate}}</b>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.min_start_date | datePipeCustom}} - {{row.max_start_date | datePipeCustom}}
+            </td>
+          </ng-container>
+
+          <!-- Geo Column -->
+          <ng-container matColumnDef="geoName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="promowidth"> <b
+                class="clrblack">{{'lang.jobsummary.geoName'
+                | translate}}</b>
+              <br>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <ng-container *ngFor="let geo of row.coop.slice(0,1)">
+                {{geo}}
+                <a class="showmore" (click)="showCoopTableModel(coopTableData,row.coops)"
+                  *ngIf="row.coop.length > 1">Show
+                  More...</a>
+              </ng-container>
+
+            </td>
+
+          </ng-container>
+
+          <!-- Channel Column -->
+          <ng-container matColumnDef="channelValue">
+            <th mat-header-cell *matHeaderCellDef class="segmentwidth"> <b class="clrblack">{{'lang.jobsummary.channel'
+                |
+                translate}}</b> </th>
+            <td mat-cell *matCellDef="let row">
+
+              {{row.channel}}
+
+            </td>
+
+          </ng-container>
+
+          <!-- Promo Type Column -->
+          <ng-container matColumnDef="promoType">
+            <th mat-header-cell *matHeaderCellDef class="segmentwidth"> <b
+                class="clrblack">{{'lang.jobsummary.promoType'
+                |
+                translate}}</b> </th>
+            <td mat-cell *matCellDef="let row">
+
+              {{row.promo_type}}
+
+            </td>
+
+          </ng-container>
+
+
+          <!--Status Column-->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="datewidth">
+              <b class="clrblack">{{'lang.jobsummary.status' | translate}}</b>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{row.status}}
+            </td>
+          </ng-container>
+
+          <!-- created By Column -->
+          <ng-container matColumnDef="created_by">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="createwidth"> <b
+                class="clrblack">{{'lang.jobsummary.created' |
+                translate}}</b> </th>
+            <td mat-cell *matCellDef="let row"> {{row.created_by}} </td>
+          </ng-container>
+
+          <!-- Modified At Column -->
+          <ng-container matColumnDef="last_updated">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="datepad"><b
+                class="clrblack">{{'lang.jobsummary.last' | translate}}</b>
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.modified_at | datePipeCustom}} </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="datepad">
+            </th>
+            <td mat-cell *matCellDef="let row">
+
+              <button mat-icon-button [matMenuTriggerFor]="menu"
+                [ngClass]="!show_edit_copy_menu_option? 'dots_1' : 'dots_2' ">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" class="custommenu">
+                <button mat-menu-item (click)="navCopyPackage(row.scenario_id,row.status,copyPopup)">
+                  <mat-icon class="insideicons">content_copy</mat-icon> Copy
+                </button>
+              </mat-menu>
+
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="8">{{'lang.jobsummary.nodata' | translate}}</td>
+          </tr>
+        </table>
+        <mat-paginator class="paginator--right" #paginator [length]="totalCount" (page)="pageEvent($event)"
+          [pageSize]="limit" [pageIndex]="pageIndex" [pageSizeOptions]="[10,20]" [showFirstLastButtons]="true">
+        </mat-paginator>
+      </div>
+    </mat-card>
+  </div>
+</div>
+<!-- Coops table data popup -->
+<ng-template #coopTableData let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body prodscroll">
+    <div class="datatable">
+      <table mat-table [dataSource]="itemList" matSort (matSortChange)="getSortedData($event)">
+        <ng-container matColumnDef="coop_name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pl-2 offerwidth pr-2"> <b
+              class="clrblack">{{'lang.jobsummary.geoName' |
+              translate}}</b> </th>
+          <td mat-cell *matCellDef="let row" class="pl-2 pr-2">
+
+            {{row.coop_name}}
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="promo_type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pl-2 offerwidth pr-2"> <b
+              class="clrblack">{{'lang.jobsummary.promoType' |
+              translate}}</b> </th>
+          <td mat-cell *matCellDef="let row" class="pl-2 pr-2">
+            {{row.promo_type}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="start_date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pl-2 offerwidth pr-2"> <b
+              class="clrblack">{{'lang.jobsummary.start' |
+              translate}}</b> </th>
+          <td mat-cell *matCellDef="let row" class="pl-2 pr-2">
+            {{row.start_date}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="duration">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pl-2 offerwidth pr-2"> <b
+              class="clrblack">{{'lang.jobsummary.duration' |
+              translate}}</b> </th>
+          <td mat-cell *matCellDef="let row" class="pl-2 pr-2">
+            {{row.duration_max
+            }} {{itemList.length > 0 ? week : ''}}
+
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="coopsDisplayColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: coopsDisplayColumns;"></tr>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+  </div>
+</ng-template>
+
+<ng-template #cancelPopup let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">{{'lang.popup.confirmation' | translate}}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h6>{{'lang.help.confirmdelet' | translate}}</h6>
+  </div>
+  <div class="modal-footer">
+    <a class="save_yesss" (click)="deleteGo()">{{'lang.popup.yes' | translate}}</a>
+    <a class="save_no" (click)="cancelDismis()">{{'lang.popup.no' | translate}}</a>
+  </div>
+</ng-template>
+
+<!--Copy popup-->
+<ng-template #copyPopup let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">{{'lang.popup.note' | translate}}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h6>{{'lang.help.copywarning' | translate}}</h6>
+  </div>
+  <div class="modal-footer">
+    <a class="save_no" (click)="cancelDismis()">{{'lang.common.ok' | translate}}</a>
+  </div>
+</ng-template>

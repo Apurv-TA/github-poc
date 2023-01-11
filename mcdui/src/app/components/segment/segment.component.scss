@@ -1,0 +1,71 @@
+.clrblack {
+    color: #000000;
+    display: inline-grid;
+}
+.kpilabel {
+     font-size: 12px ;
+font-family:'Speedee_Rg';
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 0.5;
+    position: absolute;
+    right:12%;
+    top: 14px;
+}
+.tablabel {
+    margin: 20px 0 0 15px;
+    float: left;
+}
+.rightalign{
+    float: right;
+}
+:host ::ng-deep .mat-paginator {
+    display: inline-block;
+    float: right;
+}
+.thwidthupt {
+    position: relative;
+    left: 1%;
+}
+.thwidthnet {
+    position: relative;
+    left: 2%;
+}
+.note{
+    font-family: 'italic normal normal Speedee';
+    font-size: 12px;
+    color: #000000;
+    text-align: left;
+    opacity: 0.5;
+    margin-top: 10px;
+    width: 50%;
+    text-align: left;
+    display: inline-block;
+}
+.viewkpi {
+    position: relative;
+    left: 3px;
+    top: 19px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #DB0006;
+    cursor: pointer;
+    float: left;
+}
+:host ::ng-deep .thwidth .mat-sort-header-container {
+    float: right;
+}
+
+
+@media only screen and (max-width:1300px){
+    .kpilabel {
+        font-size:12px ;
+    font-family:'Speedee_Rg';
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 0.5;
+    position: absolute;
+    right:14%;
+    top: 14px;
+ }
+ }

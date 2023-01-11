@@ -1,0 +1,328 @@
+<div class="container-fluid recommend-offers-card">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row mt-3 m-0 p-0">
+        <div class="col-md-6 m-0 p-0">
+          <h6 class="colunmtext">{{ 'lang.scenario_planner.title' | translate }}</h6>
+        </div>
+        <div class="col-md-6 align-btn m-0">
+          <button mat-button color="warn" (click)="impactDetail()" [disabled]="detailedExportDisable"
+            class="previewbtn button_font">
+
+            <p class="m-0">
+              <span class="btn-Text">{{ 'lang.scenario_planner.sub_title' | translate }}</span>
+            </p>
+            <span class="btn-Arrow-Right">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </span>
+          </button>
+          <button style="border: 0px !important; background: none" [disabled]="detailedExportDisable"
+            (click)="exportDownload()">
+            <div class="excel-card">
+              <img src="assets/offer-configuration/excel.png" class="excel cursorhand" alt="Excel" />
+              <h6 class="excelcont excel_font cursorhand">
+                {{ 'lang.scenario_planner.exportoffers' | translate }}
+              </h6>
+            </div>
+          </button>
+
+        </div>
+      </div>
+      <mat-card class="row">
+
+        <div class="col-12 p-0 m-0">
+          <div class="row p-0 m-0">
+            <div class="col-12 p-0 m-0">
+              <h6 class="subcolunmtext pl-2">
+                {{ 'lang.scenario_planner.Promo_sub_title_act' | translate }}
+              </h6>
+
+              <h6 class="segment-label col-md-8">{{ 'lang.scenario_planner.active_promo_note' | translate }}
+                <span class="text-danger">*</span>
+              </h6>
+            </div>
+          </div>
+
+          <div class="row mt-3 m-0 p-0">
+            <div class="table-container col-12 p-0 m-0">
+              <table mat-table class="mat-elevation-z8width main__table" [dataSource]="activePromoDataSource"
+                multiTemplateDataRows>
+                <ng-container matColumnDef="checked">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell class="checkBoxWidth" *matCellDef="let row; let index = dataIndex">
+                    <mat-checkbox class="checkBox" [checked]="row.ischecked"
+                      (change)="scenarioOfferIDChange($event, row.scenario_offer_id, index, row.source)">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="start_date">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.strt_date' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.start_date | date: 'mediumDate' }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="duration">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.dur' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.duration }} {{ row.duration != null ? week : ''}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="geo">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.geo' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.coop }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="channel">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.channel' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+
+                    {{ row.channel }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="promo_type">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.pro_type' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.promo_type }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="promo_mechanic">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.pro_mechanic' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.dis_mech_desc }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="promo_name">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.pro_name' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.offer_desc }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="regular_price">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.regprice' | translate }}({{ currencyCode }})</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row" class="num">
+                    {{ row.base_price | number: '1.0-2' }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="promo_price">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.pro_price' | translate }}({{ currencyCode }})</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row" class="num">
+                    {{ row.offer_price | number: '1.0-2' }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="promo_depth">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.pro_depth' | translate }}(%)</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row" class="num">
+                    {{ row.discount_depth | number: '1.0-2' }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="impact_index">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="impactIndexColor">{{ 'lang.scenario_planner.impact' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row" class="num">
+
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="activePromosDisplayColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: activePromosDisplayColumns"></tr>
+              </table>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 p-0 m-0">
+          <div class="row m-0 p-0">
+            <div class="col-12 mt-4 m-0 p-0">
+              <h6 class="subcolunmtext pl-2">
+                {{ 'lang.scenario_planner.Promo_sub_title' | translate }}
+              </h6>
+            </div>
+          </div>
+
+          <div class="row mt-3 m-0 p-0">
+            <div class="table-container col-12 m-0 p-0">
+              <table mat-table class="mat-elevation-z8width main__table"
+                [dataSource]="promoEngineRecommendationDataSource" multiTemplateDataRows>
+                <ng-container matColumnDef="checked">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell class="checkBoxWidth" *matCellDef="let row; let index = dataIndex">
+                    <mat-checkbox class="checkBox" [checked]="row.ischecked"
+                      (change)="scenarioOfferIDChange($event, row.scenario_offer_id, index, row.source)">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="start_date">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.strt_date' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.start_date | date: 'mediumDate' }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="duration">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.dur' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.duration }} {{ row.duration != null ? week : ''}}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="geo">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.geo' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.coop }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="channel">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.channel' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+
+                    {{ row.channel }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="promo_type">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.pro_type' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.promo_type }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="promo_mechanic">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.pro_mechanic' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.dis_mech_desc }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="promo_name">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.pro_name' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.offer_desc }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="regular_price">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.regprice' | translate }}({{ currencyCode }})</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row" class="num">
+                    {{ row.base_price | number: '1.0-2' }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="promo_price">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.pro_price' | translate }}({{ currencyCode }})</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row" class="num">
+                    {{ row.offer_price | number: '1.0-2' }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="promo_depth">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.pro_depth' | translate }}(%)</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row" class="num num2">
+                    {{ row.discount_depth | number: '1.0-2' | round }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="impact_index">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <b class="clrblack">{{ 'lang.scenario_planner.impact' | translate }}</b>
+                  </th>
+                  <td mat-cell *matCellDef="let row" class="num num2">
+                    {{ row.impact_index }}
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="promoEngineRecommendationDisplayColumns; sticky:true"></tr>
+                <tr mat-row *matRowDef="let row; columns: promoEngineRecommendationDisplayColumns"></tr>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </mat-card>
+      <div class="row cal-impact-text">
+        <div class="col-12 p-0">
+
+          <div class="configuretext cursorhand" (click)="calculateImpact()">
+            {{ 'lang.scenario_planner.cal_impact' | translate }}
+            <img src="assets/images/back_arrow.png" />
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-scenario-impact-table *ngIf="impactByChannelTable" [impactDataId]="impactId" [scenarioId]="scenario_id"
+  [detailedExportDisable]="detailedExportDisable"></app-scenario-impact-table>
+<!-- Item show popup -->
+<ng-template #itemModal let-modal>
+  <div class="modal-header">
+    <h6 class="modal-title" id="modal-basic-title">{{ 'lang.discount_config.itemlist' | translate }}</h6>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body prodscroll">
+
+    <ul class="listborder">
+      <li class="items subheading_font" *ngFor="let item of itemList">
+        {{ item.item_name }}
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
+      {{ 'lang.common.ok' | translate }}
+    </button>
+  </div>
+</ng-template>
