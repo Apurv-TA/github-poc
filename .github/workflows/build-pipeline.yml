@@ -64,7 +64,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: /env/docker_mcdui/Dockerfile
+          file: ./env/docker_mcdui/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: 059014103288.dkr.ecr.us-east-1.amazonaws.com/${{ needs.fetch-tag.outputs.ecr_repo }}-frontend:${{needs.fetch-tag.outputs.release_tag }}
