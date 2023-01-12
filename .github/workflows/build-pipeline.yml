@@ -59,7 +59,7 @@ jobs:
 #           path: /env/docker_mcdui/
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-buildx-
+            ${{ runner.os }}-buildx-a288acd49d14966e666237b439e28d8de75e6f70
       - name: Build Docker image
         uses: docker/build-push-action@v2
         with:
